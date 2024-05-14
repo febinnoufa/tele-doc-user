@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'tele-doc-ed764.appspot.com',
     measurementId: 'G-D8X4RX5HN4',
   );
+
 }

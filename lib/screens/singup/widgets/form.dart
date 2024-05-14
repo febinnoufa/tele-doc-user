@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:teledocuser/screens/profile_Screen/profil_Screen.dart';
+
+
 import 'package:teledocuser/screens/singup/controller/controller.dart';
+import 'package:teledocuser/screens/singup/screens/details_screen.dart';
 
 
 class SingUpFormWidget extends StatelessWidget {
   SingUpFormWidget({super.key});
-  final cntlr = Get.put(Authcontroller());
+  final Authcontroller cntlr = Get.find();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -19,7 +20,7 @@ class SingUpFormWidget extends StatelessWidget {
             elevation: 20,
             child: TextFormField(
               controller: cntlr.firstnamecontroller,
-              obscureText: true,
+             // obscureText: true,
               decoration: InputDecoration(
                 prefixIcon: const Icon(
                   Icons.person,
@@ -39,7 +40,7 @@ class SingUpFormWidget extends StatelessWidget {
             elevation: 20,
             child: TextFormField(
               controller: cntlr.lastnamecontroller,
-              obscureText: true,
+            //  obscureText: true,
               decoration: InputDecoration(
                 prefixIcon: const Icon(
                   Icons.person,
@@ -59,7 +60,7 @@ class SingUpFormWidget extends StatelessWidget {
             elevation: 20,
             child: TextFormField(
               controller: cntlr.emailcontroller,
-              obscureText: true,
+            //  obscureText: true,
               decoration: InputDecoration(
                 prefixIcon: const Icon(
                   Icons.email,
@@ -122,8 +123,7 @@ class SingUpFormWidget extends StatelessWidget {
             width: 150.0,
             child: ElevatedButton(
               onPressed: () {
-                cntlr.singup();
-                Get.off(UserProfileScreen());
+              Get.off(const SingUpDetailScreen());
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white, backgroundColor: Colors.black,
@@ -136,7 +136,7 @@ class SingUpFormWidget extends StatelessWidget {
                 ),
                 minimumSize: const Size(100, 0), // Set minimum button size
               ),
-              child: cntlr.loading.value ?CircularProgressIndicator(): Text("Signup"),
+              child: cntlr.loading.value ?const CircularProgressIndicator(): const Text("Signup"),
             ),
           ),
         ),

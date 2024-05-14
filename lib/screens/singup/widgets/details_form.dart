@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teledocuser/screens/profile_Screen/profil_Screen.dart';
 import 'package:teledocuser/screens/singup/controller/controller.dart';
+
 
 
 
 class DetailsFormWidget extends StatelessWidget {
   DetailsFormWidget({super.key});
-  final cntlr = Get.put(Authcontroller());
+ // final cntlr = Get.find(Authcontroller());
+   final Authcontroller controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class DetailsFormWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(25),
             elevation: 20,
             child: TextFormField(
-              controller: cntlr.phonecontroller,
+              controller: controller.phonecontroller,
               keyboardType: TextInputType.number,
               obscureText: true,
               decoration: InputDecoration(
@@ -40,7 +41,7 @@ class DetailsFormWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(25),
             elevation: 20,
             child: TextFormField(
-              controller: cntlr.placecontroller,
+              controller: controller.placecontroller,
               obscureText: true,
               decoration: InputDecoration(
                 prefixIcon: const Icon(
@@ -60,7 +61,7 @@ class DetailsFormWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(25),
             elevation: 20,
             child: TextFormField(
-              controller: cntlr.agecontroller,
+              controller: controller.agecontroller,
               keyboardType: TextInputType.number,
               obscureText: true,
               decoration: InputDecoration(
@@ -81,6 +82,7 @@ class DetailsFormWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(25),
             elevation: 20,
             child: TextFormField(
+              controller: controller.addresscontroller,
               obscureText: true,
               decoration: InputDecoration(
                 prefixIcon: const Icon(
@@ -104,9 +106,9 @@ class DetailsFormWidget extends StatelessWidget {
               width: 150.0,
               child: ElevatedButton(
                 onPressed: () {
-                  cntlr.singup();
+                  controller.singup();
         
-                  Get.off(UserProfileScreen());
+                //  Get.off(UserProfileScreen());
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, backgroundColor: Colors.black,
@@ -119,7 +121,7 @@ class DetailsFormWidget extends StatelessWidget {
                   ),
                   minimumSize: const Size(100, 0), // Set minimum button size
                 ),
-                child: cntlr.loading.value ?CircularProgressIndicator(): Text("Signup"),
+                child: controller.loading.value ?CircularProgressIndicator(color: Colors.white,): Text("Signup"),
               ),
             ),
           ),

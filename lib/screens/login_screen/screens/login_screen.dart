@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
             ),
-            const Padding(
+             Padding(
               padding: EdgeInsets.all(20),
               child: LoginForms(),
             ),

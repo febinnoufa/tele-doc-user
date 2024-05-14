@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/const/const.dart';
+import 'package:teledocuser/screens/login_screen/resetpass/screens/restpass.dart';
+import 'package:teledocuser/screens/singup/controller/controller.dart';
 import 'package:teledocuser/screens/singup/screens/singup1_screen.dart';
 
 class LoginForms extends StatelessWidget {
-  const LoginForms({Key? key});
+   LoginForms({Key? key});
+
+
+  final cntr=Get.put(Authcontroller());
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +29,7 @@ class LoginForms extends StatelessWidget {
             ),
           ),
           TextFormField(
+            controller: cntr.loginemailcontroller,
             decoration: InputDecoration(
                 hintText: 'Enter your email',
                 border: OutlineInputBorder(
@@ -37,6 +43,7 @@ class LoginForms extends StatelessWidget {
           //   style: TextStyle(fontSize: 12,),
           // ),
           TextFormField(
+            controller: cntr.loginpasswordcontroller,
             obscureText: true,
             decoration: InputDecoration(
               suffixIcon: IconButton(onPressed: (){}, icon: const Icon(Icons.remove_red_eye)),
@@ -46,33 +53,38 @@ class LoginForms extends StatelessWidget {
                   OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
             ),
           ),
-          TextButton(onPressed: (){}, child: const Text("Forgot Password?")),
+          TextButton(onPressed: (){
+            Get.to( ResetPasswordScreen());
+          }, child: const Text("Forgot Password?")),
           const SizedBox(height: 20),
-        SizedBox(
-  height: 50.0, 
-  child: SizedBox(
-  width: 150.0,
-  child: ElevatedButton(
-    onPressed: () {
-     Get.off( const SingUpScreen());
-     
-    },
-    style: ElevatedButton.styleFrom(
-      foregroundColor: Colors.white, backgroundColor: Colors.black,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25.0),
-        side: const BorderSide(
-          color: Colors.green, // Change border color here
-          width: 3.0, // Change border thickness here
+        Obx(()=>
+       SizedBox(
+          height: 50.0, 
+          child: SizedBox(
+          width: 150.0,
+          child: ElevatedButton(
+            onPressed: () {
+              cntr.singin();
+             //Get.off( const SingUpScreen());
+             
+            },
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white, backgroundColor: Colors.black,
+              shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25.0),
+          side: const BorderSide(
+            color: Colors.green, // Change border color here
+            width: 3.0, // Change border thickness here
+          ),
+              ),
+              minimumSize: const Size(100, 0), // Set minimum button size
+            ),
+            child:   cntr.loading.value ? const CircularProgressIndicator(): const Text("LOGIN"),
+          ),
         ),
-      ),
-      minimumSize: const Size(100, 0), // Set minimum button size
-    ),
-    child: const Text("LOGIN"),
-  ),
-),
-
-),
+        
+        ),
+        ),
 
 
         ],
