@@ -65,6 +65,8 @@ class LoginForms extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {
               cntr.singin();
+              cntr.loginemailcontroller.clear();
+              cntr.loginpasswordcontroller.clear();
              //Get.off( const SingUpScreen());
              
             },

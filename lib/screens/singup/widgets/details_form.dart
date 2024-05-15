@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/screens/singup/controller/controller.dart';
 
-
-
-
 class DetailsFormWidget extends StatelessWidget {
   DetailsFormWidget({super.key});
- // final cntlr = Get.find(Authcontroller());
-   final Authcontroller controller = Get.find();
+  // final cntlr = Get.find(Authcontroller());
+  final Authcontroller controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -99,16 +96,24 @@ class DetailsFormWidget extends StatelessWidget {
         const SizedBox(
           height: 100,
         ),
-        Obx( ()=>
-           SizedBox(
+        Obx(
+          () => SizedBox(
             height: 50.0,
             child: SizedBox(
               width: 150.0,
               child: ElevatedButton(
                 onPressed: () {
                   controller.singup();
-        
-                //  Get.off(UserProfileScreen());
+                  controller.firstnamecontroller.clear();
+                  controller.lastnamecontroller.clear();
+                  controller.emailcontroller.clear();
+                  controller.passwordcontroller.clear();
+                  controller.agecontroller.clear();
+                  controller.placecontroller.clear();
+                  controller.addresscontroller.clear();
+                  controller.phonecontroller.clear();
+
+                  //  Get.off(UserProfileScreen());
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, backgroundColor: Colors.black,
@@ -121,7 +126,11 @@ class DetailsFormWidget extends StatelessWidget {
                   ),
                   minimumSize: const Size(100, 0), // Set minimum button size
                 ),
-                child: controller.loading.value ?CircularProgressIndicator(color: Colors.white,): Text("Signup"),
+                child: controller.loading.value
+                    ? const CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                    : const Text("Signup"),
               ),
             ),
           ),

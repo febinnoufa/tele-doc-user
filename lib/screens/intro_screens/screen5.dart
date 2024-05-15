@@ -81,7 +81,7 @@ class IntroScreenFive extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      Get.offAll(const LoginScreen());
+                      Get.offAll( LoginScreen());
                     },
                     icon: const Icon(
                       Icons.arrow_circle_right,

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:teledocuser/screens/login_screen/screens/login_screen.dart';
 import 'package:teledocuser/screens/profile_Screen/profil_screen.dart';
 import 'package:teledocuser/screens/singup/model/usermodel.dart';
@@ -20,6 +21,8 @@ class Authcontroller extends GetxController {
   TextEditingController loginpasswordcontroller = TextEditingController();
   TextEditingController resetemailcontroller = TextEditingController();
   TextEditingController addresscontroller = TextEditingController();
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final googleauth = FirebaseAuth.instance;
   var loading = false.obs;
 
   singup() async {
@@ -104,11 +107,39 @@ class Authcontroller extends GetxController {
       loading.value = true;
       await auth.sendPasswordResetEmail(email: resetemailcontroller.text);
       Get.snackbar("email", "send seccesfully");
-      Get.to(const LoginScreen());
+      Get.to(LoginScreen());
       loading.value = false;
     } catch (e) {
       Get.snackbar("error", "$e");
       loading.value = false;
+    }
+  }
+
+  loginWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+        await googleauth.signInWithCredential(credential);
+      }
+
+      // final authResult = await     auth.signInWithCredential(credential);
+
+      // final User? user = authResult.user;
+      // assert(!user!.isAnonymous);
+      // assert(await user!.getIdToken() != null);
+      // final User? currentUser = auth.currentUser;
+      // assert(user!.uid == currentUser!.uid);
+      // Get.toNamed('/homeView'); // navigate to your wanted page
+      // return;
+    } on FirebaseAuthException catch (e) {
+      throw (e);
     }
   }
 }

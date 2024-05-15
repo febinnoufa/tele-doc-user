@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:teledocuser/screens/login_screen/widgets/form.dart';
+import 'package:teledocuser/screens/singup/controller/controller.dart';
+import 'package:teledocuser/screens/singup/screens/singup1_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key});
+   LoginScreen({Key? key});
+  final cntr =Get.put(Authcontroller());
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +45,18 @@ class LoginScreen extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w500),
             )),
             const SizedBox(height: 10,),
-            IconButton(onPressed: (){}, icon: Image.network("https://cdn-teams-slug.flaticon.com/google.jpg",height: 50,),iconSize: 100,),
+            IconButton(onPressed: (){
+              cntr.loginWithGoogle();
+
+            }, icon: Image.network("https://cdn-teams-slug.flaticon.com/google.jpg",height: 50,),iconSize: 100,),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text("Don’t have an account? "),
-                TextButton(onPressed: (){}, child: const Text("Register now"))
+                TextButton(onPressed: (){
+                  Get.to(const SingUpScreen());
+                }, child: const Text("Register now"))
               ],
             )
            

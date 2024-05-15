@@ -28,7 +28,7 @@ class UserProfileScreen extends StatelessWidget {
             IconButton(
               onPressed: () async {
                 await auth.signOut();
-                Get.offAll(const LoginScreen());
+                Get.offAll( LoginScreen());
               },
               icon: const Icon(Icons.logout),
             ),
