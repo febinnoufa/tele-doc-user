@@ -123,7 +123,8 @@ class SingUpFormWidget extends StatelessWidget {
             width: 150.0,
             child: ElevatedButton(
               onPressed: () {
-              Get.off(const SingUpDetailScreen());
+               cntlr.singup();
+              Get.offAll(const SingUpDetailScreen());
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white, backgroundColor: Colors.black,

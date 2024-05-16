@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:teledocuser/screens/login_screen/widgets/form.dart';
+import 'package:teledocuser/screens/profile_Screen/dummypage.dart';
 import 'package:teledocuser/screens/singup/controller/controller.dart';
 import 'package:teledocuser/screens/singup/screens/singup1_screen.dart';
 
@@ -28,7 +29,7 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
              Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: LoginForms(),
             ),
             const Center(
@@ -45,8 +46,11 @@ class LoginScreen extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w500),
             )),
             const SizedBox(height: 10,),
-            IconButton(onPressed: (){
-              cntr.loginWithGoogle();
+            IconButton(onPressed: ()async{
+             await cntr.loginWithGoogle();
+             Get.to(const DummyScreen());
+
+
 
             }, icon: Image.network("https://cdn-teams-slug.flaticon.com/google.jpg",height: 50,),iconSize: 100,),
 

@@ -103,7 +103,7 @@ class DetailsFormWidget extends StatelessWidget {
               width: 150.0,
               child: ElevatedButton(
                 onPressed: () {
-                  controller.singup();
+                  controller.adduser();
                   controller.firstnamecontroller.clear();
                   controller.lastnamecontroller.clear();
                   controller.emailcontroller.clear();
