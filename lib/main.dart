@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/firebase_options.dart';
-import 'package:teledocuser/screens/singup/controller/controller.dart';
+import 'package:teledocuser/screens/Auth/singup/controller/controller.dart';
 import 'package:teledocuser/screens/splash_screen/splash.dart';
 
 void main() async {
