@@ -38,14 +38,7 @@ class _MyHomePageState extends State<BotomNavigationBar> {
             controller: pageController,
             children: <Widget>[
               const HomeScreen(),
-              // Container(
-              //   alignment: Alignment.center,
-              //   child: Icon(
-              //     Icons.bookmark_rounded,
-              //     size: 56,
-              //     color: Colors.amber[400],
-              //   ),
-              // ),
+            
               Container(
                 alignment: Alignment.center,
                 child: Icon(
@@ -62,15 +55,8 @@ class _MyHomePageState extends State<BotomNavigationBar> {
                   color: Colors.green[400],
                 ),
               ),
-              ProfileScreenUser()
-              // Container(
-              //   alignment: Alignment.center,
-              //   child: Icon(
-              //     Icons.folder_rounded,
-              //     size: 56,
-              //     color: Colors.blue[400],
-              //   ),
-              // ),
+              const ProfileScreenUser()
+          
             ],
           ),
           bottomNavigationBar: WaterDropNavBar(

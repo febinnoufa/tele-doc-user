@@ -63,7 +63,7 @@ class Authcontroller extends GetxController {
     }
   }
 
-   Future<void> _setLoginStatus(bool status) async {
+  Future<void> _setLoginStatus(bool status) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', status);
   }
@@ -103,7 +103,7 @@ class Authcontroller extends GetxController {
 
   singout() async {
     await auth.signOut();
-     await _setLoginStatus(false);
+    await _setLoginStatus(false);
   }
 
   singin() async {
@@ -112,10 +112,10 @@ class Authcontroller extends GetxController {
       await auth.signInWithEmailAndPassword(
           email: loginemailcontroller.text,
           password: loginpasswordcontroller.text);
-          await _setLoginStatus(true);
-     
+      await _setLoginStatus(true);
+
       loading.value = false;
-       Get.to(const BotomNavigationBar());
+      Get.to(const BotomNavigationBar());
     } catch (e) {
       Get.snackbar("error", "$e");
       loading.value = false;
@@ -142,9 +142,11 @@ class Authcontroller extends GetxController {
 
   Future<void> loginWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
       if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
         final AuthCredential credential = GoogleAuthProvider.credential(
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
@@ -156,7 +158,8 @@ class Authcontroller extends GetxController {
       print('Error signing in with Google: $e');
     }
   }
-    Future<void> logoutgoogle() async {
+
+  Future<void> logoutgoogle() async {
     await auth.signOut();
     await googleSignIn.signOut();
     await _setLoginStatus(false);

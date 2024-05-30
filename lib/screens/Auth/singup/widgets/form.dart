@@ -65,41 +65,40 @@ class SingUpFormWidget extends StatelessWidget {
               ),
             ),
           ),
-        Padding(
-  padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-  child: Material(
-    borderRadius: BorderRadius.circular(25),
-    elevation: 20,
-    child: TextFormField(
-      controller: cntlr.emailcontroller,
-      decoration: InputDecoration(
-        prefixIcon: const Icon(
-          Icons.email,
-          size: 20,
-        ),
-        hintText: 'Email',
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25)),
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter your email';
-        }
-        // Email format validation using regex
-        bool validEmail = RegExp(
-          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-          caseSensitive: false,
-          multiLine: false,
-        ).hasMatch(value);
-        if (!validEmail) {
-          return 'Please enter a valid email address';
-        }
-        return null;
-      },
-    ),
-  ),
-),
-
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+            child: Material(
+              borderRadius: BorderRadius.circular(25),
+              elevation: 20,
+              child: TextFormField(
+                controller: cntlr.emailcontroller,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.email,
+                    size: 20,
+                  ),
+                  hintText: 'Email',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  // Email format validation using regex
+                  bool validEmail = RegExp(
+                    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                    caseSensitive: false,
+                    multiLine: false,
+                  ).hasMatch(value);
+                  if (!validEmail) {
+                    return 'Please enter a valid email address';
+                  }
+                  return null;
+                },
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Material(
@@ -135,8 +134,8 @@ class SingUpFormWidget extends StatelessWidget {
               child: TextFormField(
                 obscureText: true,
                 decoration: InputDecoration(
-                  suffixIcon:
-                      IconButton(onPressed: () {}, icon: const Icon(Icons.remove_red_eye)),
+                  suffixIcon: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.remove_red_eye)),
                   prefixIcon: const Icon(
                     Icons.lock,
                     size: 20,

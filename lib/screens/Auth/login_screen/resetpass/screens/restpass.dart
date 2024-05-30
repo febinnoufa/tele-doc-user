@@ -91,11 +91,11 @@ class ResetPasswordScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25.0),
                       side: const BorderSide(
-                        color: Colors.green, // Change border color here
-                        width: 3.0, // Change border thickness here
+                        color: Colors.green,
+                        width: 3.0, 
                       ),
                     ),
-                    minimumSize: const Size(100, 0), // Set minimum button size
+                    minimumSize: const Size(100, 0), 
                   ),
                   child: cntr.loading.value
                       ? CircularProgressIndicator()

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teledocuser/screens/Auth/intro_screens/screen1.dart';
-import 'package:teledocuser/screens/Home/screens/home_screen/screens/home_screen.dart';
 import 'package:teledocuser/screens/Home/widgets/bottomnav_swidget..dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _SplashPageState createState() => _SplashPageState();
 }
 

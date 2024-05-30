@@ -25,7 +25,7 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
     final currentUser = authController.auth.currentUser;
     if (currentUser != null) {
       await authController.fetchUserData(currentUser.uid);
-      setState(() {});  // Force rebuild to show fetched data
+      setState(() {}); // Force rebuild to show fetched data
     }
   }
 
@@ -46,7 +46,8 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
           title: const Center(
             child: Text(
               "Profile",
-              style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
             ),
           ),
           actions: [
@@ -70,7 +71,7 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
                 ? ShowAllDetailsUserWidget(
                     user: user,
                   )
-                : const CircularProgressIndicator(),  // Show loading indicator while data is being fetched
+                : const CircularProgressIndicator(), // Show loading indicator while data is being fetched
           ],
         ),
       ),

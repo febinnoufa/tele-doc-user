@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ShowAllDetailsUserWidget extends StatelessWidget {
   const ShowAllDetailsUserWidget({Key? key,required this.user}) : super(key: key);
+  // ignore: prefer_typing_uninitialized_variables
   final user;
 
   @override
