@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teledocuser/screens/appoiment/screens/doctor_details.dart';
-import 'package:teledocuser/servises/doctor_controller.dart';
-import 'package:teledocuser/servises/model/doctor_model.dart';
+import '../../../../../../controllers/screens/appoiment/screens/doctor_details.dart';
+import '../../../../../../controllers/servises/doctor_controller.dart';
+import '../../../../../../controllers/servises/model/doctor_model.dart';
 
 class AvalbleDoctorsWidget extends StatelessWidget {
   final DoctorController doctorController = Get.put(DoctorController());
@@ -41,7 +41,6 @@ class AvalbleDoctorsWidget extends StatelessWidget {
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return const Center(child: Text('No doctors found'));
               } else {
-               
                 final doctors = snapshot.data!;
                 return SizedBox(
                   height: 190,
@@ -52,9 +51,11 @@ class AvalbleDoctorsWidget extends StatelessWidget {
                       final doctor = doctors[index];
                       return InkWell(
                         onTap: () {
-                           doctorController.currentdoc=doctor;
-                          
-                          Get.to(DoctorDetailsScreen( doctor: doctor,));
+                          doctorController.currentdoc = doctor;
+
+                          Get.to(DoctorDetailsScreen(
+                            doctor: doctor,
+                          ));
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(left: 5, right: 5),
@@ -86,10 +87,11 @@ class AvalbleDoctorsWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 15,),
                 Text(
                   "Dr ${doctor.name}",
                   style: const TextStyle(
-                      fontSize: 15, fontWeight: FontWeight.w500),
+                      fontSize: 17, fontWeight: FontWeight.w500),
                 ),
                 Text(
                   doctor.specialist,
@@ -110,18 +112,19 @@ class AvalbleDoctorsWidget extends StatelessWidget {
                     fontSize: 14,
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
                 const Text(
-                  "About",
+                  "Rating",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 5),
-                Text(
-                  "${doctor.bio} Year",
-                  maxLines: 3,
-                  style: const TextStyle(
-                    fontSize: 14,
-                  ),
+                Row(
+                  children: [
+                   Icon(Icons.star,size: 15,),
+                   Icon(Icons.star,size: 15,),
+                   Icon(Icons.star,size: 15,),
+                   Icon(Icons.star,size: 15,)
+                  ],
                 ),
               ],
             ),

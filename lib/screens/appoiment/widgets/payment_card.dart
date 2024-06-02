@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teledocuser/servises/doctor_controller.dart';
+import '../../../../controllers/servises/doctor_controller.dart';
 
 class PaymentAndDeatilsCardWidget extends StatelessWidget {
   PaymentAndDeatilsCardWidget({super.key});
@@ -20,21 +20,32 @@ class PaymentAndDeatilsCardWidget extends StatelessWidget {
           child: Row(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(35.0),
+                borderRadius:
+                    BorderRadius.circular(10.0), // Adjust radius as needed
                 child: Image.network(
                   cntr.currentdoc.profile,
-                  height: 70,
-                  width: 70,
-                  fit: BoxFit.cover,
+                  height: 70.0,
+                  width: 70.0,
+                  fit: BoxFit.cover, // Maintain aspect ratio
                 ),
               ),
+
+              // ClipRRect(
+              //   borderRadius: BorderRadius.circular(35.0),
+              //   child: Image.network(
+              //     cntr.currentdoc.profile,
+              //     height: 70,
+              //     width: 70,
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
               const SizedBox(width: 16.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      cntr.currentdoc.name,
+                      "Dr  ${cntr.currentdoc.name}",
                       style: const TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,
@@ -54,7 +65,10 @@ class PaymentAndDeatilsCardWidget extends StatelessWidget {
               Row(
                 children: [
                   const Icon(Icons.currency_rupee_rounded, color: Colors.grey),
-                  Text("200.00",style: TextStyle(fontSize: 15),)
+                  Text(
+                    "200.00",
+                    style: TextStyle(fontSize: 15),
+                  )
                 ],
               ),
             ],

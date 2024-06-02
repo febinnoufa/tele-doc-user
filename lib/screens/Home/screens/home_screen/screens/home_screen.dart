@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:teledocuser/screens/Home/screens/home_screen/widget/avalbe_doc_widget.dart';
-import 'package:teledocuser/screens/Home/screens/home_screen/widget/carousal_widget.dart';
-import 'package:teledocuser/screens/Home/screens/home_screen/widget/catigarywidget.dart';
+import '../../../../../../controllers/screens/Home/screens/home_screen/widget/avalbe_doc_widget.dart';
+import '../../../../../../controllers/screens/Home/screens/home_screen/widget/carousal_widget.dart';
+import '../../../../../../controllers/screens/Home/screens/home_screen/widget/catigarywidget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

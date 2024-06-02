@@ -33,6 +33,7 @@ dependencies:
   cloud_firestore: 4.14.0
   cuberto_bottom_bar: ^3.0.0
   cupertino_icons: ^1.0.2
+  easy_date_timeline: 1.0.3
   firebase_auth: 4.16.0
   firebase_core: 2.24.2
   firebase_storage: 11.6.0
@@ -41,7 +42,9 @@ dependencies:
   get: ^4.6.6
   google_sign_in: 6.1.6
   http: 1.1.0
+  intl: 0.18.1
   shared_preferences: ^2.2.3
+  time_slot: 0.0.3
   water_drop_nav_bar: ^2.2.1
 
 dev_dependencies:

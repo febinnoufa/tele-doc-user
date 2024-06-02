@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teledocuser/screens/Auth/login_screen/resetpass/screens/restpass.dart';
-import 'package:teledocuser/screens/Auth/singup/controller/controller.dart';
+import '../../../../../controllers/screens/Auth/login_screen/resetpass/screens/restpass.dart';
+import '../../../../../controllers/screens/Auth/singup/controller/controller.dart';
 
 
 class LoginForms extends StatelessWidget {

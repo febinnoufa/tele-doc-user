@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teledocuser/screens/Auth/singup/controller/controller.dart';
+import '../../../../../controllers/screens/Auth/singup/controller/controller.dart';
 
 class DetailsFormWidget extends StatelessWidget {
   DetailsFormWidget({super.key});

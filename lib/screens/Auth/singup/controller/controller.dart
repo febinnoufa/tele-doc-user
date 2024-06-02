@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:teledocuser/screens/Auth/login_screen/screens/login_screen.dart';
-import 'package:teledocuser/screens/Auth/singup/model/usermodel.dart';
-import 'package:teledocuser/screens/Auth/singup/screens/details_screen.dart';
-import 'package:teledocuser/screens/Home/widgets/bottomnav_swidget..dart';
+import '../../../../../controllers/screens/Auth/login_screen/screens/login_screen.dart';
+import '../../../../../controllers/screens/Auth/singup/model/usermodel.dart';
+import '../../../../../controllers/screens/Auth/singup/screens/details_screen.dart';
+import '../../../../../controllers/screens/Home/widgets/bottomnav_swidget..dart';
 
 class Authcontroller extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -141,27 +141,46 @@ class Authcontroller extends GetxController {
   }
 
   Future<void> loginWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleSignInAccount =
-          await googleSignIn.signIn();
-      if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication =
-            await googleSignInAccount.authentication;
-        final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleSignInAuthentication.accessToken,
-          idToken: googleSignInAuthentication.idToken,
-        );
-        await auth.signInWithCredential(credential);
-        await _setLoginStatus(true);
-      }
-    } catch (e) {
-      print('Error signing in with Google: $e');
+  try {
+    final GoogleSignIn googleSignIn = GoogleSignIn(); // Create a new GoogleSignIn instance
+    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+      await auth.signInWithCredential(credential);
+      await _setLoginStatus(true);
+      Get.off(const SingUpDetailScreen());
     }
+  } catch (e) {
+    print('Error signing in with Google: $e');
   }
+}
 
-  Future<void> logoutgoogle() async {
-    await auth.signOut();
-    await googleSignIn.signOut();
-    await _setLoginStatus(false);
-  }
+//   Future<UserCredential> signInWithGoogle() async {
+//   // Trigger the authentication flow
+//   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+//   // Obtain the auth details from the request
+//   final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+//   // Create a new credential
+//   final credential =  GoogleAuthProvider.credential(
+//     accessToken: googleAuth?.accessToken,
+//     idToken: googleAuth?.idToken,
+//   );
+ 
+
+//   // Once signed in, return the UserCredential
+//   return await FirebaseAuth.instance.signInWithCredential(credential);
+// }
+
+ Future<void> logoutgoogle() async {
+  await auth.signOut();
+  await googleSignIn.signOut(); // Sign out from Google Sign-In
+  await _setLoginStatus(false);
+}
 }

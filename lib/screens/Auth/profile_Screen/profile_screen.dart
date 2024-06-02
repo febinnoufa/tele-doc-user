@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teledocuser/screens/Auth/login_screen/screens/login_screen.dart';
-import 'package:teledocuser/screens/Auth/profile_Screen/widgets/show_all_details.dart';
-import 'package:teledocuser/screens/Auth/profile_Screen/widgets/show_details_widgets.dart';
-import 'package:teledocuser/screens/Auth/singup/controller/controller.dart';
+import '../../../../controllers/screens/Auth/login_screen/screens/login_screen.dart';
+import '../../../../controllers/screens/Auth/profile_Screen/widgets/show_all_details.dart';
+import '../../../../controllers/screens/Auth/profile_Screen/widgets/show_details_widgets.dart';
+import '../../../../controllers/screens/Auth/singup/controller/controller.dart';
 
 class ProfileScreenUser extends StatefulWidget {
   const ProfileScreenUser({super.key});

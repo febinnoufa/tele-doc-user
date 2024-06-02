@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
-import 'package:teledocuser/screens/Auth/profile_Screen/profile_screen.dart';
-import 'package:teledocuser/screens/Home/screens/home_screen/screens/home_screen.dart';
+import '../../../../controllers/screens/Auth/profile_Screen/profile_screen.dart';
+import '../../../../controllers/screens/Home/screens/home_screen/screens/home_screen.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 class BotomNavigationBar extends StatefulWidget {

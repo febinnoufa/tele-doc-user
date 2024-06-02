@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:teledocuser/const/const.dart';
-import 'package:teledocuser/screens/appoiment/screens/booking_screen.dart';
-import 'package:teledocuser/servises/model/doctor_model.dart';
-
-import '../screens/doctor_details.dart';
+import '../../../../controllers/const/const.dart';
+import '../../../../controllers/screens/appoiment/screens/booking_screen.dart';
+import '../../../../controllers/servises/model/doctor_model.dart';
 
 class DetailsDoctorWidget extends StatelessWidget {
   const DetailsDoctorWidget({super.key, required this.doctor});

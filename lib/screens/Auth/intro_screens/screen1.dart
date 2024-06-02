@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teledocuser/screens/Auth/intro_screens/screen2.dart';
+import '../../../../controllers/screens/Auth/intro_screens/screen2.dart';
 
 class IntroScreenOne extends StatelessWidget {
   const IntroScreenOne({super.key});
