@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
-import 'package:intl/date_symbol_data_local.dart'; 
-import '../controllers/firebase_options.dart';
-import '../controllers/screens/Auth/singup/controller/controller.dart';
-import '../controllers/screens/splash_screen/splash.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:teledocuser/firebase_options.dart';
+import 'package:teledocuser/screens/Auth/singup/controller/controller.dart';
+import 'package:teledocuser/screens/splash_screen/splash.dart'; 
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

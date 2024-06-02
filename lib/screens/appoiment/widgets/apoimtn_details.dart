@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../controllers/const/const.dart';
-import '../../../../controllers/screens/appoiment/screens/time_select_screen.dart';
+import 'package:teledocuser/const/const.dart';
+import 'package:teledocuser/screens/appoiment/screens/time_select_screen.dart';
+
 
 class AppointmentDetailsWidget extends StatelessWidget {
   const AppointmentDetailsWidget({Key? key});

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:teledocuser/screens/Auth/singup/controller/controller.dart';
+import 'package:teledocuser/screens/Home/widgets/bottomnav_swidget..dart';
 
-import '../../../../../controllers/screens/Auth/singup/controller/controller.dart';
-import '../../../../../controllers/screens/Home/widgets/bottomnav_swidget..dart';
+
 
 class ShowUserDatasPhoto extends StatelessWidget {
    ShowUserDatasPhoto({super.key});

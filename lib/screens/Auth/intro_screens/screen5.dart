@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../controllers/const/const.dart';
-import '../../../../controllers/screens/Auth/login_screen/screens/login_screen.dart';
+import 'package:teledocuser/const/const.dart';
+import 'package:teledocuser/screens/Auth/login_screen/screens/login_screen.dart';
+
 
 class IntroScreenFive extends StatelessWidget {
   const IntroScreenFive({super.key});

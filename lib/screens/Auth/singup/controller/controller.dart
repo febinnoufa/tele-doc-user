@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../controllers/screens/Auth/login_screen/screens/login_screen.dart';
-import '../../../../../controllers/screens/Auth/singup/model/usermodel.dart';
-import '../../../../../controllers/screens/Auth/singup/screens/details_screen.dart';
-import '../../../../../controllers/screens/Home/widgets/bottomnav_swidget..dart';
+import 'package:teledocuser/screens/Auth/login_screen/screens/login_screen.dart';
+import 'package:teledocuser/screens/Auth/singup/model/usermodel.dart';
+import 'package:teledocuser/screens/Auth/singup/screens/details_screen.dart';
+import 'package:teledocuser/screens/Home/widgets/bottomnav_swidget..dart';
+
 
 class Authcontroller extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;

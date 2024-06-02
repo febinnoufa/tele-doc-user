@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import '../../../../../../controllers/const/const.dart';
+import 'package:teledocuser/const/const.dart';
+
 
 class CarousalHomeWidget extends StatelessWidget {
   const CarousalHomeWidget({super.key});

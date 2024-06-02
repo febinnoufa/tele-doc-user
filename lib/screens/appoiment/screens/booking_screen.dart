@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../controllers/screens/appoiment/widgets/apoimtn_details.dart';
-import '../../../../controllers/screens/appoiment/widgets/payment_card.dart';
-import '../../../../controllers/servises/doctor_controller.dart';
+import 'package:teledocuser/screens/appoiment/widgets/apoimtn_details.dart';
+import 'package:teledocuser/screens/appoiment/widgets/payment_card.dart';
+import 'package:teledocuser/servises/doctor_controller.dart';
+
 
 class AppoimentBookingPage extends StatelessWidget {
    AppoimentBookingPage({super.key});

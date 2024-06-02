@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../../controllers/screens/Auth/login_screen/widgets/form.dart';
-import '../../../../../controllers/screens/Auth/singup/controller/controller.dart';
-import '../../../../../controllers/screens/Auth/singup/screens/details_screen.dart';
-import '../../../../../controllers/screens/Auth/singup/screens/singup1_screen.dart';
+import 'package:teledocuser/screens/Auth/login_screen/widgets/form.dart';
+import 'package:teledocuser/screens/Auth/singup/controller/controller.dart';
+import 'package:teledocuser/screens/Auth/singup/screens/singup1_screen.dart';
+
 
 class LoginScreen extends StatelessWidget {
    LoginScreen({Key? key});

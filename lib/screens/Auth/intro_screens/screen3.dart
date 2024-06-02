@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../controllers/screens/Auth/intro_screens/screen4.dart';
+import 'package:teledocuser/screens/Auth/intro_screens/screen4.dart';
+import 'package:teledocuser/screens/Auth/intro_screens/widgets/intro_image_widget.dart';
+import 'package:teledocuser/screens/Auth/intro_screens/widgets/intro_text_widget.dart';
 
-import '../../../../controllers/screens/Auth/intro_screens/widgets/intro_image_widget.dart';
-import '../../../../controllers/screens/Auth/intro_screens/widgets/intro_text_widget.dart';
 
-import 'screen2.dart';
+
 
 class IntroScreenTree extends StatelessWidget {
   const IntroScreenTree({super.key});

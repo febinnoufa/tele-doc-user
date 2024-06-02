@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../../controllers/screens/Auth/singup/widgets/form.dart';
+import 'package:teledocuser/screens/Auth/singup/widgets/form.dart';
+
 
 class SingUpScreen extends StatelessWidget {
   const SingUpScreen({super.key});

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../../controllers/screens/appoiment/widgets/details_doctor.dart';
-import '../../../../controllers/screens/appoiment/widgets/image_doctor.dart';
-import '../../../../controllers/servises/model/doctor_model.dart';
+import 'package:teledocuser/screens/appoiment/widgets/details_doctor.dart';
+import 'package:teledocuser/screens/appoiment/widgets/image_doctor.dart';
+import 'package:teledocuser/servises/model/doctor_model.dart';
+
 
 class DoctorDetailsScreen extends StatelessWidget {
   const DoctorDetailsScreen({super.key,required this.doctor});

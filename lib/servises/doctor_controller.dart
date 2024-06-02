@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../controllers/servises/model/doctor_model.dart';
+import 'package:teledocuser/servises/model/doctor_model.dart';
+
 
 class DoctorController extends GetxController {
   var currentdoc;

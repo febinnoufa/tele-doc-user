@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../controllers/screens/Auth/intro_screens/screen1.dart';
-import '../../../controllers/screens/Home/widgets/bottomnav_swidget..dart';
+import 'package:teledocuser/screens/Auth/intro_screens/screen1.dart';
+import 'package:teledocuser/screens/Home/widgets/bottomnav_swidget..dart';
+
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);

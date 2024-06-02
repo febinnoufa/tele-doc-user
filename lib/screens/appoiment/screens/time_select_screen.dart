@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../controllers/const/const.dart';
-import '../../../../controllers/screens/appoiment/servises/time_controller.dart';
-import '../../../../controllers/screens/appoiment/widgets/colonder.dart';
+import 'package:teledocuser/const/const.dart';
+import 'package:teledocuser/screens/appoiment/servises/time_controller.dart';
+import 'package:teledocuser/screens/appoiment/widgets/colonder.dart';
+
 import 'package:time_slot/model/time_slot_Interval.dart';
 import 'package:time_slot/time_slot_from_interval.dart';
 

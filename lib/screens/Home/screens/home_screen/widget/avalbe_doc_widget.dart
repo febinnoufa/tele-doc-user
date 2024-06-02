@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../../../controllers/screens/appoiment/screens/doctor_details.dart';
-import '../../../../../../controllers/servises/doctor_controller.dart';
-import '../../../../../../controllers/servises/model/doctor_model.dart';
+import 'package:teledocuser/screens/appoiment/screens/doctor_details.dart';
+import 'package:teledocuser/servises/doctor_controller.dart';
+import 'package:teledocuser/servises/model/doctor_model.dart';
+
 
 class AvalbleDoctorsWidget extends StatelessWidget {
   final DoctorController doctorController = Get.put(DoctorController());

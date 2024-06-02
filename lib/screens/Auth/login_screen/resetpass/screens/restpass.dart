@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../../../controllers/screens/Auth/singup/controller/controller.dart';
+import 'package:teledocuser/screens/Auth/singup/controller/controller.dart';
+
 
 class ResetPasswordScreen extends StatelessWidget {
   ResetPasswordScreen({super.key});

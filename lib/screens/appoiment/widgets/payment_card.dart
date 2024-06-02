@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../controllers/servises/doctor_controller.dart';
+import 'package:teledocuser/servises/doctor_controller.dart';
+
 
 class PaymentAndDeatilsCardWidget extends StatelessWidget {
   PaymentAndDeatilsCardWidget({super.key});
