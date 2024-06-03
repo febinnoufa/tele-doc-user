@@ -4,8 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:teledocuser/firebase_options.dart';
-import 'package:teledocuser/screens/Auth/singup/controller/controller.dart';
-import 'package:teledocuser/screens/splash_screen/splash.dart'; 
+import 'package:teledocuser/controllers/Auth/controller.dart';
+import 'package:teledocuser/views/screens/splash_screen/splash.dart'; 
 
 
 void main() async {
@@ -18,6 +18,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const MyApp({Key? key});
 
   @override
