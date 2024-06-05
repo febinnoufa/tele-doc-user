@@ -9,7 +9,6 @@ import 'package:teledocuser/model/user/usermodel.dart';
 import 'package:teledocuser/views/screens/signup/details_screen.dart';
 import 'package:teledocuser/views/widgets/BottomNav/bottomnav_swidget..dart';
 
-
 class Authcontroller extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -142,24 +141,26 @@ class Authcontroller extends GetxController {
   }
 
   Future<void> loginWithGoogle() async {
-  try {
-    final GoogleSignIn googleSignIn = GoogleSignIn(); // Create a new GoogleSignIn instance
-    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-    if (googleSignInAccount != null) {
-      final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
-      );
-      await auth.signInWithCredential(credential);
-      await _setLoginStatus(true);
-      Get.off(const SingUpDetailScreen());
+    try {
+      final GoogleSignIn googleSignIn =
+          GoogleSignIn(); // Create a new GoogleSignIn instance
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+        await auth.signInWithCredential(credential);
+        await _setLoginStatus(true);
+        Get.off(const SingUpDetailScreen());
+      }
+    } catch (e) {
+      print('Error signing in with Google: $e');
     }
-  } catch (e) {
-    print('Error signing in with Google: $e');
   }
-}
 
 //   Future<UserCredential> signInWithGoogle() async {
 //   // Trigger the authentication flow
@@ -173,15 +174,14 @@ class Authcontroller extends GetxController {
 //     accessToken: googleAuth?.accessToken,
 //     idToken: googleAuth?.idToken,
 //   );
- 
 
 //   // Once signed in, return the UserCredential
 //   return await FirebaseAuth.instance.signInWithCredential(credential);
 // }
 
- Future<void> logoutgoogle() async {
-  await auth.signOut();
-  await googleSignIn.signOut(); // Sign out from Google Sign-In
-  await _setLoginStatus(false);
-}
+  Future<void> logoutgoogle() async {
+    await auth.signOut();
+    await googleSignIn.signOut(); // Sign out from Google Sign-In
+    await _setLoginStatus(false);
+  }
 }

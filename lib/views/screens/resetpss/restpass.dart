@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teledocuser/controllers/Auth/controller.dart';
+import 'package:teledocuser/controllers/auth/controller.dart';
 
 
 class ResetPasswordScreen extends StatelessWidget {

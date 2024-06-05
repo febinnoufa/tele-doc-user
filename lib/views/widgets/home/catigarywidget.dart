@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:teledocuser/views/screens/catogary/catogary.dart';
 
 class CategoryHomeWidget extends StatelessWidget {
   CategoryHomeWidget({Key? key});
@@ -20,6 +22,7 @@ class CategoryHomeWidget extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
+                  Get.to(const AllCatogaryScreen());
                   // Handle "See All" button tap
                 },
                 child: const Text("See All"),
@@ -36,7 +39,7 @@ class CategoryHomeWidget extends StatelessWidget {
                 }
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
 
                 final List<DocumentSnapshot> documents = snapshot.data!.docs;
@@ -57,13 +60,13 @@ class CategoryHomeWidget extends StatelessWidget {
                         //   color: Colors.black, // Set border color here
                         //   width: 2, // Set border width here
                         // ),
-                        color: Color.fromARGB(255, 231, 228, 228),
+                        color: const Color.fromARGB(255, 231, 228, 228),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.network(category.image,height: 50,), // Display category image
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(category.name)

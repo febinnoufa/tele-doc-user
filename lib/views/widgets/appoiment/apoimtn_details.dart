@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/const/const.dart';
 import 'package:teledocuser/views/screens/appoiment/time_select_screen.dart';
+import 'package:teledocuser/views/screens/payment/payment.dart';
 
 
 class AppointmentDetailsWidget extends StatelessWidget {
@@ -37,7 +38,8 @@ class AppointmentDetailsWidget extends StatelessWidget {
               ),
               child: TextButton(
                 onPressed: () {
-                  Get.to(TimeSlotPickerDemo());
+
+                  Get.to(PaymentScreen());
                  // Get.to( AppoimentBookingPage());
                   
                 },

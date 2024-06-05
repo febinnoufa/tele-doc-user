@@ -3,17 +3,17 @@ import 'package:flutter/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:teledocuser/controllers/payment/payment.dart';
 import 'package:teledocuser/firebase_options.dart';
-import 'package:teledocuser/controllers/Auth/controller.dart';
-import 'package:teledocuser/views/screens/splash_screen/splash.dart'; 
-
+import 'package:teledocuser/controllers/auth/controller.dart';
+import 'package:teledocuser/views/widgets/splash_screen/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await initializeDateFormatting(); 
+  await initializeDateFormatting();
   runApp(const MyApp());
 }
 
@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       initialBinding: BindingsBuilder(() {
         Get.put(Authcontroller());
+         Get.put(PaymentController());
       }),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

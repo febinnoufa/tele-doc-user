@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teledocuser/views/screens/intro_screens/screen2.dart';
+import 'package:teledocuser/views/screens/introscreens/screen2.dart';
 
 
 class IntroScreenOne extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:teledocuser/views/screens/intro_screens/screen1.dart';
+import 'package:teledocuser/views/screens/introscreens/screen1.dart';
 import 'package:teledocuser/views/widgets/BottomNav/bottomnav_swidget..dart';
 
 

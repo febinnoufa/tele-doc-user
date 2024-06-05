@@ -1,91 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teledocuser/views/screens/appoiment/doctor_details.dart';
 import 'package:teledocuser/controllers/doctor/doctor_controller.dart';
 import 'package:teledocuser/model/doctor/doctor_model.dart';
-import 'package:teledocuser/views/screens/doctors/all_doctors.dart';
 
-class AvalbleDoctorsWidget extends StatelessWidget {
-  final DoctorController doctorController = Get.put(DoctorController());
+class AllDoctorsWidget extends StatelessWidget {
+   AllDoctorsWidget({super.key});
 
-  AvalbleDoctorsWidget({super.key});
+   final DoctorController doctorController = Get.put(DoctorController());
+
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                "Available Doctors",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-              ),
-              TextButton(
-                onPressed: () {
-                  Get.to(AllDoctorsScreen());
-                  // Handle "See All" button tap
-                },
-                child: const Text("See All"),
-              ),
-            ],
-          ),
-          StreamBuilder<List<DoctorModel>>(
-            stream: doctorController.doctorStream,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+    return StreamBuilder<List<DoctorModel>>(
+      stream: doctorController.doctorStream,
+       builder: (context, snapshot) {
+           if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return const Center(child: Text('No doctors found'));
-              } else {
+              }else{
                 final doctors = snapshot.data!;
-                return SizedBox(
-                  height: 190,
-                  child: ListView.builder(
-                    itemCount: doctors.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      final doctor = doctors[index];
-                      return InkWell(
-                        onTap: () {
-                          doctorController.currentdoc = doctor;
-
-                          Get.to(DoctorDetailsScreen(
-                            doctor: doctor,
-                          ));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 5, right: 5),
+                 return Expanded(
+                   child: ListView.builder(
+                     itemCount: doctors.length,
+                    // scrollDirection: Axis.horizontal,
+                     itemBuilder: (context, index) {
+                       final doctor = doctors[index];
+                       return InkWell(
+                         onTap: () {
+                           doctorController.currentdoc = doctor;
+                 
+                           // //Get.to(DoctorDetailsScreen(
+                           //   doctor: doctor,
+                           // ));
+                         },
+                         child: Padding(
+                           padding: const EdgeInsets.only(left: 20, right:20,top: 15),
                           child: doctorCard(doctor),
-                        ),
-                      );
-                    },
-                  ),
-                );
+                         ),
+                       );
+                     },
+                   ),
+                 );
               }
-            },
-          ),
-        ],
-      ),
-    );
+       },);
   }
 
   Widget doctorCard(DoctorModel doctor) {
     return Stack(
       children: [
         Container(
-          width: 270,
+          //width: 270,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
             color: const Color.fromARGB(255, 231, 228, 228),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -148,7 +121,7 @@ class AvalbleDoctorsWidget extends StatelessWidget {
         ),
         Positioned(
           top: 20, // Adjust as needed
-          left: 150,
+          left: 180,
           // /right: 10, // Adjust as needed
           child: Material(
             elevation: 4, // Elevation for the shadow

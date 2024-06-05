@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/views/widgets/login/form.dart';
-import 'package:teledocuser/controllers/Auth/controller.dart';
+import 'package:teledocuser/controllers/auth/controller.dart';
 import 'package:teledocuser/views/screens/signup/singup1_screen.dart';
 
 

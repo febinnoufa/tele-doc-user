@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teledocuser/views/screens/intro_screens/screen3.dart';
+import 'package:teledocuser/views/screens/introscreens/screen3.dart';
 import 'package:teledocuser/views/widgets/intro/intro_image_widget.dart';
 import 'package:teledocuser/views/widgets/intro/intro_text_widget.dart';
 

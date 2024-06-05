@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
+import 'package:teledocuser/const/const.dart';
 import 'package:teledocuser/views/screens/profile_Screen/profile_screen.dart';
-import 'package:teledocuser/views/screens/Home/home_screen.dart';
-
+import 'package:teledocuser/views/screens/home/home_screen.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 class BotomNavigationBar extends StatefulWidget {
   const BotomNavigationBar({Key? key}) : super(key: key);
   @override
-  // ignore: library_private_types_in_public_api
-  _MyHomePageState createState() => _MyHomePageState();
+  _BotomNavigationBarState createState() => _BotomNavigationBarState();
 }
 
-class _MyHomePageState extends State<BotomNavigationBar> {
+class _BotomNavigationBarState extends State<BotomNavigationBar> {
   final Color navigationBarColor = Colors.white;
   int selectedIndex = 0;
   late PageController pageController;
+  
   @override
   void initState() {
     super.initState();
@@ -38,27 +37,33 @@ class _MyHomePageState extends State<BotomNavigationBar> {
             controller: pageController,
             children: <Widget>[
               const HomeScreen(),
-              Container(
-                alignment: Alignment.center,
-                child: Icon(
-                  Icons.favorite_rounded,
-                  size: 56,
-                  color: Colors.red[400],
+              Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Icon(
+                    Icons.favorite_rounded,
+                    size: 56,
+                    color: Colors.red[400],
+                  ),
                 ),
               ),
-              Container(
-                alignment: Alignment.center,
-                child: Icon(
-                  Icons.email_rounded,
-                  size: 56,
-                  color: Colors.green[400],
+              Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Icon(
+                    Icons.email_rounded,
+                    size: 56,
+                    color: Colors.green[400],
+                  ),
                 ),
               ),
-              const ProfileScreenUser()
+              const ProfileScreenUser(),
             ],
           ),
           bottomNavigationBar: WaterDropNavBar(
-            backgroundColor: navigationBarColor,
+            backgroundColor: blackColor,
+            waterDropColor: greenColor,
+            inactiveIconColor: Colors.black,
             onItemSelected: (int index) {
               setState(() {
                 selectedIndex = index;
@@ -72,6 +77,7 @@ class _MyHomePageState extends State<BotomNavigationBar> {
               BarItem(
                 filledIcon: Icons.home_filled,
                 outlinedIcon: Icons.home_outlined,
+               
               ),
               BarItem(
                   filledIcon: Icons.local_hospital,

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:teledocuser/views/screens/login/login_screen.dart';
 import 'package:teledocuser/views/widgets/profile/show_all_details.dart';
 import 'package:teledocuser/views/widgets/profile/show_details_widgets.dart';
-import 'package:teledocuser/controllers/Auth/controller.dart';
+import 'package:teledocuser/controllers/auth/controller.dart';
 
 
 class ProfileScreenUser extends StatefulWidget {
