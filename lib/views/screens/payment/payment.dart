@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:teledocuser/controllers/payment/payment.dart';
 
 class PaymentScreen extends GetView<PaymentController> {
@@ -14,14 +12,14 @@ class PaymentScreen extends GetView<PaymentController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 150,
             ),
-            Text(
+            const Text(
               "Welcome to this page",
               textAlign: TextAlign.center,
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Padding(
@@ -29,7 +27,7 @@ class PaymentScreen extends GetView<PaymentController> {
               child: TextFormField(
                 cursorColor: Colors.white,
                 autofocus: false,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Enter amount to be paid",
                   labelStyle: TextStyle(fontSize: 15, color: Colors.white),
                   border: OutlineInputBorder(
@@ -55,12 +53,12 @@ class PaymentScreen extends GetView<PaymentController> {
                 },
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             ElevatedButton(
               onPressed: () => controller.openCheckout(),
-              child: Text("Pay"),
+              child: const Text("Pay"),
             ),
           ],
         ),

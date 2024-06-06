@@ -29,13 +29,13 @@ class AppoimentBookingPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+       // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
        const SizedBox(height: 35,),
         
         PaymentAndDeatilsCardWidget(),
-        SizedBox(height: 30,),
+        const SizedBox(height: 30,),
         AppointmentDetailsWidget()
 
       ],),

@@ -22,13 +22,8 @@ class TimeSlotPickerDemo extends StatelessWidget {
       body: Column(
         children: <Widget>[
           CalendarWidget(),
-          SizedBox(height: 30,),
-          // Obx(() {
-          //   return controller.selectTime.value != null
-          //       ? Text(
-          //           'Selected Time: ${controller.selectTime.value!.hour}:${controller.selectTime.value!.minute}')
-          //       : const Text('No time selected');
-          // }),
+        const  SizedBox(height: 30,),
+        
           const SizedBox(height: 20.0),
           Padding(
             padding: const EdgeInsets.all(15.0),
@@ -42,14 +37,14 @@ class TimeSlotPickerDemo extends StatelessWidget {
                   end: TimeOfDay(hour: 22, minute: 0),
                   interval: Duration(minutes: 30),
                 ),
-                //selectedColor: greenColor,
+             
                 onChange: (value) {
                   controller.updateSelectTime(value);
                 },
               ),
             ),
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
 
           Padding(
             padding: const EdgeInsets.only(left: 30, right: 30),
@@ -59,7 +54,7 @@ class TimeSlotPickerDemo extends StatelessWidget {
               decoration: BoxDecoration(
                 color: greenColor,
                 borderRadius:
-                    BorderRadius.circular(8), // Adjust the radius as needed
+                    BorderRadius.circular(8), 
               ),
               child: TextButton(
                 onPressed: () {

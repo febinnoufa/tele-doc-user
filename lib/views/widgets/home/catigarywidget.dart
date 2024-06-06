@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:teledocuser/controllers/catogary.dart/catogary_controller.dart';
 import 'package:teledocuser/views/screens/catogary/catogary.dart';
+import 'package:teledocuser/views/screens/catogary/short_list.dart';
 
 class CategoryHomeWidget extends StatelessWidget {
   CategoryHomeWidget({Key? key});
-
+  final CategariController cntr = Get.put(CategariController());
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,7 +34,9 @@ class CategoryHomeWidget extends StatelessWidget {
           SizedBox(
             height: 100,
             child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection('categories').snapshots(),
+              stream: FirebaseFirestore.instance
+                  .collection('categories')
+                  .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
@@ -48,29 +52,33 @@ class CategoryHomeWidget extends StatelessWidget {
                   itemCount: documents.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    final category = Category.fromMap(documents[index].data() as Map<String, dynamic>);
-                    return Container(
-                      width: 100, // Set width for each category item
-                      margin: const EdgeInsets.only(
-                          right: 10), // Add some spacing between items
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(10), // Set border radius
-                        // border: Border.all(
-                        //   color: Colors.black, // Set border color here
-                        //   width: 2, // Set border width here
-                        // ),
-                        color: const Color.fromARGB(255, 231, 228, 228),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.network(category.image,height: 50,), // Display category image
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(category.name)
-                        ],
+                    final category = CategoryModel.fromMap(
+                        documents[index].data() as Map<String, dynamic>);
+                    return InkWell(
+                      onTap: () {
+                        cntr.setSelectedCategory(category);
+                        Get.to(CategariViseShortScreen());
+                      },
+                      child: Container(
+                        width: 100,
+                        margin: const EdgeInsets.only(right: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: const Color.fromARGB(255, 231, 228, 228),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.network(
+                              category.image,
+                              height: 50,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(category.name)
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -84,16 +92,17 @@ class CategoryHomeWidget extends StatelessWidget {
   }
 }
 
-class Category {
+class CategoryModel {
   final String name;
   final String image;
+  final String id;
 
-  Category({required this.name, required this.image});
+  CategoryModel({required this.name, required this.image, required this.id});
 
-  factory Category.fromMap(Map<String, dynamic> map) {
-    return Category(
-      name: map['name'] ?? '',
-      image: map['image'] ?? '',
-    );
+  factory CategoryModel.fromMap(Map<String, dynamic> map) {
+    return CategoryModel(
+        name: map['name'] ?? '',
+        image: map['image'] ?? '',
+        id: map['id'] ?? '');
   }
 }
