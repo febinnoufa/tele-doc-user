@@ -1,3 +1,4 @@
+// CalendarWidget
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,14 +12,11 @@ class CalendarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: GetBuilder<DateController>(
-        builder: (controller) {
-          return EasyDateTimeLine(
-            initialDate: DateTime.now(),
-            onDateChange: (date) {
-              cntr.setSelectedDate(date);
-            },
-          );
+      child: EasyDateTimeLine(
+        initialDate: DateTime.now(),
+        onDateChange: (date) {
+          cntr.setSelectedDate(date);
+          print('Selected date: $date');
         },
       ),
     );

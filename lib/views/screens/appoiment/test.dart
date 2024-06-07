@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:teledocuser/controllers/appoiment/timeselect.dart';
 import 'package:teledocuser/controllers/time/datecontroller.dart';
 import 'package:teledocuser/controllers/doctor/doctor_controller.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:teledocuser/controllers/time/time_controller.dart';
 import 'package:teledocuser/model/schedules/shedul.dart';
 import 'package:teledocuser/views/widgets/appoiment/colonder.dart';
 import 'package:time_slot/model/time_slot_Interval.dart';
 import 'package:time_slot/time_slot_from_interval.dart';
 
-// ignore: must_be_immutable
 class DoctorScheduleScreen extends StatelessWidget {
   final DoctorController dcCntrl = Get.put(DoctorController());
   final DateController dateController = Get.put(DateController());
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final TimeselectController timecontroller = Get.put(TimeselectController());
+  final TimeSlotPickerController timeSlotPickerController = Get.put(TimeSlotPickerController());
 
   DoctorScheduleScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       appBar: AppBar(
         title: const Text('Appointment', style: TextStyle(color: Colors.black)),
@@ -38,12 +36,13 @@ class DoctorScheduleScreen extends StatelessWidget {
             child: GetBuilder<DateController>(
               builder: (dateController) {
                 return FutureBuilder<void>(
-                  future: fetchUserSchedules(),
+                  future: timecontroller.fetchUserSchedules(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
                     } else {
-                      List<Schedule> filteredSchedules = _schedules
+                      List<Schedule> filteredSchedules = timecontroller
+                          .schedules
                           .where((schedule) =>
                               schedule.date ==
                               dateController.selectedDate.value
@@ -53,20 +52,34 @@ class DoctorScheduleScreen extends StatelessWidget {
                           .toList();
 
                       return filteredSchedules.isEmpty
-                          ? const Text('No schedules available for the selected date')
-                          : TimesSlotGridViewFromInterval(
-                              initTime: DateTime.now(),
-                              crossAxisCount: 4,
-                              onChange: (value) {
-                                print(".........................$value");
-                              },
-                              timeSlotInterval: TimeSlotInterval(
-                                start: _parseTimeOfDay(
-                                    filteredSchedules[0].startTime),
-                                end: _parseTimeOfDay(
-                                    filteredSchedules[0].endTime),
-                                interval: const Duration(minutes: 30),
-                              ),
+                          ? const Text(
+                              'No schedules available for the selected date')
+                          : Column(
+                              children: [
+                                TimesSlotGridViewFromInterval(
+                                  initTime: timeSlotPickerController.selectTime.value ?? DateTime.now(),
+                                  crossAxisCount: 4,
+                                  onChange: (value) {
+                                    timeSlotPickerController.updateSelectTime(value);
+                                  },
+                                  timeSlotInterval: TimeSlotInterval(
+                                    start: _parseTimeOfDay(filteredSchedules[0].startTime),
+                                    end: _parseTimeOfDay(filteredSchedules[0].endTime),
+                                    interval: const Duration(minutes: 30),
+                                  ),
+                                  selectedColor: Colors.green, // Specify the color for selected time
+                                ),
+                                const SizedBox(height: 20),
+                                Obx(() {
+                                  final selectedTime = timeSlotPickerController.selectTime.value;
+                                  return Text(
+                                    selectedTime != null
+                                        ? 'Selected Time: ${selectedTime.hour}:${selectedTime.minute.toString().padLeft(2, '0')}'
+                                        : 'No time selected',
+                                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                  );
+                                }),
+                              ],
                             );
                     }
                   },
@@ -77,23 +90,6 @@ class DoctorScheduleScreen extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  List<Schedule> _schedules = [];
-
-  Future<void> fetchUserSchedules() async {
-    User? currentUser = _auth.currentUser;
-    if (currentUser != null) {
-      QuerySnapshot snapshot = await _db
-          .collection("approveddoctors")
-          .doc(dcCntrl.currentdoc.id)
-          .collection("shedules")
-          .orderBy('createdAt', descending: true)
-          .get();
-
-      _schedules =
-          snapshot.docs.map((doc) => Schedule.fromFirestore(doc)).toList();
-    }
   }
 
   TimeOfDay _parseTimeOfDay(String time) {
@@ -109,5 +105,3 @@ class DoctorScheduleScreen extends StatelessWidget {
         hour: hour % 24, minute: minute); // Modulus to handle 12 PM
   }
 }
-
-

@@ -10,7 +10,8 @@ import 'package:time_slot/time_slot_from_interval.dart';
 class TimeSlotPickerDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final TimeSlotPickerController controller = Get.put(TimeSlotPickerController());
+    final TimeSlotPickerController controller =
+        Get.put(TimeSlotPickerController());
 
     return Scaffold(
       appBar: AppBar(
@@ -22,7 +23,9 @@ class TimeSlotPickerDemo extends StatelessWidget {
       body: Column(
         children: <Widget>[
           CalendarWidget(),
-          SizedBox(height: 30,),
+          SizedBox(
+            height: 30,
+          ),
           // Obx(() {
           //   return controller.selectTime.value != null
           //       ? Text(
@@ -49,7 +52,9 @@ class TimeSlotPickerDemo extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 20,),
+          const SizedBox(
+            height: 20,
+          ),
 
           Padding(
             padding: const EdgeInsets.only(left: 30, right: 30),
@@ -64,8 +69,7 @@ class TimeSlotPickerDemo extends StatelessWidget {
               child: TextButton(
                 onPressed: () {
                   Get.to(TimeSlotPickerDemo());
-                 // Get.to( AppoimentBookingPage());
-                  
+                  // Get.to( AppoimentBookingPage());
                 },
                 child: const Text(
                   "Next",
