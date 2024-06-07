@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/const/const.dart';
 import 'package:teledocuser/controllers/appoiment/appoimnet_controller.dart';
+import 'package:teledocuser/views/screens/appoiment/test.dart';
 import 'package:teledocuser/views/screens/appoiment/time_select_screen.dart';
 import 'package:teledocuser/views/screens/payment/payment.dart';
 
@@ -40,11 +41,12 @@ class AppointmentDetailsWidget extends StatelessWidget {
               ),
               child: TextButton(
                 onPressed: () async {
-                  await controller.storeAppointmentDetails();
-                  controller.contactController.clear();
-                  controller.nameController.clear();
-                  controller.contactController.clear();
-                  Get.to(() =>  TimeSlotPickerDemo());
+                  // await controller.storeAppointmentDetails();
+                  // controller.contactController.clear();
+                  // controller.nameController.clear();
+                  // controller.contactController.clear();
+                 // Get.to(() =>  TimeSlotPickerDemo());
+                  Get.to(() =>  DoctorScheduleScreen());
                 },
                 child: const Text(
                   "Next",

@@ -3,8 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:teledocuser/model/doctor/doctor_model.dart';
 
 class DoctorController extends GetxController {
-  // ignore: prefer_typing_uninitialized_variables
   var currentdoc;
+
   Stream<List<DoctorModel>> get doctorStream {
     return FirebaseFirestore.instance
         .collection('approveddoctors')
