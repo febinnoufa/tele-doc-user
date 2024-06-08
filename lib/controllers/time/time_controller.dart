@@ -5,5 +5,6 @@ class TimeSlotPickerController extends GetxController {
 
   void updateSelectTime(DateTime? value) {
     selectTime.value = value;
+    print("????????????????????${selectTime.value}");
   }
 }

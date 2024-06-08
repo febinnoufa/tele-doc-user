@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:teledocuser/controllers/appoiment/appoimnet_controller.dart';
 import 'package:teledocuser/controllers/payment/payment.dart';
 import 'package:teledocuser/firebase_options.dart';
 import 'package:teledocuser/controllers/auth/controller.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       initialBinding: BindingsBuilder(() {
         Get.put(Authcontroller());
          Get.put(PaymentController());
+         Get.put(AppointmentController());
       }),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

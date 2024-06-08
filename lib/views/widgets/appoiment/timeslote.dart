@@ -1,8 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:teledocuser/const/const.dart';
+import 'package:teledocuser/controllers/appoiment/appoimnet_controller.dart';
+
 import 'package:teledocuser/controllers/appoiment/timeselect.dart';
 import 'package:teledocuser/controllers/doctor/doctor_controller.dart';
 import 'package:teledocuser/controllers/time/datecontroller.dart';
@@ -19,6 +20,7 @@ class TimeSelectWidget extends StatelessWidget {
   final TimeselectController timecontroller = Get.put(TimeselectController());
   final TimeSlotPickerController timeSlotPickerController =
       Get.put(TimeSlotPickerController());
+  final AppointmentController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,15 @@ class TimeSelectWidget extends StatelessWidget {
                     .toList();
 
                 return filteredSchedules.isEmpty
-                    ? const Text('No schedules available for the selected date')
+                    ? const Center(
+                        child: Column(
+                        children: [
+                          SizedBox(
+                            height: 150,
+                          ),
+                          Text('No schedules available for the selected date'),
+                        ],
+                      ))
                     : Column(
                         children: [
                           GetX<TimeSlotPickerController>(
@@ -71,14 +81,47 @@ class TimeSelectWidget extends StatelessWidget {
                           Obx(() {
                             final selectedTime =
                                 timeSlotPickerController.selectTime.value;
-                            return Text(
-                              selectedTime != null
-                                  ? 'Selected Time: ${selectedTime.hour}:${selectedTime.minute.toString().padLeft(2, '0')}'
-                                  : 'No time selected',
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            return Column(
+                              children: [
+                                Text(selectedDate),
+                                Text(
+                                  selectedTime != null
+                                      ? 'Selected Time: ${selectedTime.hour}:${selectedTime.minute.toString().padLeft(2, '0')} '
+                                      : 'No time selected',
+                                  style: const TextStyle(
+                                      fontSize: 16, fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             );
                           }),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 30, right: 30),
+                            child: Container(
+                              height: 50,
+                              width: 250,
+                              decoration: BoxDecoration(
+                                color: greenColor,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: TextButton(
+                                onPressed: () async {
+                                  await controller.storeAppointmentDetails();
+                                  controller.contactController.clear();
+                                  controller.nameController.clear();
+                                  controller.reasonController.clear();
+                                },
+                                child: const Text(
+                                  "Next",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            ),
+                          )
                         ],
                       );
               }
