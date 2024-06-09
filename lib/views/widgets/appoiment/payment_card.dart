@@ -17,7 +17,7 @@ class PaymentAndDeatilsCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(10.0),
           child: Row(
             children: [
               ClipRRect(
@@ -63,9 +63,9 @@ class PaymentAndDeatilsCardWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              Row(
+              const Row(
                 children: [
-                  const Icon(Icons.currency_rupee_rounded, color: Colors.grey),
+                  Icon(Icons.currency_rupee_rounded, color: Colors.grey),
                   Text(
                     "200.00",
                     style: TextStyle(fontSize: 15),

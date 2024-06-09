@@ -50,7 +50,7 @@ class AppointmentDetailsWidget extends StatelessWidget {
                 return 'Please enter the reason for appointment';
               }
               return null;
-            }),
+            }, maxLines: null, textInputAction: TextInputAction.newline),
             const SizedBox(height: 80),
             Padding(
               padding: const EdgeInsets.only(left: 30, right: 30),
@@ -87,7 +87,8 @@ class AppointmentDetailsWidget extends StatelessWidget {
   }
 
   Widget _buildTextField(String labelText, TextInputType keyboardType,
-      TextEditingController controller, String? Function(String?)? validator) {
+      TextEditingController controller, String? Function(String?)? validator,
+      {int? maxLines, TextInputAction? textInputAction}) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
@@ -102,6 +103,8 @@ class AppointmentDetailsWidget extends StatelessWidget {
       ),
       keyboardType: keyboardType,
       validator: validator,
+      maxLines: maxLines,
+      textInputAction: textInputAction,
     );
   }
 }

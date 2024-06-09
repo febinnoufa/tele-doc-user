@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:teledocuser/const/const.dart';
+import 'package:teledocuser/views/screens/myappoiment/myappoiment.dart';
 import 'package:teledocuser/views/screens/profile_Screen/profile_screen.dart';
 import 'package:teledocuser/views/screens/home/home_screen.dart';
+import 'package:teledocuser/views/widgets/bottomnav/bottom_sheet.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 class BotomNavigationBar extends StatefulWidget {
@@ -15,7 +17,7 @@ class _BotomNavigationBarState extends State<BotomNavigationBar> {
   final Color navigationBarColor = Colors.white;
   int selectedIndex = 0;
   late PageController pageController;
-  
+
   @override
   void initState() {
     super.initState();
@@ -37,16 +39,7 @@ class _BotomNavigationBarState extends State<BotomNavigationBar> {
             controller: pageController,
             children: <Widget>[
               const HomeScreen(),
-              Center(
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Icon(
-                    Icons.favorite_rounded,
-                    size: 56,
-                    color: Colors.red[400],
-                  ),
-                ),
-              ),
+              MyAppointmentScreen(),
               Center(
                 child: Container(
                   alignment: Alignment.center,
@@ -77,7 +70,6 @@ class _BotomNavigationBarState extends State<BotomNavigationBar> {
               BarItem(
                 filledIcon: Icons.home_filled,
                 outlinedIcon: Icons.home_outlined,
-               
               ),
               BarItem(
                   filledIcon: Icons.local_hospital,

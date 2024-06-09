@@ -9,6 +9,7 @@ import 'package:teledocuser/controllers/doctor/doctor_controller.dart';
 import 'package:teledocuser/controllers/time/datecontroller.dart';
 import 'package:teledocuser/controllers/time/time_controller.dart';
 import 'package:teledocuser/model/schedules/shedul.dart';
+import 'package:teledocuser/views/screens/payment/payment.dart';
 import 'package:time_slot/model/time_slot_Interval.dart';
 import 'package:time_slot/time_slot_from_interval.dart';
 
@@ -83,7 +84,12 @@ class TimeSelectWidget extends StatelessWidget {
                                 timeSlotPickerController.selectTime.value;
                             return Column(
                               children: [
-                                Text(selectedDate),
+                              const  SizedBox(height: 20,),
+                                Text(selectedDate,
+                                    style: const TextStyle(
+                                      fontSize: 16, fontWeight: FontWeight.bold),
+                                ),
+                               const SizedBox(height: 10,),
                                 Text(
                                   selectedTime != null
                                       ? 'Selected Time: ${selectedTime.hour}:${selectedTime.minute.toString().padLeft(2, '0')} '
@@ -108,10 +114,11 @@ class TimeSelectWidget extends StatelessWidget {
                               ),
                               child: TextButton(
                                 onPressed: () async {
-                                  await controller.storeAppointmentDetails();
-                                  controller.contactController.clear();
-                                  controller.nameController.clear();
-                                  controller.reasonController.clear();
+                                  // await controller.storeAppointmentDetails();
+                                  // controller.contactController.clear();
+                                  // controller.nameController.clear();
+                                  // controller.reasonController.clear();
+                                  Get.to(const PaymentScreen());
                                 },
                                 child: const Text(
                                   "Next",
