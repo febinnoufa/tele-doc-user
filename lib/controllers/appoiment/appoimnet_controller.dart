@@ -15,11 +15,17 @@ class AppointmentController extends GetxController {
   final TimeSlotPickerController timeController =
       Get.put(TimeSlotPickerController());
 
+
+
+
+      
+// storte
   Future<void> storeAppointmentDetails() async {
     try {
-      CollectionReference appointments =
-          FirebaseFirestore.instance.collection('appointments');
-      await appointments.add({
+      final docmentId = DateTime.now().toString();
+
+      FirebaseFirestore.instance.collection('appointments').doc(docmentId).set({
+        'appoimnet_id': docmentId,
         'patient_name': nameController.text,
         'contact_number': contactController.text,
         'reason_for_appointment': reasonController.text,
@@ -29,12 +35,30 @@ class AppointmentController extends GetxController {
         'date': dateController.selectedDate.value.toString().split(" ").first,
         'time':
             "${timeController.selectTime.value!.hour}:${timeController.selectTime.value!.minute.toString().padLeft(2, '0')}"
-        //timeController.selectTime.value.toString().split(" ").last
       });
+
       Get.snackbar('Success', 'Appointment details saved successfully',
           snackPosition: SnackPosition.BOTTOM);
     } catch (e) {
       Get.snackbar('Error', 'Failed to save appointment details',
+          snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+
+
+
+// Delete
+  Future<void> deleteAppointmentDetails(String documentId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('appointments')
+          .doc(documentId)
+          .delete();
+
+      Get.snackbar('Success', 'Appointment details deleted successfully',
+          snackPosition: SnackPosition.BOTTOM);
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to delete appointment details',
           snackPosition: SnackPosition.BOTTOM);
     }
   }
