@@ -7,6 +7,8 @@ class TimeSlotPickerController extends GetxController {
 
   // Method to update the selected time
   void updateSelectTime(TimeOfDay? value) {
+  
+
     selectTime.value = value;
     print("Selected Time...................: ${selectTime.value!.hour}:${selectTime.value!.minute==0?"00":selectTime.value!.minute} ${selectTime.value!.hour < 12 ? "AM" : "PM"}");
   }

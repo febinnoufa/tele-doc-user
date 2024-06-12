@@ -9,13 +9,11 @@ import 'package:teledocuser/controllers/time/time_controller.dart';
 class AppointmentController extends GetxController {
   final nameController = TextEditingController();
   final contactController = TextEditingController();
-  final reasonController = TextEditingController();
+  final reasonController = TextEditingController();   
   final DoctorController doctorController = Get.put(DoctorController());
   final DateController dateController = Get.put(DateController());
   final TimeSlotPickerController timeController =
       Get.put(TimeSlotPickerController());
-
-     
 
   // ignore: prefer_typing_uninitialized_variables
   var image;
@@ -59,8 +57,8 @@ class AppointmentController extends GetxController {
           .collection("shedules")
           .doc(dateController.selectedDate.value.toString().split(" ").first)
           .update({
-           // 'intervals':
-          });
+        // 'intervals':
+      });
     } catch (e) {}
   }
 

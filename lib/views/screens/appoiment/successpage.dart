@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:teledocuser/const/const.dart';
 import 'package:teledocuser/views/widgets/BottomNav/bottomnav_swidget..dart';
 
 class SuccessPage extends StatelessWidget {
@@ -11,7 +12,11 @@ class SuccessPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Appointment Successful'),
+        title: const Text('Appointment Successful',style: TextStyle(color: Colors.black),),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        
       ),
       body: Center(
         child: Padding(
@@ -30,13 +35,36 @@ class SuccessPage extends StatelessWidget {
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Get.offAll(const BotomNavigationBar());
-                },
-                child: const Text('Go to Home'),
+              const SizedBox(height: 100),
+                  Padding(
+            padding: const EdgeInsets.only(left: 30, right: 30),
+            child: Container(
+              height: 50,
+              width: 200,
+              decoration: BoxDecoration(
+                color: greenColor,
+                borderRadius:
+                    BorderRadius.circular(8), // Adjust the radius as needed
               ),
+              child: TextButton(
+                onPressed: () {
+                  Get.to(const BotomNavigationBar());
+                  
+                },
+                child: const Text(
+                  "Go to Home",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.w600),
+                ),
+              ),
+            ),
+          ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Get.offAll(const BotomNavigationBar());
+              //   },
+              //   child: const Text('Go to Home'),
+              // ),
             ],
           ),
         ),
