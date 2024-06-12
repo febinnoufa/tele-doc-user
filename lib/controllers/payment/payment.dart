@@ -35,6 +35,7 @@ class PaymentController extends GetxController {
     );
     // Navigate to the success page
     appointmentController.storeAppointmentDetails();
+    appointmentController.disabletime();
     appointmentController.contactController.clear();
     appointmentController.nameController.clear();
     appointmentController.reasonController.clear();

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/const/const.dart';
@@ -55,41 +56,15 @@ class TimeSelectWidget extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Wrap(
-                            spacing: 8.0,
-                            runSpacing: 8.0,
-                            children: filteredSchedules.expand((schedule) {
-                              return schedule.intervals.entries.map((entry) {
-                                final isAvailable = entry.value;
-                                final isSelected = timeSlotPickerController.selectTime.value == _parseTimeOfDay(entry.key.split(" - ").first);
-                                return GestureDetector(
-  onTap: isAvailable
-    ? () {
-        final selectedTime = _parseTimeOfDay(entry.key.split(" - ").first);
-        timeSlotPickerController.updateSelectTime(selectedTime);
-      }
-    : null,
-  child: Container(
-    padding: const EdgeInsets.all(8.0),
-    decoration: BoxDecoration(
-      color: isSelected
-          ? Colors.green
-          : isAvailable
-              ? Colors.white
-              : Colors.grey,
-      borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(color: Colors.black),
-    ),
-    child: Text(
-      entry.key.toString().split('-').first,
-      style: TextStyle(
-        color: isAvailable ? Colors.black : Colors.white,
-      ),
-    ),
-  ),
-);
-
-                              }).toList();
-                            }).toList(),
+                            spacing: 15.0,
+                            runSpacing: 15.0,
+                            children: [
+                              ..._buildTimeSlots(filteredSchedules, 'Morning'),
+                              ..._buildTimeSlots(
+                                  filteredSchedules, 'Afternoon'),
+                              ..._buildTimeSlots(filteredSchedules, 'Evening'),
+                              ..._buildTimeSlots(filteredSchedules, 'Night'),
+                            ],
                           ),
                           const SizedBox(height: 20),
                           Obx(() {
@@ -101,7 +76,8 @@ class TimeSelectWidget extends StatelessWidget {
                                 Text(
                                   selectedDate,
                                   style: const TextStyle(
-                                      fontSize: 16, fontWeight: FontWeight.bold),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
@@ -109,7 +85,8 @@ class TimeSelectWidget extends StatelessWidget {
                                       ? 'Selected Time: ${selectedTime.hour}:${selectedTime.minute.toString().padLeft(2, '0')} '
                                       : 'No time selected',
                                   style: const TextStyle(
-                                      fontSize: 16, fontWeight: FontWeight.bold),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             );
@@ -128,13 +105,57 @@ class TimeSelectWidget extends StatelessWidget {
                               ),
                               child: TextButton(
                                 onPressed: () async {
-                                  Get.to(const PaymentScreen());
+                                  // Get the selected time
+                                  final selectedTime = timeSlotPickerController
+                                      .selectTime.value
+                                      .toString()
+                                      .split("(")
+                                      .last
+                                      .split(")")
+                                      .first
+                                      .split(":")
+                                      .first;
+                                  final time = int.parse(selectedTime) < 12
+                                      ? "${timeSlotPickerController.selectTime.value.toString().split("(").last.split(")").first} AM"
+                                      : "${timeSlotPickerController.selectTime.value.toString().split("(").last.split(")").first} PM";
+                                    print(";;;;;;${time}");
+
+                                  if (selectedTime != null) {
+                                    print("$selectedTime ...............");
+                                    // Iterate through filtered schedules
+                                    for (var schedule in filteredSchedules) {
+                                      if (schedule.intervals
+                                          .containsKey(time)) {
+                                        schedule.intervals[time] = false;
+                                        print(
+                                            ">>>>>>>>>>>${schedule.intervals.values}");
+                                        print("%%%%%%%%%%%true");
+                                        await FirebaseFirestore.instance
+                                            .collection("approveddoctors")
+                                            .doc(dcCntrl.currentdoc.id)
+                                            .collection("shedules")
+                                            .doc(dateController
+                                                .selectedDate.value
+                                                .toString()
+                                                .split(" ")
+                                                .first)
+                                            .update({
+                                          'intervals': schedule.intervals
+                                        });
+                                      } else {
+                                        print("547");
+                                      }
+                                    }
+
+                                    Get.to(const PaymentScreen());
+                                  } else {}
                                 },
                                 child: const Text(
                                   "Next",
                                   style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600),
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
                             ),
@@ -147,6 +168,62 @@ class TimeSelectWidget extends StatelessWidget {
         );
       }),
     );
+  }
+
+  List<Widget> _buildTimeSlots(List<Schedule> schedules, String period) {
+    List<Widget> widgets = [];
+    for (var schedule in schedules) {
+      for (var entry in schedule.intervals.entries) {
+        final isAvailable = entry.value;
+        final selectedTime = _parseTimeOfDay(entry.key);
+        if (_getTimePeriod(selectedTime) == period) {
+          widgets.add(
+            GestureDetector(
+              onTap: isAvailable
+                  ? () {
+                      timeSlotPickerController.updateSelectTime(selectedTime);
+                    }
+                  : null,
+              child: Obx(() {
+                final isSelected =
+                    timeSlotPickerController.isSelected(selectedTime);
+                return Container(
+                  padding: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? Colors.green
+                        : isAvailable
+                            ? Colors.white
+                            : const Color.fromARGB(255, 71, 71, 71),
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(color: Colors.black),
+                  ),
+                  child: Text(
+                    entry.key.toString().split('-').first,
+                    style: TextStyle(
+                      color: isAvailable ? Colors.black : Colors.white,
+                    ),
+                  ),
+                );
+              }),
+            ),
+          );
+        }
+      }
+    }
+    return widgets;
+  }
+
+  String _getTimePeriod(TimeOfDay time) {
+    if (time.hour >= 6 && time.hour < 12) {
+      return 'Morning';
+    } else if (time.hour >= 12 && time.hour < 17) {
+      return 'Afternoon';
+    } else if (time.hour >= 17 && time.hour < 21) {
+      return 'Evening';
+    } else {
+      return 'Night';
+    }
   }
 
   TimeOfDay _parseTimeOfDay(String time) {

@@ -15,7 +15,10 @@ class AppointmentController extends GetxController {
   final TimeSlotPickerController timeController =
       Get.put(TimeSlotPickerController());
 
-      var image;
+     
+
+  // ignore: prefer_typing_uninitialized_variables
+  var image;
 
   Future<void> storeAppointmentDetails() async {
     try {
@@ -27,7 +30,7 @@ class AppointmentController extends GetxController {
           .collection('appointments')
           .doc(documentId)
           .set({
-        'image':image,
+        'image': image,
         'appoimnet_id': documentId,
         'patient_name': nameController.text,
         'contact_number': contactController.text,
@@ -46,6 +49,19 @@ class AppointmentController extends GetxController {
       Get.snackbar('Error', 'Failed to save appointment details',
           snackPosition: SnackPosition.BOTTOM);
     }
+  }
+
+  disabletime() async {
+    try {
+      await FirebaseFirestore.instance
+          .collection("approveddoctors")
+          .doc(doctorController.currentdoc.id)
+          .collection("shedules")
+          .doc(dateController.selectedDate.value.toString().split(" ").first)
+          .update({
+           // 'intervals':
+          });
+    } catch (e) {}
   }
 
   Future<void> deleteAppointmentDetails(String documentId) async {

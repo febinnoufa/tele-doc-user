@@ -5,7 +5,7 @@ class Schedule {
   final String startTime;
   final String endTime;
   final String docId;
-  final Map<String, bool> intervals;
+  Map<String, bool> intervals;
   final DateTime createdAt;
 
   Schedule({
