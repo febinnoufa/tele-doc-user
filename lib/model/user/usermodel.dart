@@ -6,6 +6,7 @@ class UserModel {
   String? lastdname;
   String? email;
   String? password;
+  String? profile;
   int? phonenumber;
   String? place;
   int? age;
@@ -18,6 +19,7 @@ class UserModel {
       this.email,
       this.password,
       this.phonenumber,
+      this.profile,
       this.place,
       this.age,
       this.address});
@@ -29,6 +31,7 @@ class UserModel {
         lastdname: map["lastdname"],
         email: map["email"],
         password: map["password"],
+        profile: map['profile'],
         phonenumber: map["phonenumber"],
         place: map["place"],
         age: map["age"],
@@ -42,6 +45,7 @@ class UserModel {
       "lastdname": lastdname,
       "email": email,
       "password": password,
+      'profile':profile,
       "phonenumber": phonenumber,
       "place": place,
       "age": age,

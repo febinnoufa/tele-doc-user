@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/controllers/auth/controller.dart';
@@ -15,6 +17,25 @@ class DetailsFormWidget extends StatelessWidget {
       key: _formKey,
       child: Column(
         children: [
+         InkWell(
+                    onTap: () {
+                      controller
+                          .getImage(controller.imageTemporary);
+                    },
+                    child: Obx(
+                      () => CircleAvatar(
+                        radius: 65,
+                        backgroundColor: Colors.black,
+                        backgroundImage: controller
+                                .imageTemporary.value.isNotEmpty
+                            ? FileImage(File(
+                                controller.imageTemporary.value))
+                            : const AssetImage('assets/profile.png')
+                                as ImageProvider,
+                      ),
+                    ),
+                  ),
+          SizedBox(height: 40,),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
             child: Material(
@@ -128,7 +149,7 @@ class DetailsFormWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 100,
+            height: 40,
           ),
           Obx(
             () => SizedBox(
@@ -136,7 +157,28 @@ class DetailsFormWidget extends StatelessWidget {
               child: SizedBox(
                 width: 150.0,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: ()async {
+        if (controller
+                              .imageTemporary.value.isNotEmpty) {
+                            File imageFile = File(
+                                controller.imageTemporary.value);
+                            String? imageUrl = await controller
+                                .uploadImage(imageFile);
+
+                            if (imageUrl != null) {
+                              controller.downloadUrl.value =
+                                  imageUrl;
+                              print('Image uploaded successfully: $imageUrl');
+                            } else {
+                              print('Failed to upload image');
+                              // Handle the error case here if needed
+                            }
+                          } else {
+                            print('No image selected');
+                            // Handle the case where no image is selected
+                          }
+
+
                     if (_formKey.currentState?.validate() ?? false) {
                       controller.adduser();
                       controller.firstnamecontroller.clear();

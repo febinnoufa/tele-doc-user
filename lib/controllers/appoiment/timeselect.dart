@@ -21,7 +21,7 @@ class TimeselectController extends GetxController {
           .get();
 
       schedules = snapshot.docs.map((doc) => Schedule.fromFirestore(doc)).toList();
-      update(); // Ensure the controller updates after fetching data
+      update();
     }
   }
 }

@@ -5,6 +5,7 @@ class Schedule {
   final String startTime;
   final String endTime;
   final String docId;
+  final Map<String, bool> intervals;
   final DateTime createdAt;
 
   Schedule({
@@ -12,6 +13,7 @@ class Schedule {
     required this.startTime,
     required this.endTime,
     required this.docId,
+    required this.intervals,
     required this.createdAt,
   });
 
@@ -22,6 +24,7 @@ class Schedule {
       startTime: data['startTime'] ?? '',
       endTime: data['endTime'] ?? '',
       docId: data['docId'] ?? '',
+      intervals: Map<String, bool>.from(data['intervals']),
       createdAt: (data['createdAt'] as Timestamp).toDate(),
     );
   }

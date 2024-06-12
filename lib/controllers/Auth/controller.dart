@@ -1,13 +1,20 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:exception_helper/exception_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teledocuser/views/screens/login/login_screen.dart';
 import 'package:teledocuser/model/user/usermodel.dart';
 import 'package:teledocuser/views/screens/signup/details_screen.dart';
 import 'package:teledocuser/views/widgets/BottomNav/bottomnav_swidget..dart';
+import 'package:path/path.dart';
+
 
 class Authcontroller extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -26,6 +33,8 @@ class Authcontroller extends GetxController {
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final googleauth = FirebaseAuth.instance;
   var loading = false.obs;
+  var imageTemporary = "".obs;
+    var downloadUrl = "".obs;
   Rx<UserModel?> currentUser = Rx<UserModel?>(null);
 
   @override
@@ -45,6 +54,29 @@ class Authcontroller extends GetxController {
       }
     } catch (e) {
       print('Error fetching user data: $e');
+    }
+  }
+
+    Future<void> getImage(image) async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedImage == null) return;
+    image.value = pickedImage.path;
+  }
+    Future<String?> uploadImage(File image) async {
+    try {
+      loading.value = true;
+      String fileName = basename(image.path);
+      Reference firebaseStorageRef =
+          FirebaseStorage.instance.ref().child('uploads/$fileName');
+      UploadTask uploadTask = firebaseStorageRef.putFile(image);
+      TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => {});
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      loading.value = false;
+
+      return downloadUrl;
+    } catch (e) {
+      return null;
     }
   }
 
@@ -89,6 +121,7 @@ class Authcontroller extends GetxController {
         lastdname: lastnamecontroller.text,
         email: auth.currentUser?.email,
         place: placecontroller.text,
+        profile: downloadUrl.value,
         address: addresscontroller.text,
         age: int.parse(agecontroller.text),
         phonenumber: int.parse(phonecontroller.text),
@@ -106,18 +139,47 @@ class Authcontroller extends GetxController {
     await _setLoginStatus(false);
   }
 
+  // singin() async {
+  //   try {
+
+  //     loading.value = true;
+  //     await auth.signInWithEmailAndPassword(
+  //         email: loginemailcontroller.text,
+  //         password: loginpasswordcontroller.text);
+  //     await _setLoginStatus(true);
+
+  //     loading.value = false;
+  //     Get.to(const BotomNavigationBar());
+  //   } catch (e) {
+  //     Get.snackbar("error", "$e");
+  //     loading.value = false;
+  //   }
+  // }
   singin() async {
     try {
-      loading.value = true;
-      await auth.signInWithEmailAndPassword(
-          email: loginemailcontroller.text,
-          password: loginpasswordcontroller.text);
-      await _setLoginStatus(true);
+      await ExceptionHandler.handleExceptions(
+        action: () async {
+          loading.value = true;
+          await auth.signInWithEmailAndPassword(
+              email: loginemailcontroller.text,
+              password: loginpasswordcontroller.text);
+          await _setLoginStatus(true);
 
-      loading.value = false;
-      Get.to(const BotomNavigationBar());
+          loading.value = false;
+          Get.to(const BotomNavigationBar());
+        },
+      );
+      // loading.value = true;
+      // await auth.signInWithEmailAndPassword(
+      //     email: loginemailcontroller.text,
+      //     password: loginpasswordcontroller.text);
+      // await _setLoginStatus(true);
+
+      // loading.value = false;
+      // Get.to(const BotomNavigationBar());
     } catch (e) {
       Get.snackbar("error", "$e");
+      print("$e ................................");
       loading.value = false;
     }
   }
@@ -129,11 +191,15 @@ class Authcontroller extends GetxController {
 
   resetpassword() async {
     try {
-      loading.value = true;
-      await auth.sendPasswordResetEmail(email: resetemailcontroller.text);
-      Get.snackbar("email", "send successfully");
-      Get.to(LoginScreen());
-      loading.value = false;
+      await ExceptionHandler.handleExceptions(
+        action: () async {
+          loading.value = true;
+          await auth.sendPasswordResetEmail(email: resetemailcontroller.text);
+          Get.snackbar("email", "send successfully");
+          Get.to(LoginScreen());
+          loading.value = false;
+        },
+      );
     } catch (e) {
       Get.snackbar("error", "$e");
       loading.value = false;

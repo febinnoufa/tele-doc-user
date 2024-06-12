@@ -20,7 +20,7 @@ class SingUpDetailScreen extends StatelessWidget {
       body: ListView(
         children: [
           const SizedBox(
-            height: 40,
+            height: 20,
           ),
           const Center(
               child: Text(

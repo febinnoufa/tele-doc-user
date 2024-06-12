@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:teledocuser/controllers/appoiment/appoimnet_controller.dart';
 import 'package:teledocuser/views/screens/login/login_screen.dart';
 import 'package:teledocuser/views/widgets/profile/show_all_details.dart';
 import 'package:teledocuser/views/widgets/profile/show_details_widgets.dart';
 import 'package:teledocuser/controllers/auth/controller.dart';
-
 
 class ProfileScreenUser extends StatefulWidget {
   const ProfileScreenUser({super.key});
@@ -15,6 +15,8 @@ class ProfileScreenUser extends StatefulWidget {
 
 class _ProfileScreenUserState extends State<ProfileScreenUser> {
   final Authcontroller authController = Get.find<Authcontroller>();
+  final AppointmentController appointmentController =
+      Get.put(AppointmentController());
 
   @override
   void initState() {
@@ -33,6 +35,8 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
   @override
   Widget build(BuildContext context) {
     final user = authController.currentUser.value;
+    appointmentController.image = user!.profile;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -67,12 +71,12 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
         ),
         body: Column(
           children: [
-            ShowUserDatasPhoto(),
+            ShowUserDatasPhoto(image: user.profile),
             user != null
                 ? ShowAllDetailsUserWidget(
                     user: user,
                   )
-                : const CircularProgressIndicator(), // Show loading indicator while data is being fetched
+                : const CircularProgressIndicator(),
           ],
         ),
       ),
@@ -82,7 +86,7 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
   Future<void> _showAlertDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button to close dialog
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('LogOut'),

@@ -67,7 +67,7 @@ class _UpcomingAppointmentsState extends State<UpcomingAppointments> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return Center(child: Text('Error:............... ${snapshot.error}'));
+          return Center(child: Text('Error: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(child: Text('No appointments found.'));
         } else {
@@ -85,10 +85,8 @@ class _UpcomingAppointmentsState extends State<UpcomingAppointments> {
                       ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (doctorSnapshot.hasError) {
-                    print("....................${doctorSnapshot.error}");
                     return Center(
-                        child:
-                            Text('Error: !!!!!!!!!!!!${doctorSnapshot.error}'));
+                        child: Text('Error: ${doctorSnapshot.error}'));
                   } else if (!doctorSnapshot.hasData ||
                       !doctorSnapshot.data!.exists) {
                     return const Center(
@@ -106,7 +104,6 @@ class _UpcomingAppointmentsState extends State<UpcomingAppointments> {
                       padding:
                           const EdgeInsets.only(left: 20, right: 20, top: 20),
                       child: AppointmentCard(
-                        
                         doctorName: doctorName,
                         specialty: specialty,
                         appointment: appointment,
@@ -129,14 +126,12 @@ class AppointmentCard extends StatefulWidget {
   final String specialty;
   final Map<String, dynamic> appointment;
   final DateTime appointmentDateTime;
- 
 
   const AppointmentCard({
     required this.doctorName,
     required this.specialty,
     required this.appointment,
     required this.appointmentDateTime,
-  
     Key? key,
   }) : super(key: key);
 
@@ -147,8 +142,9 @@ class AppointmentCard extends StatefulWidget {
 class _AppointmentCardState extends State<AppointmentCard> {
   late Timer _timer;
   late Duration _timeRemaining;
- 
-  final AppointmentController cntr=Get.put(AppointmentController());
+
+  final AppointmentController cntr = Get.put(AppointmentController());
+
   @override
   void initState() {
     super.initState();
@@ -290,8 +286,8 @@ class _AppointmentCardState extends State<AppointmentCard> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    cntr.deleteAppointmentDetails(widget.appointment['appoimnet_id']);
-                    // Add your onPressed function here
+                    cntr.deleteAppointmentDetails(
+                        widget.appointment['appoimnet_id'] ?? '');
                   },
                   style: ButtonStyle(
                     backgroundColor:

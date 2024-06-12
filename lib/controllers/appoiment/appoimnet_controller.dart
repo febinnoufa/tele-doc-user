@@ -15,17 +15,20 @@ class AppointmentController extends GetxController {
   final TimeSlotPickerController timeController =
       Get.put(TimeSlotPickerController());
 
+      var image;
 
-
-
-      
-// storte
   Future<void> storeAppointmentDetails() async {
     try {
-      final docmentId = DateTime.now().toString();
+      final documentId = DateTime.now().toString();
+      String formattedTime =
+          "${timeController.selectTime.value!.hour.toString().padLeft(2, '0')}:${timeController.selectTime.value!.minute.toString().padLeft(2, '0')}";
 
-      FirebaseFirestore.instance.collection('appointments').doc(docmentId).set({
-        'appoimnet_id': docmentId,
+      FirebaseFirestore.instance
+          .collection('appointments')
+          .doc(documentId)
+          .set({
+        'image':image,
+        'appoimnet_id': documentId,
         'patient_name': nameController.text,
         'contact_number': contactController.text,
         'reason_for_appointment': reasonController.text,
@@ -33,8 +36,8 @@ class AppointmentController extends GetxController {
         'docter': doctorController.currentdoc.id,
         'created_at': FieldValue.serverTimestamp(),
         'date': dateController.selectedDate.value.toString().split(" ").first,
-        'time':
-            "${timeController.selectTime.value!.hour}:${timeController.selectTime.value!.minute.toString().padLeft(2, '0')}"
+        'time': formattedTime
+        // "${timeController.selectTime.value!.hour}:${timeController.selectTime.value!.minute.toString().padLeft(2, '0')}"
       });
 
       Get.snackbar('Success', 'Appointment details saved successfully',
@@ -45,9 +48,6 @@ class AppointmentController extends GetxController {
     }
   }
 
-
-
-// Delete
   Future<void> deleteAppointmentDetails(String documentId) async {
     try {
       await FirebaseFirestore.instance
