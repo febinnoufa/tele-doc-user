@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TimeSlotPickerController extends GetxController {
-  Rx<DateTime?> selectTime = Rx<DateTime?>(null);
+  Rx<TimeOfDay?> selectTime = Rx<TimeOfDay?>(null);
 
-  void updateSelectTime(DateTime? value) {
+  void updateSelectTime(TimeOfDay? value) {
     selectTime.value = value;
-    print("????????????????????${selectTime.value}");
+    print("Selected Time: ${selectTime.value}");
   }
 }

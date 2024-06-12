@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:teledocuser/const/const.dart';
 import 'package:teledocuser/controllers/appoiment/appoimnet_controller.dart';
-
 import 'package:teledocuser/controllers/appoiment/timeselect.dart';
+
 import 'package:teledocuser/controllers/doctor/doctor_controller.dart';
 import 'package:teledocuser/controllers/time/datecontroller.dart';
 import 'package:teledocuser/controllers/time/time_controller.dart';
 import 'package:teledocuser/model/schedules/shedul.dart';
 import 'package:teledocuser/views/screens/payment/payment.dart';
-import 'package:time_slot/model/time_slot_Interval.dart';
-import 'package:time_slot/time_slot_from_interval.dart';
 
 class TimeSelectWidget extends StatelessWidget {
   TimeSelectWidget({Key? key}) : super(key: key);
@@ -36,47 +33,63 @@ class TimeSelectWidget extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
             } else {
-              if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else {
-                List<Schedule> filteredSchedules = timecontroller.schedules
-                    .where((schedule) => schedule.date == selectedDate)
-                    .toList();
+              List<Schedule> filteredSchedules = timecontroller.schedules
+                  .where((schedule) => schedule.date == selectedDate)
+                  .toList();
 
-                return filteredSchedules.isEmpty
-                    ? const Center(
-                        child: Column(
+              return filteredSchedules.isEmpty
+                  ? const Center(
+                      child: Column(
+                      children: [
+                        SizedBox(
+                          height: 150,
+                        ),
+                        Text('No schedules available for the selected date'),
+                      ],
+                    ))
+                  : SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          SizedBox(
-                            height: 150,
-                          ),
-                          Text('No schedules available for the selected date'),
-                        ],
-                      ))
-                    : Column(
-                        children: [
-                          GetX<TimeSlotPickerController>(
-                            builder: (controller) =>
-                                TimesSlotGridViewFromInterval(
-                              initTime:
-                                  timeSlotPickerController.selectTime.value ??
-                                      DateTime.now(),
-                              crossAxisCount: 4,
-                              onChange: (value) {
-                                timeSlotPickerController
-                                    .updateSelectTime(value);
-                              },
-                              timeSlotInterval: TimeSlotInterval(
-                                start: _parseTimeOfDay(
-                                    filteredSchedules[0].startTime),
-                                end: _parseTimeOfDay(
-                                    filteredSchedules[0].endTime),
-                                interval: const Duration(minutes: 30),
-                              ),
-                              selectedColor: Colors
-                                  .green, // Specify the color for selected time
-                            ),
+                          Wrap(
+                            spacing: 8.0,
+                            runSpacing: 8.0,
+                            children: filteredSchedules.expand((schedule) {
+                              return schedule.intervals.entries.map((entry) {
+                                final isAvailable = entry.value;
+                                final isSelected = timeSlotPickerController.selectTime.value == _parseTimeOfDay(entry.key.split(" - ").first);
+                                return GestureDetector(
+  onTap: isAvailable
+    ? () {
+        final selectedTime = _parseTimeOfDay(entry.key.split(" - ").first);
+        timeSlotPickerController.updateSelectTime(selectedTime);
+      }
+    : null,
+  child: Container(
+    padding: const EdgeInsets.all(8.0),
+    decoration: BoxDecoration(
+      color: isSelected
+          ? Colors.green
+          : isAvailable
+              ? Colors.white
+              : Colors.grey,
+      borderRadius: BorderRadius.circular(8.0),
+      border: Border.all(color: Colors.black),
+    ),
+    child: Text(
+      entry.key.toString().split('-').first,
+      style: TextStyle(
+        color: isAvailable ? Colors.black : Colors.white,
+      ),
+    ),
+  ),
+);
+
+                              }).toList();
+                            }).toList(),
                           ),
                           const SizedBox(height: 20),
                           Obx(() {
@@ -84,12 +97,13 @@ class TimeSelectWidget extends StatelessWidget {
                                 timeSlotPickerController.selectTime.value;
                             return Column(
                               children: [
-                              const  SizedBox(height: 20,),
-                                Text(selectedDate,
-                                    style: const TextStyle(
+                                const SizedBox(height: 20),
+                                Text(
+                                  selectedDate,
+                                  style: const TextStyle(
                                       fontSize: 16, fontWeight: FontWeight.bold),
                                 ),
-                               const SizedBox(height: 10,),
+                                const SizedBox(height: 10),
                                 Text(
                                   selectedTime != null
                                       ? 'Selected Time: ${selectedTime.hour}:${selectedTime.minute.toString().padLeft(2, '0')} '
@@ -114,10 +128,6 @@ class TimeSelectWidget extends StatelessWidget {
                               ),
                               child: TextButton(
                                 onPressed: () async {
-                                  // await controller.storeAppointmentDetails();
-                                  // controller.contactController.clear();
-                                  // controller.nameController.clear();
-                                  // controller.reasonController.clear();
                                   Get.to(const PaymentScreen());
                                 },
                                 child: const Text(
@@ -130,8 +140,8 @@ class TimeSelectWidget extends StatelessWidget {
                             ),
                           )
                         ],
-                      );
-              }
+                      ),
+                    );
             }
           },
         );
