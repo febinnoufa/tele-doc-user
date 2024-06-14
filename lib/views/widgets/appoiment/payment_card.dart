@@ -22,24 +22,16 @@ class PaymentAndDeatilsCardWidget extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius:
-                    BorderRadius.circular(10.0), // Adjust radius as needed
+                    BorderRadius.circular(10.0), 
                 child: Image.network(
                   cntr.currentdoc.profile,
                   height: 70.0,
                   width: 70.0,
-                  fit: BoxFit.cover, // Maintain aspect ratio
+                  fit: BoxFit.cover, 
                 ),
               ),
 
-              // ClipRRect(
-              //   borderRadius: BorderRadius.circular(35.0),
-              //   child: Image.network(
-              //     cntr.currentdoc.profile,
-              //     height: 70,
-              //     width: 70,
-              //     fit: BoxFit.cover,
-              //   ),
-              // ),
+              
               const SizedBox(width: 16.0),
               Expanded(
                 child: Column(

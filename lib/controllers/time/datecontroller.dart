@@ -1,4 +1,4 @@
-// DateController
+
 import 'package:get/get.dart';
 import 'package:teledocuser/controllers/appoiment/timeselect.dart';
 
@@ -8,6 +8,6 @@ class DateController extends GetxController {
 
   void setSelectedDate(DateTime date) {
     selectedDate.value = date;
-    timecontroller.fetchUserSchedules(); // Ensure schedules are fetched when date changes
+    timecontroller.fetchUserSchedules(); 
   }
 }

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:teledocuser/controllers/appoiment/timeselect.dart';
 import 'package:teledocuser/controllers/time/datecontroller.dart';
 import 'package:teledocuser/controllers/time/time_controller.dart';
-import 'package:teledocuser/views/screens/appoiment/time_select_screen.dart';
+
 
 class CalendarWidget extends StatelessWidget {
   CalendarWidget({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class CalendarWidget extends StatelessWidget {
           timeSlotPickerController.selectTime.value = null;
     
 
-          print('Selected date: $date');
+         // print('Selected date: $date');
         },
       ),
     );

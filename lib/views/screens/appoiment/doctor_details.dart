@@ -22,7 +22,7 @@ class DoctorDetailsScreen extends StatelessWidget {
    crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DoctorImage(image: doctor.profile,),
-          SizedBox(height: 20,),
+         const SizedBox(height: 20,),
           Expanded(child: DetailsDoctorWidget(doctor: doctor,))
         ],
       ),

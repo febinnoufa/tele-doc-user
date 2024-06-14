@@ -41,16 +41,5 @@ class DoctorScheduleScreen extends StatelessWidget {
     );
   }
 
-  // TimeOfDay _parseTimeOfDay(String time) {
-  //   final parts = time.split(':');
-  //   var hour = int.parse(parts[0]);
-  //   final minute = int.parse(parts[1].split(' ')[0]); // Extract minutes
-  //   final isPM = parts[1].contains('PM'); // Check if PM
-  //   // Adjust hour for PM
-  //   if (isPM && hour < 12) {
-  //     hour += 12;
-  //   }
-  //   return TimeOfDay(
-  //       hour: hour % 24, minute: minute); // Modulus to handle 12 PM
-  // }
+
 }

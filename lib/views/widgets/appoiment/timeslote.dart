@@ -122,16 +122,17 @@ class TimeSelectWidget extends StatelessWidget {
 
                                     
 
+                                  // ignore: unnecessary_null_comparison
                                   if (selectedTime != null) {
-                                    print("$selectedTime ...............");
+                                  //  print("$selectedTime ...............");
                                     // Iterate through filtered schedules
                                     for (var schedule in filteredSchedules) {
                                       if (schedule.intervals
                                           .containsKey(time)) {
                                         schedule.intervals[time] = false;
-                                        print(
-                                            ">>>>>>>>>>>${schedule.intervals.values}");
-                                        print("%%%%%%%%%%%true");
+                                      //  print(
+                                        //    ">>>>>>>>>>>${schedule.intervals.values}");
+                                     //   print("%%%%%%%%%%%true");
                                         await FirebaseFirestore.instance
                                             .collection("approveddoctors")
                                             .doc(dcCntrl.currentdoc.id)
@@ -145,7 +146,7 @@ class TimeSelectWidget extends StatelessWidget {
                                           'intervals': schedule.intervals
                                         });
                                       } else {
-                                        print("547");
+                                     //   print("547");
                                       }
                                     }
 

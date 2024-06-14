@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       initialBinding: BindingsBuilder(() {
         Get.put(Authcontroller());
-         Get.put(PaymentController());
-         Get.put(AppointmentController());
+        Get.put(PaymentController());
+        Get.put(AppointmentController());
       }),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

@@ -72,6 +72,7 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
         body: Column(
           children: [
             ShowUserDatasPhoto(image: user.profile),
+            // ignore: unnecessary_null_comparison
             user != null
                 ? ShowAllDetailsUserWidget(
                     user: user,

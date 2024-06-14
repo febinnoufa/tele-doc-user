@@ -38,7 +38,7 @@ class AppointmentController extends GetxController {
         'created_at': FieldValue.serverTimestamp(),
         'date': dateController.selectedDate.value.toString().split(" ").first,
         'time': formattedTime
-        // "${timeController.selectTime.value!.hour}:${timeController.selectTime.value!.minute.toString().padLeft(2, '0')}"
+       
       });
 
       Get.snackbar('Success', 'Appointment details saved successfully',
@@ -59,6 +59,7 @@ class AppointmentController extends GetxController {
           .update({
         // 'intervals':
       });
+    // ignore: empty_catches
     } catch (e) {}
   }
 
