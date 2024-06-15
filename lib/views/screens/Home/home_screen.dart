@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:teledocuser/views/screens/chating/home_chat.dart';
 import 'package:teledocuser/views/widgets/home/avalbe_doc_widget.dart';
 import 'package:teledocuser/views/widgets/home/carousal_widget.dart';
 import 'package:teledocuser/views/widgets/home/catigarywidget.dart';
@@ -26,7 +28,9 @@ class HomeScreen extends StatelessWidget {
                 color: Colors.black,
               )),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(const ChatingHomeScreen());
+              },
               icon: const Icon(
                 Icons.message,
                 color: Colors.black,

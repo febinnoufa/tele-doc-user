@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:teledocuser/controllers/catogary.dart/catogary_controller.dart';
 import 'package:teledocuser/controllers/doctor/doctor_controller.dart';
 import 'package:teledocuser/model/doctor/doctor_model.dart';
+import 'package:teledocuser/views/screens/appoiment/doctor_details.dart';
 
 class ListCatecaryViseWidget extends StatelessWidget {
   ListCatecaryViseWidget({super.key});
@@ -10,7 +11,7 @@ class ListCatecaryViseWidget extends StatelessWidget {
   final DoctorController doctorController = Get.put(DoctorController());
   final CategariController cntr = Get.put(CategariController());
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<DoctorModel>>(
       stream: doctorController.doctorStream,
@@ -22,14 +23,18 @@ class ListCatecaryViseWidget extends StatelessWidget {
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(child: Text('No doctors found'));
         } else {
-          final doctors = snapshot.data!.where((doctor) => doctor.specialist == cntr.data?.name).toList();
+          final doctors = snapshot.data!
+              .where((doctor) => doctor.specialist == cntr.data?.name)
+              .toList();
 
           if (doctors.isEmpty) {
-            return  const Column(
+            return const Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-             // mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 300,),
+                SizedBox(
+                  height: 300,
+                ),
                 Text('No doctors found for this category'),
               ],
             );
@@ -44,11 +49,12 @@ class ListCatecaryViseWidget extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     doctorController.currentdoc = doctor;
-                    // Navigate to doctor details screen
-                    // Get.to(DoctorDetailsScreen(doctor: doctor));
+
+                    Get.to(DoctorDetailsScreen(doctor: doctor));
                   },
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, top: 15),
                     child: doctorCard(doctor),
                   ),
                 );
@@ -59,6 +65,7 @@ class ListCatecaryViseWidget extends StatelessWidget {
       },
     );
   }
+
   Widget doctorCard(DoctorModel doctor) {
     return Stack(
       children: [

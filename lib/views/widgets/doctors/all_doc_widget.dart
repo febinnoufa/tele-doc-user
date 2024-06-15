@@ -4,48 +4,49 @@ import 'package:teledocuser/controllers/doctor/doctor_controller.dart';
 import 'package:teledocuser/model/doctor/doctor_model.dart';
 
 class AllDoctorsWidget extends StatelessWidget {
-   AllDoctorsWidget({super.key});
+  AllDoctorsWidget({super.key});
 
-   final DoctorController doctorController = Get.put(DoctorController());
-
+  final DoctorController doctorController = Get.put(DoctorController());
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<DoctorModel>>(
       stream: doctorController.doctorStream,
-       builder: (context, snapshot) {
-           if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Center(child: Text('No doctors found'));
-              }else{
-                final doctors = snapshot.data!;
-                 return Expanded(
-                   child: ListView.builder(
-                     itemCount: doctors.length,
-                    // scrollDirection: Axis.horizontal,
-                     itemBuilder: (context, index) {
-                       final doctor = doctors[index];
-                       return InkWell(
-                         onTap: () {
-                           doctorController.currentdoc = doctor;
-                 
-                           // //Get.to(DoctorDetailsScreen(
-                           //   doctor: doctor,
-                           // ));
-                         },
-                         child: Padding(
-                           padding: const EdgeInsets.only(left: 20, right:20,top: 15),
-                          child: doctorCard(doctor),
-                         ),
-                       );
-                     },
-                   ),
-                 );
-              }
-       },);
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text('No doctors found'));
+        } else {
+          final doctors = snapshot.data!;
+          return Expanded(
+            child: ListView.builder(
+              itemCount: doctors.length,
+              // scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                final doctor = doctors[index];
+                return InkWell(
+                  onTap: () {
+                    doctorController.currentdoc = doctor;
+
+                    // //Get.to(DoctorDetailsScreen(
+                    //   doctor: doctor,
+                    // ));
+                  },
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, top: 15),
+                    child: doctorCard(doctor),
+                  ),
+                );
+              },
+            ),
+          );
+        }
+      },
+    );
   }
 
   Widget doctorCard(DoctorModel doctor) {
