@@ -7,7 +7,57 @@ class ChatingController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
-//// send message
+  var hasUnreadMessageMap = <String, bool>{}.obs;
+  var lastMessages =
+      <String, Message?>{}; // Map to store last message for each doctor
+
+  Stream<Message?> getLastMessage(String userId, String otherUserId) {
+    List<String> ids = [userId, otherUserId];
+    ids.sort();
+    String chatRoomId = ids.join("_");
+
+    return _fireStore
+        .collection("chat_rooms")
+        .doc(chatRoomId)
+        .collection("messages")
+        .orderBy("timestamp", descending: true)
+        .limit(1)
+        .snapshots()
+        .map((querySnapshot) {
+      if (querySnapshot.docs.isNotEmpty) {
+        Message message = Message.fromMap(querySnapshot.docs.first.data());
+
+        // Update last message for the doctor
+        lastMessages[otherUserId] = message;
+
+        // Set unread status based on your logic
+        hasUnreadMessageMap[otherUserId] =
+            true; // Example: always show as unread for demo
+        return message;
+      } else {
+        return null;
+      }
+    });
+  }
+
+  void markAsRead(String doctorId) {
+    if (hasUnreadMessageMap.containsKey(doctorId)) {
+      hasUnreadMessageMap[doctorId] = false;
+    }
+  }
+
+  // Map to track which chat screens are opened for each doctor
+  final Map<String, bool> isChatOpened = {};
+
+  // Function to mark a chat screen as opened
+  void markChatOpened(String doctorId) {
+    isChatOpened[doctorId] = true;
+  }
+
+  // Function to mark a chat screen as closed
+  void markChatClosed(String doctorId) {
+    isChatOpened[doctorId] = false;
+  }
 
   Future<void> sendMessage(String receiverId, String message) async {
     final currentUserId = _auth.currentUser!.uid;
@@ -31,8 +81,6 @@ class ChatingController extends GetxController {
         .collection("messages")
         .add(newMessage.toMap());
   }
-
-//// Get message
 
   Stream<QuerySnapshot> getMessages(String userId, String otherUserId) {
     List<String> ids = [userId, otherUserId];

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:teledocuser/const/const.dart';
 import 'package:teledocuser/controllers/chating/chating_controller.dart';
 import 'package:teledocuser/model/doctor/doctor_model.dart';
 
@@ -17,6 +18,24 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messagecontroller = TextEditingController();
   final ChatingController chatingcontroller = Get.put(ChatingController());
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToBottom();
+    });
+
+    // Mark messages as read when the chat screen is opened
+    chatingcontroller.markAsRead(widget.receiverDoctor.id);
+  }
+
+  void _scrollToBottom() {
+    if (_scrollController.hasClients) {
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    }
+  }
 
   void sendMessage() async {
     if (_messagecontroller.text.isNotEmpty) {
@@ -24,6 +43,7 @@ class _ChatScreenState extends State<ChatScreen> {
           widget.receiverDoctor.id, _messagecontroller.text);
 
       _messagecontroller.clear();
+      _scrollToBottom();
     }
   }
 
@@ -32,16 +52,20 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 202, 198, 198),
       appBar: AppBar(
-       
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         title: Text("Dr ${widget.receiverDoctor.name}"),
         centerTitle: true,
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.video_call))
+        ],
       ),
       body: Column(
         children: [
-          SizedBox(height: 10,),
+          const SizedBox(
+            height: 10,
+          ),
           Expanded(child: _buildMessageList()),
           _buildMessageInput(),
         ],
@@ -60,7 +84,13 @@ class _ChatScreenState extends State<ChatScreen> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text("Loading....");
         }
+
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _scrollToBottom();
+        });
+
         return ListView(
+          controller: _scrollController,
           children: snapshot.data!.docs
               .map((docment) => _buildMessageItem(docment))
               .toList(),
@@ -84,12 +114,12 @@ class _ChatScreenState extends State<ChatScreen> {
             isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           if (!isCurrentUser)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 4.0),
-              child: Text(
-                data['senderEmail'],
-                style: const TextStyle(fontSize: 12, color: Colors.grey),
-              ),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 4.0),
+              // child: Text(
+              //   data['senderEmail'],
+              //   style: const TextStyle(fontSize: 12, color: Colors.grey),
+              // ),
             ),
           Container(
             constraints: BoxConstraints(
@@ -106,17 +136,25 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ],
             ),
-            child: Text(
-              data['message'],
-              style: const TextStyle(color: Colors.black),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 4.0),
-            child: Text(
-              _formatTimestamp(data['timestamp']),
-              style: const TextStyle(
-                  fontSize: 10, color: Color.fromARGB(255, 194, 85, 85)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 50),
+                  child: Text(
+                    data['message'],
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  _formatTimestamp(data['timestamp']),
+                  style: const TextStyle(
+                    color: Colors.black54,
+                    fontSize: 10.0,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -134,7 +172,7 @@ class _ChatScreenState extends State<ChatScreen> {
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.only(left: 15, bottom: 15, right: 15),
             child: TextFormField(
               controller: _messagecontroller,
               decoration: InputDecoration(
@@ -152,14 +190,20 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 20),
-          child: IconButton(
-              onPressed: sendMessage,
-              icon: const Icon(
-                Icons.send,
-                size: 30,
-                color: Colors.blue,
-              )),
+          padding: const EdgeInsets.only(right: 20, bottom: 20),
+          child: CircleAvatar(
+            radius: 25,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 5),
+              child: IconButton(
+                  onPressed: sendMessage,
+                  icon: Icon(
+                    Icons.send,
+                    size: 30,
+                    color: greenColor,
+                  )),
+            ),
+          ),
         )
       ],
     );

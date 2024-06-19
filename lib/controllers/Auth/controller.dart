@@ -119,13 +119,14 @@ class Authcontroller extends GetxController {
       UserModel user = UserModel(
         firstname: firstnamecontroller.text,
         lastdname: lastnamecontroller.text,
-        email: auth.currentUser?.email,
+        email: auth.currentUser!.email,
         place: placecontroller.text,
         profile: downloadUrl.value,
         address: addresscontroller.text,
         age: int.parse(agecontroller.text),
         phonenumber: int.parse(phonecontroller.text),
         password: passwordcontroller.text,
+        id: auth.currentUser!.uid,
       );
       await db.collection("users").doc(auth.currentUser?.uid).set(user.toMap());
       Get.to(() => const BotomNavigationBar());
