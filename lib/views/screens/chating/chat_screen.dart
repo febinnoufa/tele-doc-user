@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:teledocuser/const/const.dart';
 import 'package:teledocuser/controllers/chating/chating_controller.dart';
 import 'package:teledocuser/model/doctor/doctor_model.dart';
+import 'package:teledocuser/views/screens/videocall/video_call.dart';
 
 class ChatScreen extends StatefulWidget {
   final DoctorModel receiverDoctor;
@@ -19,6 +20,9 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messagecontroller = TextEditingController();
   final ChatingController chatingcontroller = Get.put(ChatingController());
   final ScrollController _scrollController = ScrollController();
+
+  String channel="fluttering";
+  String token="007eJxTYDiy8b7/NSbH+0+qM/ZMYp9YfbctQzDB9aznXPbG5vi2n38UGCxMjNJSEtMMLSwtTUxMDNMsTIxT05ItLJINjAyTUgwsHZuK0hoCGRmaEzMZGKEQxOdiSMspLSlJLcrMS2dgAABxECKa";
 
   @override
   void initState() {
@@ -58,7 +62,16 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Text("Dr ${widget.receiverDoctor.name}"),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.video_call))
+          IconButton(
+            onPressed: () {
+              Get.to(() => VideoCallScreen(
+                    channel: channel,
+                    token: token,
+                    receiverDoctorId: widget.receiverDoctor.id,
+                  ));
+            },
+            icon: const Icon(Icons.video_call),
+          )
         ],
       ),
       body: Column(
@@ -116,10 +129,6 @@ class _ChatScreenState extends State<ChatScreen> {
           if (!isCurrentUser)
             const Padding(
               padding: EdgeInsets.only(bottom: 4.0),
-              // child: Text(
-              //   data['senderEmail'],
-              //   style: const TextStyle(fontSize: 12, color: Colors.grey),
-              // ),
             ),
           Container(
             constraints: BoxConstraints(

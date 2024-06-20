@@ -33,7 +33,8 @@ class ChatingShowAllDoctors extends StatelessWidget {
                 return const Center(child: CircularProgressIndicator());
               } else if (filteredSnapshot.hasError) {
                 return Center(child: Text('Error: ${filteredSnapshot.error}'));
-              } else if (!filteredSnapshot.hasData || filteredSnapshot.data!.isEmpty) {
+              } else if (!filteredSnapshot.hasData ||
+                  filteredSnapshot.data!.isEmpty) {
                 return const Center(child: Text('No doctors found'));
               } else {
                 final filteredDoctors = filteredSnapshot.data!;
@@ -73,7 +74,8 @@ class ChatingShowAllDoctors extends StatelessWidget {
                             Get.to(() => ChatScreen(receiverDoctor: doctor))
                                 ?.then((_) {
                               // Mark message as read
-                              chatingController.hasUnreadMessageMap[doctor.id] = false;
+                              chatingController.hasUnreadMessageMap[doctor.id] =
+                                  false;
                               // Refresh the UI
                               chatingController.update();
                             });
@@ -89,17 +91,18 @@ class ChatingShowAllDoctors extends StatelessWidget {
             },
           );
         }
-
       },
     );
   }
 
-  Stream<List<DoctorModel>> _filterDoctorsWithChatHistory(List<DoctorModel> doctors) async* {
+  Stream<List<DoctorModel>> _filterDoctorsWithChatHistory(
+      List<DoctorModel> doctors) async* {
     List<DoctorModel> filteredDoctors = [];
 
     for (var doctor in doctors) {
-      final hasMessages = await chatingController.getMessages(
-          FirebaseAuth.instance.currentUser!.uid, doctor.id).first;
+      final hasMessages = await chatingController
+          .getMessages(FirebaseAuth.instance.currentUser!.uid, doctor.id)
+          .first;
       if (hasMessages.docs.isNotEmpty) {
         filteredDoctors.add(doctor);
       }
@@ -127,8 +130,9 @@ class ChatingShowAllDoctors extends StatelessWidget {
   Widget _buildLastMessageText(String doctorId) {
     if (chatingController.lastMessages.containsKey(doctorId)) {
       Message? lastMessage = chatingController.lastMessages[doctorId];
-      bool hasUnread = chatingController.hasUnreadMessageMap.containsKey(doctorId) &&
-          chatingController.hasUnreadMessageMap[doctorId]!;
+      bool hasUnread =
+          chatingController.hasUnreadMessageMap.containsKey(doctorId) &&
+              chatingController.hasUnreadMessageMap[doctorId]!;
       return Text(
         hasUnread ? "New message" : lastMessage!.message,
         style: TextStyle(
