@@ -15,7 +15,6 @@ import 'package:teledocuser/views/screens/signup/details_screen.dart';
 import 'package:teledocuser/views/widgets/BottomNav/bottomnav_swidget..dart';
 import 'package:path/path.dart';
 
-
 class Authcontroller extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -34,7 +33,7 @@ class Authcontroller extends GetxController {
   final googleauth = FirebaseAuth.instance;
   var loading = false.obs;
   var imageTemporary = "".obs;
-    var downloadUrl = "".obs;
+  var downloadUrl = "".obs;
   Rx<UserModel?> currentUser = Rx<UserModel?>(null);
 
   @override
@@ -57,13 +56,14 @@ class Authcontroller extends GetxController {
     }
   }
 
-    Future<void> getImage(image) async {
+  Future<void> getImage(image) async {
     final pickedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedImage == null) return;
     image.value = pickedImage.path;
   }
-    Future<String?> uploadImage(File image) async {
+
+  Future<String?> uploadImage(File image) async {
     try {
       loading.value = true;
       String fileName = basename(image.path);

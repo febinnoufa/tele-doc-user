@@ -4,7 +4,6 @@ import 'package:teledocuser/const/const.dart';
 import 'package:teledocuser/views/screens/myappoiment/myappoiment.dart';
 import 'package:teledocuser/views/screens/profile_Screen/profile_screen.dart';
 import 'package:teledocuser/views/screens/home/home_screen.dart';
-import 'package:teledocuser/views/widgets/bottomnav/bottom_sheet.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 class BotomNavigationBar extends StatefulWidget {
@@ -39,7 +38,7 @@ class _BotomNavigationBarState extends State<BotomNavigationBar> {
             controller: pageController,
             children: <Widget>[
               const HomeScreen(),
-              MyAppointmentScreen(),
+           
               Center(
                 child: Container(
                   alignment: Alignment.center,
@@ -50,6 +49,7 @@ class _BotomNavigationBarState extends State<BotomNavigationBar> {
                   ),
                 ),
               ),
+               const  MyAppointmentScreen(),
               const ProfileScreenUser(),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teledocuser/views/screens/myappoiment/past.dart';
 import 'package:teledocuser/views/screens/myappoiment/upcoming.dart';
 import 'package:teledocuser/views/widgets/appbar/appbar.dart';
 
@@ -25,12 +26,13 @@ class MyAppointmentScreen extends StatelessWidget {
               child: TabBarView(
                 children: [
                   UpcomingAppointments(),
-                  Center(
-                    child: Text(
-                      "Past Appointments",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
+                  PastAppointments()
+                  // Center(
+                  //   child: Text(
+                  //     "Past Appointments",
+                  //     style: TextStyle(color: Colors.black),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

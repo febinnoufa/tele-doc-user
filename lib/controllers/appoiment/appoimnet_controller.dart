@@ -37,7 +37,8 @@ class AppointmentController extends GetxController {
         'docter': doctorController.currentdoc.id,
         'created_at': FieldValue.serverTimestamp(),
         'date': dateController.selectedDate.value.toString().split(" ").first,
-        'time': formattedTime
+        'time': formattedTime,
+        'end':false
        
       });
 

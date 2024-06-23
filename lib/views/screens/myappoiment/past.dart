@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:teledocuser/views/screens/myappoiment/past.dart';
+import 'package:teledocuser/views/widgets/myappointment/past_widget.dart';
 import 'package:teledocuser/views/widgets/myappointment/upcoming_widget.dart';
 
-class UpcomingAppointments extends StatefulWidget {
-  const UpcomingAppointments({super.key});
+class PastAppointments extends StatefulWidget {
+  const PastAppointments({super.key});
 
   @override
   _UpcomingAppointmentsState createState() => _UpcomingAppointmentsState();
 }
 
-class _UpcomingAppointmentsState extends State<UpcomingAppointments> {
+class _UpcomingAppointmentsState extends State<PastAppointments> {
   late Future<List<QueryDocumentSnapshot>> futureAppointments;
 
   @override
@@ -29,7 +29,7 @@ class _UpcomingAppointmentsState extends State<UpcomingAppointments> {
 
       QuerySnapshot querySnapshot = await appointments
           .where('user', isEqualTo: currentUserId)
-          .where('end', isEqualTo: false)
+          .where('end', isEqualTo: true)
           .get();
 
       return querySnapshot.docs;
@@ -93,7 +93,7 @@ class _UpcomingAppointmentsState extends State<UpcomingAppointments> {
 
                     return Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-                      child: AppointmentCard(
+                      child: AppointmentCardPast(
                         doctorName: doctorName,
                         specialty: specialty,
                         appointment: appointment,
