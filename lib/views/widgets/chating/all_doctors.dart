@@ -71,6 +71,7 @@ class ChatingShowAllDoctors extends StatelessWidget {
                           title: Text("Dr ${doctor.name}"),
                           subtitle: _buildLastMessageText(doctor.id),
                           onTap: () {
+                            doctorController.currentdoc=doctor;
                             Get.to(() => ChatScreen(receiverDoctor: doctor))
                                 ?.then((_) {
                               // Mark message as read

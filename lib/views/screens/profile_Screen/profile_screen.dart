@@ -69,16 +69,18 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
           ],
           elevation: 0,
         ),
-        body: Column(
-          children: [
-            ShowUserDatasPhoto(image: user.profile),
-            // ignore: unnecessary_null_comparison
-            user != null
-                ? ShowAllDetailsUserWidget(
-                    user: user,
-                  )
-                : const CircularProgressIndicator(),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              ShowUserDatasPhoto(image: user.profile),
+              // ignore: unnecessary_null_comparison
+              user != null
+                  ? ShowAllDetailsUserWidget(
+                      user: user,
+                    )
+                  : const CircularProgressIndicator(),
+            ],
+          ),
         ),
       ),
     );

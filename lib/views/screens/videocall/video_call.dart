@@ -3,7 +3,8 @@ import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:teledocuser/views/screens/raitingscreen/raiting_screen.dart';
+
+import 'package:teledocuser/views/screens/review/review.dart';
 
 const appId = "842fdaf18994441f843efc88c021bd09";
 
