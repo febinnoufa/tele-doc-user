@@ -33,7 +33,7 @@ class DoctorModel {
 
   factory DoctorModel.fromMap(Map<String, dynamic> map) {
     return DoctorModel(
-      id:map['id'],
+      id: map['id'],
       bio: map['bio'],
       email: map['email'],
       experience: map['experience'],
@@ -52,7 +52,7 @@ class DoctorModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'id':id,
+      'id': id,
       'bio': bio,
       'email': email,
       'experience': experience,

@@ -8,8 +8,7 @@ class ChatingController extends GetxController {
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
   var hasUnreadMessageMap = <String, bool>{}.obs;
-  var lastMessages =
-      <String, Message?>{}; // Map to store last message for each doctor
+  var lastMessages = <String, Message?>{}.obs;
 
   Stream<Message?> getLastMessage(String userId, String otherUserId) {
     List<String> ids = [userId, otherUserId];
@@ -27,12 +26,8 @@ class ChatingController extends GetxController {
       if (querySnapshot.docs.isNotEmpty) {
         Message message = Message.fromMap(querySnapshot.docs.first.data());
 
-        // Update last message for the doctor
         lastMessages[otherUserId] = message;
-
-        // Set unread status based on your logic
-        hasUnreadMessageMap[otherUserId] =
-            true; // Example: always show as unread for demo
+        hasUnreadMessageMap[otherUserId] = true;
         return message;
       } else {
         return null;
@@ -46,15 +41,12 @@ class ChatingController extends GetxController {
     }
   }
 
-  // Map to track which chat screens are opened for each doctor
   final Map<String, bool> isChatOpened = {};
 
-  // Function to mark a chat screen as opened
   void markChatOpened(String doctorId) {
     isChatOpened[doctorId] = true;
   }
 
-  // Function to mark a chat screen as closed
   void markChatClosed(String doctorId) {
     isChatOpened[doctorId] = false;
   }

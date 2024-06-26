@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:teledocuser/views/screens/review/review.dart';
 
 class SHowAllDataInPrescription extends StatelessWidget {
   final String id;
@@ -38,127 +39,136 @@ class SHowAllDataInPrescription extends StatelessWidget {
           }
 
           return SingleChildScrollView(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: data.docs.length,
-              itemBuilder: (context, index) {
-                final doc = data.docs[index];
-                final prescriptions = doc['prescriptions'] as List<dynamic>;
-                final docNote = doc['docnote'] ?? '';
-                final userId = doc['userId'] ?? '';
-                final name = doc['name'] ?? '';
-                final timestamp = doc['timestamp']?.toDate() ?? DateTime.now();
+            child: Column(
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: data.docs.length,
+                  itemBuilder: (context, index) {
+                    final doc = data.docs[index];
+                    final prescriptions = doc['prescriptions'] as List<dynamic>;
+                    final docNote = doc['docnote'] ?? '';
+                    final userId = doc['userId'] ?? '';
+                    final name = doc['name'] ?? '';
+                    final timestamp = doc['timestamp']?.toDate() ?? DateTime.now();
           
-                return Column(
-                  children: [
-                    SizedBox(height: 40,),
-                    Card(
-                        elevation: 15,
-                        margin: const EdgeInsets.all(10),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: Column(
-                            //mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                height: 40,
-                              ),
-                              Center(
-                                child: Text(
-                                  name,
-                                  style: const TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.bold),
-                                ),
-                                
-                              ),
-                              SizedBox(height: 20,),
-                              const Divider(
-                                thickness: 3,
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Text(
-                                "Doctor Note : ",
-                                style: const TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w400),
-                                maxLines: 4,
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Text(
-                                docNote,
-                                style: const TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w400),
-                                maxLines: 4,
-                              ),
-                              const Divider(
-                                thickness: 3,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              ...prescriptions.map((prescription) {
-                                final medName = prescription['medication'] ?? '';
-                                final dosage = prescription['dosage'] ?? 0;
-                                final duration = prescription['duration'] ?? 0;
-                                final durationUnit =
-                                    prescription['durationUnit'] ?? '';
-                                final repeat = prescription['repeat'] ?? '';
-                                final timeOfDay = prescription['timeOfDay'] ?? '';
-                                final beTaken = prescription['beTaken'] ?? '';
-                    
-                                return Padding(
-                                  padding: const EdgeInsets.only(left: 5,top: 10),
-                                 child: Column(children: [
-                                  Row(
-                                    children: [
-                                      Text("medication  : $medName")
-                                    ],
+                    return Column(
+                      children: [
+                        SizedBox(height: 40,),
+                        Card(
+                            elevation: 15,
+                            margin: const EdgeInsets.all(10),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: Column(
+                                //mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: 40,
                                   ),
-                                 const SizedBox(height: 10,),
-                                   Row(
-                                    children: [
-                                      Text("Dosage  : $dosage Tablet(s)")
-                                    ],
-                                  ),
-                                    const SizedBox(height: 10,),
-                                   Row(
-                                    children: [
-                                      Text("Duration  : $duration $durationUnit"),
-                    
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10,),
-                                    Row(
-                                    children: [
-                                      Text("Repeat  : $repeat "),
-                                      
-                                    ],
-                                  ),
-                                      const SizedBox(height: 10,),
-                                    Row(
-                                    children: [
-                                      Text("TimeOfDay  : $timeOfDay "),
-                                      
-                                    ],
+                                  Center(
+                                    child: Text(
+                                      name,
+                                      style: const TextStyle(
+                                          fontSize: 20, fontWeight: FontWeight.bold),
+                                    ),
+                                    
                                   ),
                                   SizedBox(height: 20,),
-                                   Divider(thickness: 3,)
-                                 ],),
-                                );
-                              }).toList(),
-                             
-                            ],
-                            
-                          ),
-                        )),
-                  ],
-                );
-              },
+                                  const Divider(
+                                    thickness: 3,
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  Text(
+                                    "Doctor Note : ",
+                                    style: const TextStyle(
+                                        fontSize: 15, fontWeight: FontWeight.w400),
+                                    maxLines: 4,
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  Text(
+                                    docNote,
+                                    style: const TextStyle(
+                                        fontSize: 15, fontWeight: FontWeight.w400),
+                                    maxLines: 4,
+                                  ),
+                                  const Divider(
+                                    thickness: 3,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  ...prescriptions.map((prescription) {
+                                    final medName = prescription['medication'] ?? '';
+                                    final dosage = prescription['dosage'] ?? 0;
+                                    final duration = prescription['duration'] ?? 0;
+                                    final durationUnit =
+                                        prescription['durationUnit'] ?? '';
+                                    final repeat = prescription['repeat'] ?? '';
+                                    final timeOfDay = prescription['timeOfDay'] ?? '';
+                                    final beTaken = prescription['beTaken'] ?? '';
+                        
+                                    return Padding(
+                                      padding: const EdgeInsets.only(left: 5,top: 10),
+                                     child: Column(children: [
+                                      Row(
+                                        children: [
+                                          Text("medication  : $medName")
+                                        ],
+                                      ),
+                                     const SizedBox(height: 10,),
+                                       Row(
+                                        children: [
+                                          Text("Dosage  : $dosage Tablet(s)")
+                                        ],
+                                      ),
+                                        const SizedBox(height: 10,),
+                                       Row(
+                                        children: [
+                                          Text("Duration  : $duration $durationUnit"),
+                        
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10,),
+                                        Row(
+                                        children: [
+                                          Text("Repeat  : $repeat "),
+                                          
+                                        ],
+                                      ),
+                                          const SizedBox(height: 10,),
+                                        Row(
+                                        children: [
+                                          Text("TimeOfDay  : $timeOfDay "),
+                                          
+                                        ],
+                                      ),
+                                      SizedBox(height: 20,),
+                                       Divider(thickness: 3,)
+                                     ],),
+                                    );
+                                  }).toList(),
+                                 
+                                ],
+                                
+                              ),
+                            )),
+                      ],
+                    );
+                  },
+                ),
+
+               // SizedBox(height: 30,),
+                //Text("gfhefg"),
+                RatingScreen()
+              ],
             ),
+
           );
         },
       ),

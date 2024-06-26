@@ -118,30 +118,36 @@ class AvalbleDoctorsWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "Rating",
+                  "Gender",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 5),
-                const Row(
-                  children: [
-                    Icon(
-                      Icons.star,
-                      size: 15,
-                    ),
-                    Icon(
-                      Icons.star,
-                      size: 15,
-                    ),
-                    Icon(
-                      Icons.star,
-                      size: 15,
-                    ),
-                    Icon(
-                      Icons.star,
-                      size: 15,
-                    )
-                  ],
+                   Text(
+                  "${doctor.genter} ",
+                  style: const TextStyle(
+                    fontSize: 14,
+                  ),
                 ),
+                // const Row(
+                //   children: [
+                //     Icon(
+                //       Icons.star,
+                //       size: 15,
+                //     ),
+                //     Icon(
+                //       Icons.star,
+                //       size: 15,
+                //     ),
+                //     Icon(
+                //       Icons.star,
+                //       size: 15,
+                //     ),
+                //     Icon(
+                //       Icons.star,
+                //       size: 15,
+                //     )
+                //   ],
+                // ),
               ],
             ),
           ),

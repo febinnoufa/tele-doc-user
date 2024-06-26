@@ -92,28 +92,18 @@ class AllDoctorsWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "Rating",
+                  "Gender",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 5),
-                const Row(
+                 Row(
                   children: [
-                    Icon(
-                      Icons.star,
-                      size: 15,
-                    ),
-                    Icon(
-                      Icons.star,
-                      size: 15,
-                    ),
-                    Icon(
-                      Icons.star,
-                      size: 15,
-                    ),
-                    Icon(
-                      Icons.star,
-                      size: 15,
-                    )
+                    Text(
+                  "${doctor.genter} ",
+                  style: const TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
                   ],
                 ),
               ],
@@ -121,23 +111,19 @@ class AllDoctorsWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 20, // Adjust as needed
+          top: 20,
           left: 180,
-          // /right: 10, // Adjust as needed
           child: Material(
-            elevation: 4, // Elevation for the shadow
-            borderRadius:
-                BorderRadius.circular(8), // Border radius for rounded corners
-            child: Container(
-              height: 150, // Fixed height
-              width: 100, // Fixed width
+            elevation: 4,
+            borderRadius: BorderRadius.circular(8),
+            child: SizedBox(
+              height: 150,
+              width: 100,
               child: ClipRRect(
-                borderRadius:
-                    BorderRadius.circular(8), // Border radius for the image
+                borderRadius: BorderRadius.circular(8),
                 child: Image(
                   image: NetworkImage(doctor.profile),
-                  fit: BoxFit
-                      .cover, // Adjust how the image is inscribed into the box
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

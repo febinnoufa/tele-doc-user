@@ -94,6 +94,7 @@ class _UpcomingAppointmentsState extends State<PastAppointments> {
                     return Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                       child: AppointmentCardPast(
+                        doctorId: doctorId,
                         doctorName: doctorName,
                         specialty: specialty,
                         appointment: appointment,

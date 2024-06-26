@@ -4,6 +4,7 @@ import 'package:teledocuser/const/const.dart';
 import 'package:teledocuser/views/screens/myappoiment/myappoiment.dart';
 import 'package:teledocuser/views/screens/profile_Screen/profile_screen.dart';
 import 'package:teledocuser/views/screens/home/home_screen.dart';
+import 'package:teledocuser/views/screens/search/serach.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 class BotomNavigationBar extends StatefulWidget {
@@ -38,18 +39,18 @@ class _BotomNavigationBarState extends State<BotomNavigationBar> {
             controller: pageController,
             children: <Widget>[
               const HomeScreen(),
-           
-              Center(
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Icon(
-                    Icons.email_rounded,
-                    size: 56,
-                    color: Colors.green[400],
-                  ),
-                ),
-              ),
-               const  MyAppointmentScreen(),
+              SearchPage(),
+              // Center(
+              //   child: Container(
+              //     alignment: Alignment.center,
+              //     child: Icon(
+              //       Icons.email_rounded,
+              //       size: 56,
+              //       color: Colors.green[400],
+              //     ),
+              //   ),
+              // ),
+              const MyAppointmentScreen(),
               const ProfileScreenUser(),
             ],
           ),
@@ -72,11 +73,11 @@ class _BotomNavigationBarState extends State<BotomNavigationBar> {
                 outlinedIcon: Icons.home_outlined,
               ),
               BarItem(
-                  filledIcon: Icons.local_hospital,
-                  outlinedIcon: Icons.local_hospital_outlined),
+                  filledIcon: Icons.search_outlined,
+                  outlinedIcon: Icons.search),
               BarItem(
-                filledIcon: Icons.notification_important,
-                outlinedIcon: Icons.notification_important_outlined,
+                filledIcon: Icons.medical_information,
+                outlinedIcon: Icons.medical_information_outlined,
               ),
               BarItem(
                 filledIcon: Icons.grid_view_rounded,

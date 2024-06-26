@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:teledocuser/controllers/chating/chating_controller.dart';
 import 'package:teledocuser/controllers/doctor/doctor_controller.dart';
 import 'package:teledocuser/model/doctor/doctor_model.dart';
-import 'package:teledocuser/model/message/message_model.dart';
 import 'package:teledocuser/views/screens/chating/chat_screen.dart';
+import 'package:teledocuser/model/message/message_model.dart';
 
 class ChatingShowAllDoctors extends StatelessWidget {
   ChatingShowAllDoctors({Key? key}) : super(key: key);
@@ -71,7 +71,7 @@ class ChatingShowAllDoctors extends StatelessWidget {
                           title: Text("Dr ${doctor.name}"),
                           subtitle: _buildLastMessageText(doctor.id),
                           onTap: () {
-                            doctorController.currentdoc=doctor;
+                            doctorController.currentdoc = doctor;
                             Get.to(() => ChatScreen(receiverDoctor: doctor))
                                 ?.then((_) {
                               // Mark message as read

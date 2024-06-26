@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/const/const.dart';
 import 'package:teledocuser/controllers/appoiment/appoimnet_controller.dart';
+import 'package:teledocuser/controllers/review/review_rating.dart';
 import 'package:teledocuser/views/screens/prescription/prescription.dart';
 
 class AppointmentCardPast extends StatefulWidget {
   final String doctorName;
   final String specialty;
+  final String doctorId;
   final Map<String, dynamic> appointment;
   final DateTime appointmentDateTime;
 
@@ -17,7 +19,7 @@ class AppointmentCardPast extends StatefulWidget {
     required this.specialty,
     required this.appointment,
     required this.appointmentDateTime,
-    Key? key,
+    Key? key, required this.doctorId,
   }) : super(key: key);
 
   @override
@@ -26,6 +28,7 @@ class AppointmentCardPast extends StatefulWidget {
 
 class _AppointmentCardState extends State<AppointmentCardPast> {
   final AppointmentController cntr = Get.put(AppointmentController());
+   final RatingController _controller = Get.put(RatingController());
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +131,7 @@ class _AppointmentCardState extends State<AppointmentCardPast> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
+                  _controller.currentDoctorId.value=widget.doctorId;
                   Get.to(SHowAllDataInPrescription(
                     id: widget.appointment['appoimnet_id'],
                   ));

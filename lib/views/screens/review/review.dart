@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:teledocuser/const/const.dart';
 import 'package:teledocuser/controllers/review/review_rating.dart';
 
 class RatingScreen extends StatelessWidget {
@@ -11,24 +12,18 @@ class RatingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('!!!!!!!!!!!!!!!!!!!!!!!!!${_controller.currentDoctorName}');
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: const Text('Rate Us'),
-      ),
-      body: Center(
+    return Column(
+      children:[
+      Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
+          children: [
             SizedBox(
-              height: 100,
+              height: 30,
             ),
             Text(
-              'Please rate us ${_controller.currentDoctorName}',
-              style: TextStyle(fontSize: 23),
+              'Please rate us',
+              style: TextStyle(fontSize: 17),
             ),
             const SizedBox(height: 20),
             Obx(
@@ -39,9 +34,10 @@ class RatingScreen extends StatelessWidget {
                 allowHalfRating: true,
                 itemCount: 5,
                 itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                itemBuilder: (context, _) => const Icon(
+                itemBuilder: (context, _) => Icon(
                   Icons.star,
                   color: Colors.amber,
+                  size: 16, // Adjusted size to be smaller
                 ),
                 onRatingUpdate: (rating) {
                   _controller.updateRating(rating);
@@ -52,10 +48,10 @@ class RatingScreen extends StatelessWidget {
             Obx(
               () => Text(
                 'Your Rating: ${_controller.rating.value}',
-                style: const TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 17),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
@@ -68,15 +64,33 @@ class RatingScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                _controller.submitReview();
-              },
-              child: const Text('Submit Review'),
+            Center(
+              child: Container(
+                height: 50,
+                width: 200,
+                decoration: BoxDecoration(
+                  color: greenColor,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: TextButton(
+                  onPressed: () {
+                    _controller.submitRatingAndReview();
+                    _controller.submitReview();
+
+                  },
+                  child: const Text(
+                    "Submit",
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
             ),
+            const SizedBox(height: 50),
           ],
         ),
-      ),
+      )
+      ]
     );
   }
 }

@@ -4,15 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
-
 import 'package:teledocuser/controllers/chating/chating_controller.dart';
 import 'package:teledocuser/controllers/review/review_rating.dart';
 import 'package:teledocuser/controllers/vodeocall/token.dart';
 import 'package:teledocuser/model/doctor/doctor_model.dart';
 import 'package:teledocuser/views/screens/videocall/uikit.dart';
-import 'package:teledocuser/views/screens/videocall/video_call.dart';
-
 import 'package:http/http.dart' as http;
 
 class ChatScreen extends StatefulWidget {
@@ -28,8 +24,8 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messagecontroller = TextEditingController();
   final ChatingController chatingcontroller = Get.put(ChatingController());
   final ScrollController _scrollController = ScrollController();
-    final RatingController _controller = Get.put(RatingController());
-      final TokenController tokenController = Get.put(TokenController());
+  final RatingController _controller = Get.put(RatingController());
+  final TokenController tokenController = Get.put(TokenController());
 
   @override
   void initState() {
@@ -120,20 +116,20 @@ class _ChatScreenState extends State<ChatScreen> {
   //       ));
   // }
 
-  Future<String> generateAgoraToken(String channelName) async {
-    // Replace with your backend server URL
-    String apiUrl = 'https://your-backend-server.com/generate_token';
+  // Future<String> generateAgoraToken(String channelName) async {
+  //   // Replace with your backend server URL
+  //   String apiUrl = 'https://your-backend-server.com/generate_token';
 
-    // Make a GET request to fetch the token
-    final response =
-        await http.get(Uri.parse('$apiUrl?channelName=$channelName'));
+  //   // Make a GET request to fetch the token
+  //   final response =
+  //       await http.get(Uri.parse('$apiUrl?channelName=$channelName'));
 
-    if (response.statusCode == 200) {
-      return response.body; // Assuming your backend returns the token directly
-    } else {
-      throw Exception('Failed to load token');
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     return response.body; // Assuming your backend returns the token directly
+  //   } else {
+  //     throw Exception('Failed to load token');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -254,18 +250,13 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(icon: const Icon(Icons.send), onPressed: sendMessage),
           IconButton(
             icon: const Icon(Icons.video_call),
-            onPressed: () async{
-              _controller.currentDoctorId=widget.receiverDoctor.id;
-              _controller.currentDoctorId=widget.receiverDoctor.name;
-              _controller.currentDoctorId=widget.receiverDoctor.profile;
-              print(">>>>>>>>>>>>>> ${_controller.currentDoctorId=widget.receiverDoctor.name}");
-               //  tokenController.generateToken();
-                 // print("!!!!!!!!!!!!!!!!!!!!!>>>>>>>>${tokenController. token.value}");
-              await tokenController.sendtoken(widget.receiverDoctor.id, widget.receiverDoctor.name);
-                
+            onPressed: () async {
+              _controller.currentDoctorId.value = widget.receiverDoctor.id;
+
+              await tokenController.sendtoken(
+                  widget.receiverDoctor.id, widget.receiverDoctor.name);
+
               Get.to(VideoCallScreenUikit());
-              //_initiateVideoCall;
-             // Get.to(VideoCallScreen(channel: "fluttering",token: "007eJxTYDiy8b7/NSbH+0+qM/ZMYp9YfbctQzDB9aznXPbG5vi2n38UGCxMjNJSEtMMLSwtTUxMDNMsTIxT05ItLJINjAyTUgwsHZuK0hoCGRmaEzMZGKEQxOdiSMspLSlJLcrMS2dgAABxECKa",uid: widget.receiverDoctor.id));
             },
           ),
         ],

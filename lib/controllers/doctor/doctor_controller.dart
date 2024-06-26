@@ -17,4 +17,19 @@ class DoctorController extends GetxController {
       return doctors;
     });
   }
+
+  // Function to search doctors by name
+  Stream<List<DoctorModel>> searchDoctors(String searchQuery) {
+    return FirebaseFirestore.instance
+        .collection('approveddoctors')
+        .where('doctorName', isEqualTo: searchQuery)
+        .snapshots()
+        .map((QuerySnapshot query) {
+      List<DoctorModel> doctors = [];
+      for (var doc in query.docs) {
+        doctors.add(DoctorModel.fromMap(doc.data() as Map<String, dynamic>));
+      }
+      return doctors;
+    });
+  }
 }
