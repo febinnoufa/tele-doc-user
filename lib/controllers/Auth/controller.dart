@@ -112,6 +112,7 @@ class Authcontroller extends GetxController {
     } catch (e) {
       print('Error creating user: $e');
     }
+    
   }
 
   adduser() async {
@@ -129,7 +130,7 @@ class Authcontroller extends GetxController {
         id: auth.currentUser!.uid,
       );
       await db.collection("users").doc(auth.currentUser?.uid).set(user.toMap());
-      Get.to(() => const BotomNavigationBar());
+      Get.offAll(() => const BotomNavigationBar());
     } catch (e) {
       Get.snackbar("Error", "Failed to add user: $e");
     }

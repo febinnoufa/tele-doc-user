@@ -139,8 +139,21 @@ class _ChatScreenState extends State<ChatScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        title: Text("${widget.receiverDoctor.name}"),
+        title: Text(widget.receiverDoctor.name),
         centerTitle: true,
+        actions: [
+             IconButton(
+            icon: const Icon(Icons.video_call),
+            onPressed: () async {
+              _controller.currentDoctorId.value = widget.receiverDoctor.id;
+
+              await tokenController.sendtoken(
+                  widget.receiverDoctor.id, widget.receiverDoctor.name);
+
+              Get.to(VideoCallScreenUikit());
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -248,17 +261,7 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
           IconButton(icon: const Icon(Icons.send), onPressed: sendMessage),
-          IconButton(
-            icon: const Icon(Icons.video_call),
-            onPressed: () async {
-              _controller.currentDoctorId.value = widget.receiverDoctor.id;
-
-              await tokenController.sendtoken(
-                  widget.receiverDoctor.id, widget.receiverDoctor.name);
-
-              Get.to(VideoCallScreenUikit());
-            },
-          ),
+       
         ],
       ),
     );

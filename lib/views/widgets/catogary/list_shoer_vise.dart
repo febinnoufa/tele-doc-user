@@ -113,14 +113,14 @@ class ListCatecaryViseWidget extends StatelessWidget {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 5),
-                 Row(
+                Row(
                   children: [
-                  Text(
-                  "${doctor.genter}",
-                  style: const TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
+                    Text(
+                      "${doctor.genter}",
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -128,7 +128,7 @@ class ListCatecaryViseWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 20, // Adjust as needed
+          top: 25, // Adjust as needed
           left: 180,
           // /right: 10, // Adjust as needed
           child: Material(
@@ -141,10 +141,12 @@ class ListCatecaryViseWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius:
                     BorderRadius.circular(8), // Border radius for the image
-                child: Image(
-                  image: NetworkImage(doctor.profile),
-                  fit: BoxFit
-                      .cover, // Adjust how the image is inscribed into the box
+                child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/images-removebg-preview.png',
+                  image: doctor.profile,
+                  fit: BoxFit.cover,
+                  width: 100,
+                  height: 150,
                 ),
               ),
             ),

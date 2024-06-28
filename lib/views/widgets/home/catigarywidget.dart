@@ -11,7 +11,7 @@ class CategoryHomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+      padding: const EdgeInsets.only(left: 20, right: 20, ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -69,10 +69,11 @@ class CategoryHomeWidget extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.network(
-                              category.image,
-                              height: 50,
-                            ),
+                            FadeInImage.assetNetwork(placeholder: 'assets/general.png', image:category.image,height: 50, ),
+                            // Image.network(
+                            //   category.image,
+                            //   height: 50,
+                            // ),
                             const SizedBox(
                               height: 5,
                             ),

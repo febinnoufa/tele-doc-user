@@ -47,10 +47,13 @@ class ShowUserDatasPhoto extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius:
                         BorderRadius.circular(20), // Set the radius here
-                    child: Image.network(
-                      image,
-                      fit: BoxFit.fill,
-                    ),
+                    child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/images-removebg-preview.png',
+                  image: image,
+                  fit: BoxFit.cover,
+                  width: 100,
+                  height: 150,
+                ),
                   ),
                 )),
           ),

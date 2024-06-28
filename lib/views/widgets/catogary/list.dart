@@ -6,9 +6,9 @@ import 'package:teledocuser/views/screens/catogary/short_list.dart';
 import 'package:teledocuser/views/widgets/home/catigarywidget.dart';
 
 class CatogariesList extends StatelessWidget {
-   CatogariesList({Key? key});
+  CatogariesList({Key? key});
 
-   final CategariController cntrl =Get.put(CategariController());
+  final CategariController cntrl = Get.put(CategariController());
 
   @override
   Widget build(BuildContext context) {
@@ -43,16 +43,16 @@ class CatogariesList extends StatelessWidget {
                     child: Center(
                       child: ListTile(
                         onTap: () {
-                          cntrl.setSelectedCategory(category); 
+                          cntrl.setSelectedCategory(category);
                           Get.to(CategariViseShortScreen());
                         },
                         leading: SizedBox(
                           height: 100,
                           width: 70,
-                          child: Image.network(
-                            category.image,
-                            height: 100,
-                            width: 100,
+                          child: FadeInImage.assetNetwork(
+                            placeholder: 'assets/general.png',
+                            image: category.image,
+                            height: 50,
                           ),
                         ),
                         title: Text(category.name),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:agora_uikit/agora_uikit.dart';
-import 'package:get/get.dart';
-import 'package:teledocuser/controllers/doctor/doctor_controller.dart';
 
 class VideoCallScreenUikit extends StatefulWidget {
   @override
@@ -10,59 +8,63 @@ class VideoCallScreenUikit extends StatefulWidget {
 
 class _VideoCallScreenState extends State<VideoCallScreenUikit> {
   late String token;
-  final DoctorController doctorController = Get.put(DoctorController());
-  late AgoraClient _client;
-  // = AgoraClient(
-  //   agoraConnectionData: AgoraConnectionData(
-  //     appId: "ab0681cef04a45d089df7dd7e0cb144d", // Replace with your App ID
-  //     channelName: "testing", // Replace with your channel name
-  //     tempToken: , // Replace with your token if you have it
-  //   ),
-  // );
+  // final DoctorController doctorController = Get.put(DoctorController());
+  //late AgoraClient _client;
+
+  final AgoraClient client = AgoraClient(
+    agoraConnectionData: AgoraConnectionData(
+      appId: "ab0681cef04a45d089df7dd7e0cb144d",
+      channelName: "teledoc",
+      tempToken:
+          "007eJxTYDD8frZlg6Rahqnu/QMzJSd1PcrawjFVn4F13+G7k5peCuYoMCQmGZhZGCanphmYJJqYphhYWKakmaekmKcaJCcZmpikBCytTmsIZGRYsj2HmZEBAkF8doaS1JzUlPxkBgYAshshAg==",
+    ),
+  );
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      token =
-          '007eJxTYPA9oL9cIeFnbXvW3OpD4RweNm8EuD77HQ1s69A+9Mds/QUFhsQkAzMLw+TUNAOTRBPTFAMLy5Q085QU81SD5CRDE5MUdvHKtIZARobDV9KZGBkgEMRnZyhJLS7JzEtnYAAApxkgxQ==${doctorController.currentdoc.id}';
-      _client = AgoraClient(
-        agoraConnectionData: AgoraConnectionData(
-          appId: "ab0681cef04a45d089df7dd7e0cb144d", // Replace with your App ID
-          channelName: "testing", // Replace with your channel name
-          tempToken: token,
-        ),
-      );
-    });
     _initAgora();
   }
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   token =
+  //       '007eJxTYPA9oL9cIeFnbXvW3OpD4RweNm8EuD77HQ1s69A+9Mds/QUFhsQkAzMLw+TUNAOTRBPTFAMLy5Q085QU81SD5CRDE5MUdvHKtIZARobDV9KZGBkgEMRnZyhJLS7JzEtnYAAApxkgxQ==${doctorController.currentdoc.id}';
+  //   _client = AgoraClient(
+  //     agoraConnectionData: AgoraConnectionData(
+  //       appId: "ab0681cef04a45d089df7dd7e0cb144d", // Replace with your App ID
+  //       channelName: "teledoc", // Replace with your channel name
+  //       tempToken: "007eJxTYDD8frZlg6Rahqnu/QMzJSd1PcrawjFVn4F13+G7k5peCuYoMCQmGZhZGCanphmYJJqYphhYWKakmaekmKcaJCcZmpikBCytTmsIZGRYsj2HmZEBAkF8doaS1JzUlPxkBgYAshshAg==",
+  //     ),
+  //   );
+  //   _initAgora();
+  // }
+
   Future<void> _initAgora() async {
-    await _client.initialize();
+    await client.initialize();
   }
 
   @override
   void dispose() {
-    _client.engine?.leaveChannel();
+    client.engine?.leaveChannel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Agora Video Call'),
-      ),
       body: SafeArea(
         child: Stack(
           children: [
-            AgoraVideoViewer(
-              client: _client,
-              layoutType: Layout.floating,
-              enableHostControls:
-                  true, // Add buttons for switching camera and mute
+            Positioned.fill(
+              child: AgoraVideoViewer(
+                client: client,
+                layoutType: Layout.oneToOne,
+                enableHostControls: true,
+              ),
             ),
-            AgoraVideoButtons(client: _client),
+            AgoraVideoButtons(client: client),
           ],
         ),
       ),

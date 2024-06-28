@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/controllers/doctor/doctor_controller.dart';
 import 'package:teledocuser/model/doctor/doctor_model.dart';
+import 'package:teledocuser/views/screens/appoiment/doctor_details.dart';
 
 class AllDoctorsWidget extends StatelessWidget {
   AllDoctorsWidget({super.key});
@@ -31,9 +32,9 @@ class AllDoctorsWidget extends StatelessWidget {
                   onTap: () {
                     doctorController.currentdoc = doctor;
 
-                    // //Get.to(DoctorDetailsScreen(
-                    //   doctor: doctor,
-                    // ));
+                    Get.to(DoctorDetailsScreen(
+                      doctor: doctor,
+                    ));
                   },
                   child: Padding(
                     padding:
@@ -49,17 +50,18 @@ class AllDoctorsWidget extends StatelessWidget {
     );
   }
 
-  Widget doctorCard(DoctorModel doctor) {
+   Widget doctorCard(DoctorModel doctor) {
     return Stack(
       children: [
         Container(
-          //width: 270,
+          width: 320,
+          height: 190,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
             color: const Color.fromARGB(255, 231, 228, 228),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.only(left: 180,top: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -96,15 +98,11 @@ class AllDoctorsWidget extends StatelessWidget {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 5),
-                 Row(
-                  children: [
-                    Text(
+                Text(
                   "${doctor.genter} ",
                   style: const TextStyle(
                     fontSize: 14,
                   ),
-                ),
-                  ],
                 ),
               ],
             ),
@@ -112,7 +110,8 @@ class AllDoctorsWidget extends StatelessWidget {
         ),
         Positioned(
           top: 20,
-          left: 180,
+          left: 30,
+         // left: 150,
           child: Material(
             elevation: 4,
             borderRadius: BorderRadius.circular(8),
@@ -121,9 +120,12 @@ class AllDoctorsWidget extends StatelessWidget {
               width: 100,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image(
-                  image: NetworkImage(doctor.profile),
+                child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/images-removebg-preview.png',
+                  image: doctor.profile,
                   fit: BoxFit.cover,
+                  width: 100,
+                  height: 150,
                 ),
               ),
             ),

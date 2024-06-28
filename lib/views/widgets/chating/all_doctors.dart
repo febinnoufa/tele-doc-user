@@ -12,7 +12,15 @@ class ChatingShowAllDoctors extends StatelessWidget {
 
   final DoctorController doctorController = Get.put(DoctorController());
   final ChatingController chatingController = Get.put(ChatingController());
-
+  //  Stream<List<DoctorModel>> streamUsers() {
+  //   return FirebaseFirestore.instance.collection('users').snapshots().map(
+  //     (snapshot) {
+  //       return snapshot.docs.map((doc) {
+  //         return UserModel.fromMap(doc.data());
+  //       }).toList();
+  //     },
+  //   );
+  // }
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<DoctorModel>>(

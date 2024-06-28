@@ -19,7 +19,7 @@ class SearchPage extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        centerTitle: true,
+       // centerTitle: true,
       ),
       body: Column(
         children: [
@@ -28,8 +28,9 @@ class SearchPage extends StatelessWidget {
             child: Card(
               elevation: 10,
               child: TextField(
+                
                 decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
+               //   border: UnderlineInputBorder(),
                   prefixIcon: Icon(Icons.search),
                   hintText: 'Search...',
                 ),
@@ -38,40 +39,47 @@ class SearchPage extends StatelessWidget {
             ),
           ),
           Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection('approveddoctors')
-                .snapshots(),
-            builder: (context, snapshots) {
-              if (snapshots.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              }
+            child: StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('approveddoctors')
+                  .snapshots(),
+              builder: (context, snapshots) {
+                if (snapshots.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-              if (snapshots.hasError) {
-                return const Center(child: Text('Something went wrong'));
-              }
+                if (snapshots.hasError) {
+                  return const Center(child: Text('Something went wrong'));
+                }
 
-              return Obx(() {
-                var filteredDocs = snapshots.data!.docs.where((doc) {
-                  var data = doc.data() as Map<String, dynamic>;
-                  return searchController.name.value.isEmpty ||
-                      data['name'].toString().toLowerCase().startsWith(
-                          searchController.name.value.toLowerCase());
-                }).toList();
+                return Obx(() {
+                  var filteredDocs = snapshots.data!.docs.where((doc) {
+                    var data = doc.data() as Map<String, dynamic>;
+                    return searchController.name.value.isEmpty ||
+                        data['name'].toString().toLowerCase().startsWith(
+                            searchController.name.value.toLowerCase());
+                  }).toList();
 
-                return ListView.builder(
-                  itemCount: filteredDocs.length,
-                  itemBuilder: (context, index) {
-                    var data =
-                        filteredDocs[index].data() as Map<String, dynamic>;
-                    DoctorModel doctor = DoctorModel.fromMap(data);
+                  if (filteredDocs.isEmpty) {
+                    return const Center(
+                      child: Text('No doctor found with that name'),
+                    );
+                  }
 
-                    return   DoctorListItem(doctor: doctor);
-                  },
-                );
-              });
-            },
-          )),
+                  return ListView.builder(
+                    itemCount: filteredDocs.length,
+                    itemBuilder: (context, index) {
+                      var data =
+                          filteredDocs[index].data() as Map<String, dynamic>;
+                      DoctorModel doctor = DoctorModel.fromMap(data);
+
+                      return DoctorListItem(doctor: doctor);
+                    },
+                  );
+                });
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -93,21 +101,21 @@ class DoctorListItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         doctorcntr.currentdoc = doctor;
-
         Get.to(DoctorDetailsScreen(doctor: doctor));
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(15.0),
         child: Stack(
+          
           children: [
             Container(
-              // width: 270,
+              height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 color: const Color.fromARGB(255, 231, 228, 228),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.only(left: 180,top: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -146,14 +154,14 @@ class DoctorListItem extends StatelessWidget {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 5),
-                     Row(
+                    Row(
                       children: [
                         Text(
-                      doctor.genter,
-                      style: const TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
+                          doctor.genter,
+                          style: const TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -161,28 +169,27 @@ class DoctorListItem extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 20, // Adjust as needed
-              left: 180,
-              // right: 10, // Adjust as needed
+              top: 25,
+              left: 30,
               child: Material(
-                elevation: 4, // Elevation for the shadow
-                borderRadius: BorderRadius.circular(
-                    8), // Border radius for rounded corners
+                elevation: 4,
+                borderRadius: BorderRadius.circular(8),
                 child: SizedBox(
-                  height: 150, // Fixed height
-                  width: 100, // Fixed width
+                  height: 150,
+                  width: 100,
                   child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.circular(8), // Border radius for the image
-                    child: Image(
-                      image: NetworkImage(doctor.profile),
-                      fit: BoxFit
-                          .cover, // Adjust how the image is inscribed into the box
-                    ),
+                    borderRadius: BorderRadius.circular(8),
+                    child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/images-removebg-preview.png',
+                  image: doctor.profile,
+                  fit: BoxFit.cover,
+                  width: 100,
+                  height: 150,
+                ),
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

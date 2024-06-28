@@ -85,7 +85,7 @@ class AvalbleDoctorsWidget extends StatelessWidget {
             color: const Color.fromARGB(255, 231, 228, 228),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.only(left: 150,top: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -122,54 +122,34 @@ class AvalbleDoctorsWidget extends StatelessWidget {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 5),
-                   Text(
+                Text(
                   "${doctor.genter} ",
                   style: const TextStyle(
                     fontSize: 14,
                   ),
                 ),
-                // const Row(
-                //   children: [
-                //     Icon(
-                //       Icons.star,
-                //       size: 15,
-                //     ),
-                //     Icon(
-                //       Icons.star,
-                //       size: 15,
-                //     ),
-                //     Icon(
-                //       Icons.star,
-                //       size: 15,
-                //     ),
-                //     Icon(
-                //       Icons.star,
-                //       size: 15,
-                //     )
-                //   ],
-                // ),
               ],
             ),
           ),
         ),
         Positioned(
-          top: 20, // Adjust as needed
-          left: 150,
-          // /right: 10, // Adjust as needed
+          top: 20,
+          left: 20,
+         // left: 150,
           child: Material(
-            elevation: 4, // Elevation for the shadow
-            borderRadius:
-                BorderRadius.circular(8), // Border radius for rounded corners
-            child: Container(
-              height: 150, // Fixed height
-              width: 100, // Fixed width
+            elevation: 4,
+            borderRadius: BorderRadius.circular(8),
+            child: SizedBox(
+              height: 150,
+              width: 100,
               child: ClipRRect(
-                borderRadius:
-                    BorderRadius.circular(8), // Border radius for the image
-                child: Image(
-                  image: NetworkImage(doctor.profile),
-                  fit: BoxFit
-                      .cover, // Adjust how the image is inscribed into the box
+                borderRadius: BorderRadius.circular(8),
+                child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/images-removebg-preview.png',
+                  image: doctor.profile,
+                  fit: BoxFit.cover,
+                  width: 100,
+                  height: 150,
                 ),
               ),
             ),

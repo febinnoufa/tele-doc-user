@@ -57,6 +57,7 @@ class ChatingController extends GetxController {
     final Timestamp timestamp = Timestamp.now();
 
     Message newMessage = Message(
+      newMessage: true,
         senderId: currentUserId,
         senderEmail: currentuserEmail,
         receverId: receiverId,
