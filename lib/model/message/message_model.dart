@@ -7,8 +7,10 @@ class Message {
   final String message;
   final Timestamp timestamp;
   final bool newMessage;
+  final String messageId;
 
   Message({
+    required this.messageId,
     required this.newMessage,
     required this.senderId,
     required this.senderEmail,
@@ -19,6 +21,7 @@ class Message {
 
   Map<String, dynamic> toMap() {
     return {
+      'messageId':messageId,
       'newMessage':newMessage,
       'senderId': senderId,
       'senderEmail': senderEmail,
@@ -30,6 +33,7 @@ class Message {
 
   factory Message.fromMap(Map<String, dynamic> map) {
     return Message(
+      messageId: map['messageId'],
       newMessage: map['newMessage'],
       senderId: map['senderId'],
       senderEmail: map['senderEmail'],

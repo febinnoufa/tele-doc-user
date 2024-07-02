@@ -1,80 +1,117 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:agora_uikit/agora_uikit.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:teledocuser/controllers/doctor/doctor_controller.dart';
-import 'package:uuid/uuid.dart';
 
-class TokenController extends GetxController {
-  var token = ''.obs;
-  var opositid;
-  final DoctorController doctorController = Get.put(DoctorController());
+class VideoCallController extends GetxController {
+  RxBool ifVideocall = false.obs;
+  final DoctorController dcController = Get.put(DoctorController());
 
-  void generateToken() {
-    var uuid = const Uuid();
-    print("!!!!!!!!!!!!!!!!!!!!!>>>>>>>>${token.value}");
-    token.value = uuid.v4();
-  }
+  late AgoraClient client;
+  final String appId = "ab0681cef04a45d089df7dd7e0cb144d";
+  final String channelName = "test3";
 
-  sendtoken(receveid, name) async {
-    FirebaseFirestore.instance.collection('videocall').doc(receveid).set({
-      'token':
-          '007eJxTYDD8frZlg6Rahqnu/QMzJSd1PcrawjFVn4F13+G7k5peCuYoMCQmGZhZGCanphmYJJqYphhYWKakmaekmKcaJCcZmpikBCytTmsIZGRYsj2HmZEBAkF8doaS1JzUlPxkBgYAshshAg==',
-      'receveId': receveid,
-      'receveName': name,
-      'timestamp': Timestamp.now(),
-      'userId': FirebaseAuth.instance.currentUser!.uid,
-      'userName': FirebaseAuth.instance.currentUser!.email!.split('@').first
-    });
-  }
+  Future<String?> fetchToken() async {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+        .instance
+        .collection('videocall')
+        .doc(userId)
+        .get();
 
-  Future<CallData?> fetchCallData(String docId) async {
-    try {
-      final docSnapshot = await FirebaseFirestore.instance
-          .collection('videocalls')
-          .doc(docId)
-          .get();
-
-      if (docSnapshot.exists) {
-        final data = docSnapshot.data();
-        return CallData.fromJson(data!);
+    if (snapshot.exists) {
+      Map<String, dynamic>? data = snapshot.data();
+      if (data != null && data['userId'] == dcController.currentdoc.id) {
+        ifVideocall.value = true;
+        return data['token'];
       } else {
-        print('No call data found for ID: $docId');
         return null;
       }
-    } catch (e) {
-      print('Error fetching call data: $e');
+    } else {
       return null;
     }
   }
-}
 
-class CallData {
-  final String callId;
-  final String receiverId;
-  final String receiverName;
-  final Timestamp timestamp;
-  final String userId;
-  final String userName;
-  final String status; // Optional for call status tracking
+//   listenToTokenUpdates(BuildContext context) {
+//   String userId = FirebaseAuth.instance.currentUser!.uid;
+//   DatabaseReference databaseReference =
+//       FirebaseDatabase.instance.ref().child('videocall');
 
-  CallData({
-    required this.callId,
-    required this.receiverId,
-    required this.receiverName,
-    required this.timestamp,
-    required this.userId,
-    required this.userName,
-    this.status = '',
-  });
+//   // Listen for changes to any child node under 'videocall'
+//   databaseReference.onChildChanged.listen((event) {
+//     // Check if the child node's key (child ID) matches the current user's ID
+//     if (event.snapshot.key == userId) {
+//       // Access data from the child node
+//       Map<dynamic, dynamic>? data =
+//           event.snapshot.value as Map<dynamic, dynamic>?;
 
-  factory CallData.fromJson(Map<String, dynamic> json) => CallData(
-        callId: json['callId'],
-        receiverId: json['receiverId'],
-        receiverName: json['receiverName'],
-        timestamp: json['timestamp'],
-        userId: json['userId'],
-        userName: json['userName'],
-        status: json['status'] ?? '', // Optional
-      );
+//       if (data != null && data['userId'] == dcController.currentdoc.id) {
+//         // Access fields from the data map
+//         String token = data['token'];
+//         String receiveId = data['receiveId'];
+//         String receiveName = data['receiveName'];
+//         int timestamp = data['timestamp'];
+//         ifVideocall.value = true;
+
+//         // Print or use the retrieved data
+//         print("Token:........................................ $token");
+//         print("Receive ............ID: $receiveId");
+//         print("Receive Name.................: $receiveName");
+//         print("Timestamp................: $timestamp");
+
+//         // Show a Snackbar
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('Token received: $token'),
+//             duration: Duration(seconds: 3),
+//           ),
+//         );
+
+//         return data['token'];
+//       } else {
+//         return null;
+//       }
+//     }
+//   });
+// }
+
+  Future<void> deleteToken() async {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    DatabaseReference databaseReference =
+        FirebaseDatabase.instance.ref().child('videocall').child(userId);
+
+    try {
+      await databaseReference.remove();
+      print("Data for userId $userId has been deleted successfully.");
+    } catch (e) {
+      print("Error deleting data for userId $userId: $e");
+    }
+  }
+
+  Future<void> initAgora() async {
+    String? token = await fetchToken();
+    if (token == null) {
+      print("Error: Token is null");
+      return;
+    }
+    client = AgoraClient(
+      agoraConnectionData: AgoraConnectionData(
+        appId: appId,
+        channelName: channelName,
+        tempToken: token,
+      ),
+    );
+    await client.initialize();
+    update();
+  }
+
+  @override
+  void onClose() {
+    client.engine?.leaveChannel();
+    super.onClose();
+  }
 }

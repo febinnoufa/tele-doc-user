@@ -1,54 +1,94 @@
 import 'package:flutter/material.dart';
 import 'package:agora_uikit/agora_uikit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:teledocuser/controllers/vodeocall/token.dart';
 
 class VideoCallScreenUikit extends StatefulWidget {
   @override
   _VideoCallScreenState createState() => _VideoCallScreenState();
+
+
+
 }
 
 class _VideoCallScreenState extends State<VideoCallScreenUikit> {
-  late String token;
-  // final DoctorController doctorController = Get.put(DoctorController());
-  //late AgoraClient _client;
+  // final String appId = "ab0681cef04a45d089df7dd7e0cb144d";
+  // final String channelName = "test2";
+  //late AgoraClient client;
+  final VideoCallController cntr =Get.put(VideoCallController());
+  bool _isCameraEnabled = true;
+  bool _isMicEnabled = true;
 
-  final AgoraClient client = AgoraClient(
-    agoraConnectionData: AgoraConnectionData(
-      appId: "ab0681cef04a45d089df7dd7e0cb144d",
-      channelName: "teledoc",
-      tempToken:
-          "007eJxTYDD8frZlg6Rahqnu/QMzJSd1PcrawjFVn4F13+G7k5peCuYoMCQmGZhZGCanphmYJJqYphhYWKakmaekmKcaJCcZmpikBCytTmsIZGRYsj2HmZEBAkF8doaS1JzUlPxkBgYAshshAg==",
-    ),
-  );
 
-  @override
-  void initState() {
-    super.initState();
-    _initAgora();
+    void offCamera() {
+    setState(() {
+      _isCameraEnabled = !_isCameraEnabled;
+    });
+   cntr.client.engine?.muteLocalVideoStream(!_isCameraEnabled);
+  }
+
+  void toggleMic() {
+    setState(() {
+      _isMicEnabled = !_isMicEnabled;
+    });
+   cntr. client.engine?.muteLocalAudioStream(!_isMicEnabled);
+  }
+
+  void switchCamera() {
+   cntr. client.engine?.switchCamera();
+  }
+
+  void leaveCall() async {
+
+   cntr. client.engine?.leaveChannel();
+   cntr.ifVideocall.value=false;
+    Navigator.of(context).pop(); // Example: Navigate back to previous screen
   }
 
   // @override
   // void initState() {
   //   super.initState();
-  //   token =
-  //       '007eJxTYPA9oL9cIeFnbXvW3OpD4RweNm8EuD77HQ1s69A+9Mds/QUFhsQkAzMLw+TUNAOTRBPTFAMLy5Q085QU81SD5CRDE5MUdvHKtIZARobDV9KZGBkgEMRnZyhJLS7JzEtnYAAApxkgxQ==${doctorController.currentdoc.id}';
-  //   _client = AgoraClient(
-  //     agoraConnectionData: AgoraConnectionData(
-  //       appId: "ab0681cef04a45d089df7dd7e0cb144d", // Replace with your App ID
-  //       channelName: "teledoc", // Replace with your channel name
-  //       tempToken: "007eJxTYDD8frZlg6Rahqnu/QMzJSd1PcrawjFVn4F13+G7k5peCuYoMCQmGZhZGCanphmYJJqYphhYWKakmaekmKcaJCcZmpikBCytTmsIZGRYsj2HmZEBAkF8doaS1JzUlPxkBgYAshshAg==",
-  //     ),
-  //   );
-  //   _initAgora();
+  //  cntr.initAgora();
   // }
 
-  Future<void> _initAgora() async {
-    await client.initialize();
-  }
+  // Future<void> _initAgora() async {
+  //   String? token = await cntr.fetchToken();
+  //   if (token == null) {
+  //     print("Error: Token is null");
+  //     return;
+  //   }
+  //   client = AgoraClient(
+  //     agoraConnectionData: AgoraConnectionData(
+  //       appId: appId,
+  //       channelName: channelName,
+  //       tempToken: token,
+  //     ),
+  //   );
+  //   await client.initialize();
+  //   setState(() {});
+  // }
+
 
   @override
   void dispose() {
-    client.engine?.leaveChannel();
+    cntr.client.engine?.leaveChannel();
     super.dispose();
+  }
+
+ Widget _buildControlButton(
+      IconData icon, Color color, VoidCallback onPressed) {
+    return Container(
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.black54,
+      ),
+      child: IconButton(
+        icon: Icon(icon, color: color),
+        onPressed: onPressed,
+      ),
+    );
   }
 
   @override
@@ -59,12 +99,44 @@ class _VideoCallScreenState extends State<VideoCallScreenUikit> {
           children: [
             Positioned.fill(
               child: AgoraVideoViewer(
-                client: client,
+                client:cntr. client,
                 layoutType: Layout.oneToOne,
                 enableHostControls: true,
               ),
             ),
-            AgoraVideoButtons(client: client),
+            Positioned(
+              bottom: 20,
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildControlButton(
+                    _isCameraEnabled ? Icons.videocam : Icons.videocam_off,
+                    Colors.white,
+                    offCamera,
+                  ),
+                  const SizedBox(width: 20),
+                  _buildControlButton(
+                    _isMicEnabled ? Icons.mic : Icons.mic_off,
+                    Colors.white,
+                    toggleMic,
+                  ),
+                  const SizedBox(width: 20),
+                  _buildControlButton(
+                    Icons.switch_camera,
+                    Colors.white,
+                    switchCamera,
+                  ),
+                  const SizedBox(width: 20),
+                  _buildControlButton(
+                    Icons.call_end,
+                    Colors.red,
+                    leaveCall,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

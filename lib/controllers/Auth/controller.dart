@@ -112,7 +112,6 @@ class Authcontroller extends GetxController {
     } catch (e) {
       print('Error creating user: $e');
     }
-    
   }
 
   adduser() async {
