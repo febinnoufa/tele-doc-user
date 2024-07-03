@@ -1,4 +1,4 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -16,18 +16,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await initializeDateFormatting();
-  AwesomeNotifications().initialize(
-    null,
-    [
-      NotificationChannel(
-        channelKey: 'video_call_channel',
-        channelName: 'Video Call Notifications',
-        channelDescription: 'Notification channel for video call',
-        defaultColor: Colors.teal,
-        ledColor: Colors.white,
-      ),
-    ],
-  );
+
   runApp(const MyApp());
 }
 

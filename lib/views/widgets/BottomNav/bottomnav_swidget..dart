@@ -10,6 +10,7 @@ import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 class BotomNavigationBar extends StatefulWidget {
   const BotomNavigationBar({Key? key}) : super(key: key);
   @override
+  // ignore: library_private_types_in_public_api
   _BotomNavigationBarState createState() => _BotomNavigationBarState();
 }
 
@@ -33,23 +34,12 @@ class _BotomNavigationBarState extends State<BotomNavigationBar> {
       ),
       child: SafeArea(
         child: Scaffold(
-          // backgroundColor: Colors.grey,
           body: PageView(
             physics: const NeverScrollableScrollPhysics(),
             controller: pageController,
             children: <Widget>[
               const HomeScreen(),
               SearchPage(),
-              // Center(
-              //   child: Container(
-              //     alignment: Alignment.center,
-              //     child: Icon(
-              //       Icons.email_rounded,
-              //       size: 56,
-              //       color: Colors.green[400],
-              //     ),
-              //   ),
-              // ),
               const MyAppointmentScreen(),
               const ProfileScreenUser(),
             ],

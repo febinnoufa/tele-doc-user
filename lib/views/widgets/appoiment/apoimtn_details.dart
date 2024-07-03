@@ -65,10 +65,7 @@ class AppointmentDetailsWidget extends StatelessWidget {
                 child: TextButton(
                   onPressed: () async {
                     if (_formKey.currentState?.validate() ?? false) {
-                      // await controller.storeAppointmentDetails();
-                      // controller.contactController.clear();
-                      // controller.nameController.clear();
-                      // controller.reasonController.clear();
+                   
                       Get.to(() => DoctorScheduleScreen());
                     }
                   },

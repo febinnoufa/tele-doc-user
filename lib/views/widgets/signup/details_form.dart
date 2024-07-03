@@ -35,7 +35,7 @@ class DetailsFormWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-          SizedBox(height: 40,),
+         const SizedBox(height: 40,),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
             child: Material(
@@ -168,7 +168,7 @@ class DetailsFormWidget extends StatelessWidget {
                             if (imageUrl != null) {
                               controller.downloadUrl.value =
                                   imageUrl;
-                              print('Image uploaded successfully: $imageUrl');
+                            //  print('Image uploaded successfully: $imageUrl');
                             } else {
                               print('Failed to upload image');
                               // Handle the error case here if needed

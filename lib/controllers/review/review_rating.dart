@@ -85,7 +85,7 @@ class RatingController extends GetxController {
             .snapshots(),
           builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (snapshot.hasError) {
@@ -93,7 +93,7 @@ class RatingController extends GetxController {
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text('No reviews found'));
+            return const Center(child: Text('No reviews found'));
           }
               final reviews = snapshot.data!.docs;
 
@@ -113,37 +113,5 @@ class RatingController extends GetxController {
 
     );
   }
-  // void showRatingDialog() {
-  //   Get.defaultDialog(
-  //     title: 'Rate Us',
-  //     content: Column(
-  //       mainAxisSize: MainAxisSize.min,
-  //       children: <Widget>[
-  //         const Text('Please rate us:'),
-  //         const SizedBox(height: 20),
-  //         RatingBar.builder(
-  //           initialRating: rating.value,
-  //           minRating: 1,
-  //           direction: Axis.horizontal,
-  //           allowHalfRating: true,
-  //           itemCount: 5,
-  //           itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-  //           itemBuilder: (context, _) => const Icon(
-  //             Icons.star,
-  //             color: Colors.amber,
-  //           ),
-  //           onRatingUpdate: (newRating) {
-  //             updateRating(newRating);
-  //           },
-  //         ),
-  //       ],
-  //     ),
-  //     confirm: TextButton(
-  //       onPressed: () {
-  //         Get.back();
-  //       },
-  //       child: const Text('OK'),
-  //     ),
-  //   );
-  // }
+ 
 }

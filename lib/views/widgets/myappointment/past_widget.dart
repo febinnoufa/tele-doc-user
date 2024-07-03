@@ -1,4 +1,4 @@
-import 'dart:async';
+
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,6 +23,7 @@ class AppointmentCardPast extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _AppointmentCardState createState() => _AppointmentCardState();
 }
 

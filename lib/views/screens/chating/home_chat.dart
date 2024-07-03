@@ -18,9 +18,7 @@ class ChatingHomeScreen extends StatelessWidget {
           ),
           centerTitle: true,
           foregroundColor: Colors.black,
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-          ],
+    
         ),
         body:  Column(
           children: [

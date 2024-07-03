@@ -1,7 +1,10 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart' as http;
+import 'package:teledocuser/views/widgets/home/article_details.dart';
+import 'dart:convert';
+
+ // Import the new screen
 import 'package:teledocuser/const/const.dart';
 
 class CarousalHomeWidget extends StatefulWidget {
@@ -41,13 +44,6 @@ class _CarousalHomeWidgetState extends State<CarousalHomeWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // const Padding(
-        //   padding: EdgeInsets.only(right: 210),
-        //   child: Text(
-        //     "Specialist",
-        //     style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
-        //   ),
-        // ),
         const SizedBox(height: 10),
         CarouselSlider(
           options: CarouselOptions(
@@ -58,8 +54,7 @@ class _CarousalHomeWidgetState extends State<CarousalHomeWidget> {
             autoPlayCurve: Curves.fastOutSlowIn,
             enableInfiniteScroll: true,
             autoPlayAnimationDuration: const Duration(milliseconds: 800),
-            viewportFraction:
-                0.9, // Adjust this value to increase or decrease carousel width
+            viewportFraction: 0.9,
           ),
           items: news.map((article) => buildCarouselItem(article)).toList(),
         ),
@@ -68,68 +63,77 @@ class _CarousalHomeWidgetState extends State<CarousalHomeWidget> {
   }
 
   Widget buildCarouselItem(dynamic article) {
-    return Container(
-    
-      margin: const EdgeInsets.all(5.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: greenColor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            spreadRadius: 2,
-            blurRadius: 5,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ArticleDetailsScreen(article: article),
           ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 2,
-              child: article['urlToImage'] != null
-                  ? FadeInImage.assetNetwork(
-                      placeholder: 'assets/ArticlesCategory-Health.jpg',
-                      image: article['urlToImage'],
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    )
-                  // Image.network(
-                  //     article['urlToImage'],
-                  //     width: double.infinity,
-                  //     fit: BoxFit.cover,
-                  //   )
-                  : Image.network(
-                      "https://www.pnbmetlife.com/content/dam/pnb-metlife/images/articles/ArticlesCategory-Health.jpg",
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      article['title'] ?? 'No Title',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.all(5.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: greenColor,
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black12,
+              spreadRadius: 2,
+              blurRadius: 5,
             ),
           ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: article['urlToImage'] != null
+                    ? FadeInImage.assetNetwork(
+                        placeholder: 'assets/ArticlesCategory-Health.jpg',
+                        image: article['urlToImage'],
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Image.asset("assets/ArticlesCategory-Health.jpg");
+                        },
+                      )
+                    : Image.network(
+                        "https://www.pnbmetlife.com/content/dam/pnb-metlife/images/articles/ArticlesCategory-Health.jpg",
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        article['title'] ?? 'No Title',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
+

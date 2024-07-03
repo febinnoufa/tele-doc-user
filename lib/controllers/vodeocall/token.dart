@@ -1,6 +1,5 @@
 import 'package:agora_uikit/agora_uikit.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,48 +35,7 @@ class VideoCallController extends GetxController {
     }
   }
 
-//   listenToTokenUpdates(BuildContext context) {
-//   String userId = FirebaseAuth.instance.currentUser!.uid;
-//   DatabaseReference databaseReference =
-//       FirebaseDatabase.instance.ref().child('videocall');
 
-//   // Listen for changes to any child node under 'videocall'
-//   databaseReference.onChildChanged.listen((event) {
-//     // Check if the child node's key (child ID) matches the current user's ID
-//     if (event.snapshot.key == userId) {
-//       // Access data from the child node
-//       Map<dynamic, dynamic>? data =
-//           event.snapshot.value as Map<dynamic, dynamic>?;
-
-//       if (data != null && data['userId'] == dcController.currentdoc.id) {
-//         // Access fields from the data map
-//         String token = data['token'];
-//         String receiveId = data['receiveId'];
-//         String receiveName = data['receiveName'];
-//         int timestamp = data['timestamp'];
-//         ifVideocall.value = true;
-
-//         // Print or use the retrieved data
-//         print("Token:........................................ $token");
-//         print("Receive ............ID: $receiveId");
-//         print("Receive Name.................: $receiveName");
-//         print("Timestamp................: $timestamp");
-
-//         // Show a Snackbar
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(
-//             content: Text('Token received: $token'),
-//             duration: Duration(seconds: 3),
-//           ),
-//         );
-
-//         return data['token'];
-//       } else {
-//         return null;
-//       }
-//     }
-//   });
-// }
 
   Future<void> deleteToken() async {
     String userId = FirebaseAuth.instance.currentUser!.uid;
@@ -111,7 +69,7 @@ class VideoCallController extends GetxController {
 
   @override
   void onClose() {
-    client.engine?.leaveChannel();
+    client.engine.leaveChannel();
     super.onClose();
   }
 }

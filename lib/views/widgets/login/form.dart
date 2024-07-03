@@ -43,10 +43,7 @@ class LoginForms extends StatelessWidget {
                 )),
           ),
           const SizedBox(height: 30),
-          // const Text(
-          //   "PASSWORD",
-          //   style: TextStyle(fontSize: 12,),
-          // ),
+        
           TextFormField(
             controller: cntr.loginpasswordcontroller,
             obscureText: true,
@@ -78,7 +75,7 @@ class LoginForms extends StatelessWidget {
                     cntr.singin();
                     cntr.loginemailcontroller.clear();
                     cntr.loginpasswordcontroller.clear();
-                    //Get.off( const SingUpScreen());
+                  
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
@@ -86,11 +83,11 @@ class LoginForms extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25.0),
                       side: const BorderSide(
-                        color: Colors.green, // Change border color here
-                        width: 3.0, // Change border thickness here
+                        color: Colors.green, 
+                        width: 3.0, 
                       ),
                     ),
-                    minimumSize: const Size(100, 0), // Set minimum button size
+                    minimumSize: const Size(100, 0), 
                   ),
                   child: cntr.loading.value
                       ? const CircularProgressIndicator()

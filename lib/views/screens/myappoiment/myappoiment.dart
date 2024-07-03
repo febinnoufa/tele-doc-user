@@ -27,12 +27,6 @@ class MyAppointmentScreen extends StatelessWidget {
                 children: [
                   UpcomingAppointments(),
                   PastAppointments()
-                  // Center(
-                  //   child: Text(
-                  //     "Past Appointments",
-                  //     style: TextStyle(color: Colors.black),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

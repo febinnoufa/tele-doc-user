@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:agora_uikit/agora_uikit.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/controllers/vodeocall/token.dart';
 
 class VideoCallScreenUikit extends StatefulWidget {
+  const VideoCallScreenUikit({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _VideoCallScreenState createState() => _VideoCallScreenState();
 
 
@@ -14,9 +15,6 @@ class VideoCallScreenUikit extends StatefulWidget {
 }
 
 class _VideoCallScreenState extends State<VideoCallScreenUikit> {
-  // final String appId = "ab0681cef04a45d089df7dd7e0cb144d";
-  // final String channelName = "test2";
-  //late AgoraClient client;
   final VideoCallController cntr =Get.put(VideoCallController());
   bool _isCameraEnabled = true;
   bool _isMicEnabled = true;
@@ -26,25 +24,25 @@ class _VideoCallScreenState extends State<VideoCallScreenUikit> {
     setState(() {
       _isCameraEnabled = !_isCameraEnabled;
     });
-   cntr.client.engine?.muteLocalVideoStream(!_isCameraEnabled);
+   cntr.client.engine.muteLocalVideoStream(!_isCameraEnabled);
   }
 
   void toggleMic() {
     setState(() {
       _isMicEnabled = !_isMicEnabled;
     });
-   cntr. client.engine?.muteLocalAudioStream(!_isMicEnabled);
+   cntr. client.engine.muteLocalAudioStream(!_isMicEnabled);
   }
 
   void switchCamera() {
-   cntr. client.engine?.switchCamera();
+   cntr. client.engine.switchCamera();
   }
 
   void leaveCall() async {
 
-   cntr. client.engine?.leaveChannel();
+   cntr. client.engine.leaveChannel();
    cntr.ifVideocall.value=false;
-    Navigator.of(context).pop(); // Example: Navigate back to previous screen
+    Navigator.of(context).pop(); 
   }
 
   // @override
@@ -73,7 +71,7 @@ class _VideoCallScreenState extends State<VideoCallScreenUikit> {
 
   @override
   void dispose() {
-    cntr.client.engine?.leaveChannel();
+    cntr.client.engine.leaveChannel();
     super.dispose();
   }
 

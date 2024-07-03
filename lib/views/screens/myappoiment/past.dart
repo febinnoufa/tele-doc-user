@@ -4,12 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/views/widgets/myappointment/past_widget.dart';
-import 'package:teledocuser/views/widgets/myappointment/upcoming_widget.dart';
+import 'package:teledocuser/views/widgets/shimmer/shimmer.dart';
 
 class PastAppointments extends StatefulWidget {
   const PastAppointments({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _UpcomingAppointmentsState createState() => _UpcomingAppointmentsState();
 }
 
@@ -64,7 +65,7 @@ class _UpcomingAppointmentsState extends State<PastAppointments> {
       future: futureAppointments,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const ShimmerMyAppointment();
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -80,7 +81,7 @@ class _UpcomingAppointmentsState extends State<PastAppointments> {
                 future: getDoctorDetails(doctorId),
                 builder: (context, doctorSnapshot) {
                   if (doctorSnapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const ShimmerMyAppointment();
                   } else if (doctorSnapshot.hasError) {
                     return Center(child: Text('Error: ${doctorSnapshot.error}'));
                   } else if (!doctorSnapshot.hasData || !doctorSnapshot.data!.exists) {
@@ -110,4 +111,5 @@ class _UpcomingAppointmentsState extends State<PastAppointments> {
       },
     );
   }
+  
 }

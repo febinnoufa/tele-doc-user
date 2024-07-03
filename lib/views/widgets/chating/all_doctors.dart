@@ -6,7 +6,7 @@ import 'package:teledocuser/controllers/chating/chating_controller.dart';
 import 'package:teledocuser/controllers/doctor/doctor_controller.dart';
 import 'package:teledocuser/model/doctor/doctor_model.dart';
 import 'package:teledocuser/views/screens/chating/chat_screen.dart';
-import 'package:teledocuser/model/message/message_model.dart';
+import 'package:teledocuser/views/widgets/shimmer/shimmer.dart';
 
 class ChatingShowAllDoctors extends StatelessWidget {
   ChatingShowAllDoctors({Key? key}) : super(key: key);
@@ -76,7 +76,7 @@ class ChatingShowAllDoctors extends StatelessWidget {
       stream: streamDoctorsWithMessages(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: ShimmerMyAppointment());
         } else if (snapshot.hasError) {
           return Center(child: Text('Error:::::::::::: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -109,9 +109,9 @@ class ChatingShowAllDoctors extends StatelessWidget {
                     lastMessage = data['message'] ?? 'No message';
                     lastMessageTime = _formatTimestamp(data['timestamp']);
                     newMessage = data['newMessage'] ??
-                        false; // Ensure newMessage is handled properly
+                        false; 
                     senderId = data['senderId'] ??
-                        ''; // Ensure senderId is handled properly
+                        ''; 
                     messageId = data['messageId'];
                   }
 
@@ -125,50 +125,15 @@ class ChatingShowAllDoctors extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           width: 60,
-                          height: 70,
-                          // ignore: unnecessary_null_comparison
-                          child: doctor.profile != null
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                    doctor.profile.toString(),
-                                    fit: BoxFit.cover,
-                                    loadingBuilder: (BuildContext context,
-                                        Widget child,
-                                        ImageChunkEvent? loadingProgress) {
-                                      if (loadingProgress == null) {
-                                        return child;
-                                      } else {
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            value: loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    (loadingProgress
-                                                            .expectedTotalBytes ??
-                                                        1)
-                                                : null,
-                                          ),
-                                        );
-                                      }
-                                    },
-                                    errorBuilder: (BuildContext context,
-                                        Object error, StackTrace? stackTrace) {
-                                      return const Icon(
-                                        Icons.person,
-                                        size: 40,
-                                        color: Colors.white,
-                                      );
-                                    },
-                                  ),
-                                )
-                              : const Icon(
-                                  Icons.person,
-                                  size: 40,
-                                  color: Colors.white,
-                                ),
+                          height: 80,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: FadeInImage.assetNetwork(
+                              placeholder: "assets/general.png",
+                              image: doctor.profile.toString(),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
                         trailing: Text(lastMessageTime),
                         title: Text(" ${doctor.name} "),
@@ -193,10 +158,10 @@ class ChatingShowAllDoctors extends StatelessWidget {
                           doctorController.currentdoc = doctor;
                           Get.to(() => ChatScreen(receiverDoctor: doctor))
                               ?.then((_) {
-                            // Mark message as read
+                           
                             chatingController.hasUnreadMessageMap[doctor.id] =
                                 false;
-                            // Refresh the UI
+                            
                             chatingController.update();
                           });
                         },
@@ -219,51 +184,3 @@ class ChatingShowAllDoctors extends StatelessWidget {
     return "${date.hour}:${date.minute.toString().padLeft(2, '0')}";
   }
 }
-
-
-
-
-       // return Column(
-                    //   children: [
-                    //     const SizedBox(height: 5),
-                    //     ListTile(
-                    //       leading: Container(
-                    //         decoration: BoxDecoration(
-                    //           color: Colors.black,
-                    //           borderRadius: BorderRadius.circular(10),
-                    //         ),
-                    //         width: 60,
-                    //         height: 70,
-                    //         child: doctor.profile != null
-                    //             ? ClipRRect(
-                    //                 borderRadius: BorderRadius.circular(10),
-                    //                 child: Image.network(
-                    //                   doctor.profile!,
-                    //                   fit: BoxFit.cover,
-                    //                 ),
-                    //               )
-                    //             : const Icon(
-                    //                 Icons.person,
-                    //                 size: 40,
-                    //                 color: Colors.white,
-                    //               ),
-                    //       ),
-                    //       trailing: _buildLastMessageTime(doctor.id),
-                    //       title: Text("Dr ${doctor.name}"),
-                    //       subtitle: _buildLastMessageText(doctor.id),
-                    //       onTap: () {
-                    //         doctorController.currentdoc = doctor;
-                    //         Get.to(() => ChatScreen(receiverDoctor: doctor))
-                    //             ?.then((_) {
-                    //           // Mark message as read
-                    //           chatingController.hasUnreadMessageMap[doctor.id] =
-                    //               false;
-                    //           // Refresh the UI
-                    //           chatingController.update();
-                    //         });
-                    //       },
-                    //     ),
-                    //     const SizedBox(height: 5),
-                    //     const Divider(thickness: 2),
-                    //   ],
-                    // );

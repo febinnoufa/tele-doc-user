@@ -140,22 +140,7 @@ class Authcontroller extends GetxController {
     await _setLoginStatus(false);
   }
 
-  // singin() async {
-  //   try {
-
-  //     loading.value = true;
-  //     await auth.signInWithEmailAndPassword(
-  //         email: loginemailcontroller.text,
-  //         password: loginpasswordcontroller.text);
-  //     await _setLoginStatus(true);
-
-  //     loading.value = false;
-  //     Get.to(const BotomNavigationBar());
-  //   } catch (e) {
-  //     Get.snackbar("error", "$e");
-  //     loading.value = false;
-  //   }
-  // }
+ 
   singin() async {
     try {
       await ExceptionHandler.handleExceptions(
@@ -170,14 +155,6 @@ class Authcontroller extends GetxController {
           Get.to(const BotomNavigationBar());
         },
       );
-      // loading.value = true;
-      // await auth.signInWithEmailAndPassword(
-      //     email: loginemailcontroller.text,
-      //     password: loginpasswordcontroller.text);
-      // await _setLoginStatus(true);
-
-      // loading.value = false;
-      // Get.to(const BotomNavigationBar());
     } catch (e) {
       Get.snackbar("error", "$e");
       print("$e ................................");
@@ -229,22 +206,7 @@ class Authcontroller extends GetxController {
     }
   }
 
-//   Future<UserCredential> signInWithGoogle() async {
-//   // Trigger the authentication flow
-//   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-//   // Obtain the auth details from the request
-//   final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-
-//   // Create a new credential
-//   final credential =  GoogleAuthProvider.credential(
-//     accessToken: googleAuth?.accessToken,
-//     idToken: googleAuth?.idToken,
-//   );
-
-//   // Once signed in, return the UserCredential
-//   return await FirebaseAuth.instance.signInWithCredential(credential);
-// }
 
   Future<void> logoutgoogle() async {
     await auth.signOut();

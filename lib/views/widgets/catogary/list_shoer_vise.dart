@@ -30,7 +30,7 @@ class ListCatecaryViseWidget extends StatelessWidget {
           if (doctors.isEmpty) {
             return const Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              // mainAxisAlignment: MainAxisAlignment.center,
+             
               children: [
                 SizedBox(
                   height: 300,
@@ -116,7 +116,7 @@ class ListCatecaryViseWidget extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "${doctor.genter}",
+                      doctor.genter,
                       style: const TextStyle(
                         fontSize: 14,
                       ),
@@ -128,19 +128,19 @@ class ListCatecaryViseWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 25, // Adjust as needed
+          top: 25, 
           left: 180,
-          // /right: 10, // Adjust as needed
+     
           child: Material(
-            elevation: 4, // Elevation for the shadow
+            elevation: 4, 
             borderRadius:
-                BorderRadius.circular(8), // Border radius for rounded corners
+                BorderRadius.circular(8), 
             child: SizedBox(
-              height: 150, // Fixed height
-              width: 100, // Fixed width
+              height: 150, 
+              width: 100, 
               child: ClipRRect(
                 borderRadius:
-                    BorderRadius.circular(8), // Border radius for the image
+                    BorderRadius.circular(8), 
                 child: FadeInImage.assetNetwork(
                   placeholder: 'assets/images-removebg-preview.png',
                   image: doctor.profile,

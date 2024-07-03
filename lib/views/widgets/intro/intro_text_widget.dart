@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class IntroTextWidget extends StatelessWidget {
-  final text1;
-  final text2;
-  final text3;
-  final text4;
+  final String  text1;
+  final String text2;
+  final String text3;
+  final String text4;
   const IntroTextWidget({super.key,required this.text1,required this.text2,required this.text3,required this.text4});
 
   @override

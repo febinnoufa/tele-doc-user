@@ -11,17 +11,17 @@ class RatingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!${_controller.currentDoctorName}');
+  //  print('!!!!!!!!!!!!!!!!!!!!!!!!!${_controller.currentDoctorName}');
     return Column(
       children:[
       Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            Text(
+            const Text(
               'Please rate us',
               style: TextStyle(fontSize: 17),
             ),
@@ -34,10 +34,10 @@ class RatingScreen extends StatelessWidget {
                 allowHalfRating: true,
                 itemCount: 5,
                 itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                itemBuilder: (context, _) => Icon(
+                itemBuilder: (context, _) => const Icon(
                   Icons.star,
                   color: Colors.amber,
-                  size: 16, // Adjusted size to be smaller
+                  size: 16,
                 ),
                 onRatingUpdate: (rating) {
                   _controller.updateRating(rating);

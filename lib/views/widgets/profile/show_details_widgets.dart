@@ -30,9 +30,9 @@ class ShowUserDatasPhoto extends StatelessWidget {
             ),
           ),
           Positioned(
-            // bottom: 50,
+
             top: 30,
-            //  right: 50,
+       
             child: InkWell(
                 onTap: () {
                   Get.to(const BotomNavigationBar());

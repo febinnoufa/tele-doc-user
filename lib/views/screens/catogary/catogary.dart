@@ -11,7 +11,7 @@ class AllCatogaryScreen extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            AppBarWidget(
+          const  AppBarWidget(
               title: "All Categories",
             ),
             CatogariesList()

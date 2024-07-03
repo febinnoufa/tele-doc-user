@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:teledocuser/const/const.dart';
-import 'package:teledocuser/controllers/review/review_rating.dart';
 import 'package:teledocuser/views/screens/appoiment/booking_screen.dart';
 import 'package:teledocuser/model/doctor/doctor_model.dart';
 import 'package:teledocuser/views/screens/review/showreview.dart';
 
 
 class DetailsDoctorWidget extends StatelessWidget {
-   DetailsDoctorWidget({super.key, required this.doctor});
+   const DetailsDoctorWidget({super.key, required this.doctor});
   final DoctorModel doctor;
-   final RatingController _controller = Get.put(RatingController());
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +16,6 @@ class DetailsDoctorWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),
         child: ListView(
-          //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Card(
               elevation: 4,
@@ -36,7 +32,6 @@ class DetailsDoctorWidget extends StatelessWidget {
                       style: const TextStyle(
                           fontSize: 17, fontWeight: FontWeight.w500),
                     ),
-                    // const SizedBox(height: 5),
                     Text(
                       "Good ${doctor.specialist} Doctor & ${doctor.experience} experience",
                       style: const TextStyle(fontSize: 16),
@@ -45,7 +40,7 @@ class DetailsDoctorWidget extends StatelessWidget {
                 ),
               ),
             ),
-            // const SizedBox(height: 5),
+           
             Card(
               elevation: 4,
               shape: RoundedRectangleBorder(
@@ -70,7 +65,7 @@ class DetailsDoctorWidget extends StatelessWidget {
                 ),
               ),
             ),
-            //  / const SizedBox(height: 5),
+      
             Card(
               elevation: 4,
               shape: RoundedRectangleBorder(
@@ -108,7 +103,7 @@ class DetailsDoctorWidget extends StatelessWidget {
               height: 20,
             ),
           
-           // _controller.fetchreviews(doctor.id),
+           
             Padding(
               padding: const EdgeInsets.only(left: 30, right: 30),
               child: Container(
@@ -117,7 +112,7 @@ class DetailsDoctorWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: greenColor,
                   borderRadius:
-                      BorderRadius.circular(8), // Adjust the radius as needed
+                      BorderRadius.circular(8),
                 ),
                 child: TextButton(
                   onPressed: () {
@@ -132,7 +127,7 @@ class DetailsDoctorWidget extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 30,),
+         const   SizedBox(height: 30,),
             ShowDoctorreview(currentDoctorId: doctor.id,)
           ],
         ),

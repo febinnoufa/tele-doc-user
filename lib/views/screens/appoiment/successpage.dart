@@ -45,12 +45,11 @@ class SuccessPage extends StatelessWidget {
                   width: 200,
                   decoration: BoxDecoration(
                     color: greenColor,
-                    borderRadius:
-                        BorderRadius.circular(8), 
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextButton(
                     onPressed: () {
-                      Get.to(const BotomNavigationBar());
+                      Get.offAll(const BotomNavigationBar());
                     },
                     child: const Text(
                       "Go to Home",
@@ -60,7 +59,6 @@ class SuccessPage extends StatelessWidget {
                   ),
                 ),
               ),
-              
             ],
           ),
         ),

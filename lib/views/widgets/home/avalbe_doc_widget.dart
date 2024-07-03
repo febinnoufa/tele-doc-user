@@ -26,7 +26,7 @@ class AvalbleDoctorsWidget extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  Get.to(AllDoctorsScreen());
+                  Get.to(const AllDoctorsScreen());
                   // Handle "See All" button tap
                 },
                 child: const Text("See All"),

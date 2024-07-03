@@ -6,7 +6,6 @@ import 'package:teledocuser/views/widgets/catogary/list_shoer_vise.dart';
 
 class CategariViseShortScreen extends StatelessWidget {
    CategariViseShortScreen({super.key});
- // final data;
 
   final CategariController cntrl =Get.put(CategariController());
 

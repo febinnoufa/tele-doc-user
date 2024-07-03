@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/controllers/catogary.dart/catogary_controller.dart';
+import 'package:teledocuser/model/catogary/catogary_model.dart';
 import 'package:teledocuser/views/screens/catogary/short_list.dart';
-import 'package:teledocuser/views/widgets/home/catigarywidget.dart';
+
 
 class CatogariesList extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   CatogariesList({Key? key});
 
   final CategariController cntrl = Get.put(CategariController());
@@ -24,7 +26,7 @@ class CatogariesList extends StatelessWidget {
         }
 
         final List<DocumentSnapshot> documents = snapshot.data!.docs;
-        print(".............${documents.length}");
+       // print(".............${documents.length}");
 
         return Expanded(
           child: ListView.builder(

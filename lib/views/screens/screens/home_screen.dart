@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
       body:  Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          CarousalHomeWidget(),
+          const CarousalHomeWidget(),
           //SizedBox(height: 10,),
           CategoryHomeWidget(),
            const SizedBox(height: 10,),

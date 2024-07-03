@@ -12,7 +12,7 @@ class SingUpDetailScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: Icon(
+        leading: const Icon(
           Icons.arrow_back,
           color: Colors.black,
         ),
@@ -30,7 +30,6 @@ class SingUpDetailScreen extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          // const SingUpFormWidget(),
           DetailsFormWidget(),
         ],
       ),

@@ -17,9 +17,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             const HomeAppBar(),
             const CarousalHomeWidget(),
-            //SizedBox(height: 10,),
             CategoryHomeWidget(),
-            // const SizedBox(height: 10,),
             AvalbleDoctorsWidget()
           ],
         ),

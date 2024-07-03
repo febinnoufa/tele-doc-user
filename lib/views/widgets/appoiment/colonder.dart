@@ -23,9 +23,6 @@ class CalendarWidget extends StatelessWidget {
         onDateChange: (date) {
           cntr.setSelectedDate(date);
           timeSlotPickerController.selectTime.value = null;
-    
-
-         // print('Selected date: $date');
         },
       ),
     );

@@ -28,7 +28,7 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
     final currentUser = authController.auth.currentUser;
     if (currentUser != null) {
       await authController.fetchUserData(currentUser.uid);
-      setState(() {}); // Force rebuild to show fetched data
+      setState(() {}); 
     }
   }
 

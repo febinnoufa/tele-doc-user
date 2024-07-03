@@ -17,6 +17,7 @@
 
     @override
     Widget build(BuildContext context) {
+        final selectedTime =  timecontroller.selectTime.value;
       return Column(
         children: [
         const SizedBox(
@@ -41,7 +42,6 @@
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    //SizedBox(height: .0),
                     PaymentAndDeatilsCardWidget(),
                     const SizedBox(
                       height: 20,
@@ -173,7 +173,7 @@
                         Column(
                           children: [
                             Text(
-                              "${timecontroller.selectTime.value!.hour}:${timecontroller.selectTime.value!.minute.toString().padLeft(2, '0')}",
+                              _formatTime(selectedTime!),
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
@@ -191,12 +191,11 @@
                         decoration: BoxDecoration(
                           color: greenColor,
                           borderRadius: BorderRadius.circular(
-                              8), // Adjust the radius as needed
+                              8),
                         ),
                         child: TextButton(
                           onPressed: () {
                             controller.openCheckout();
-                            //  Get.to( AppoimentBookingPage());
                           },
                           child: const Text(
                             "Book an Appointment",
@@ -217,4 +216,10 @@
         ],
       );
     }
+      String _formatTime(TimeOfDay time) {
+    final hour = time.hourOfPeriod == 0 ? 12 : time.hourOfPeriod;
+    final minute = time.minute.toString().padLeft(2, '0');
+    final period = time.period == DayPeriod.am ? 'AM' : 'PM';
+    return '${hour < 10 ? "0$hour" : hour}:$minute $period';
+  }
   }
