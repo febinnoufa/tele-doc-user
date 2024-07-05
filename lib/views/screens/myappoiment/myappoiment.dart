@@ -13,7 +13,7 @@ class MyAppointmentScreen extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-           AppBarWidget(title: "My Appointment"),
+           AppBarWidget(title: "My Appointment",backarrow: false),
             SizedBox(height: 20),
             TabBar(
               labelColor: Colors.black,

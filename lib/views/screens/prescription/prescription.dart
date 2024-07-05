@@ -53,7 +53,7 @@ class SHowAllDataInPrescription extends StatelessWidget {
           
                     return Column(
                       children: [
-                        const SizedBox(height: 40,),
+                       // const SizedBox(height: 10,),
                         Card(
                             elevation: 15,
                             margin: const EdgeInsets.all(10),
@@ -64,7 +64,7 @@ class SHowAllDataInPrescription extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(
-                                    height: 40,
+                                    height: 10,
                                   ),
                                   Center(
                                     child: Text(

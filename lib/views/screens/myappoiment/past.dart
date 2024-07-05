@@ -81,7 +81,7 @@ class _UpcomingAppointmentsState extends State<PastAppointments> {
                 future: getDoctorDetails(doctorId),
                 builder: (context, doctorSnapshot) {
                   if (doctorSnapshot.connectionState == ConnectionState.waiting) {
-                    return const ShimmerMyAppointment();
+                    return const SizedBox();
                   } else if (doctorSnapshot.hasError) {
                     return Center(child: Text('Error: ${doctorSnapshot.error}'));
                   } else if (!doctorSnapshot.hasData || !doctorSnapshot.data!.exists) {

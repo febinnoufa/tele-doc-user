@@ -13,6 +13,7 @@ class AllCatogaryScreen extends StatelessWidget {
           children: [
           const  AppBarWidget(
               title: "All Categories",
+              backarrow: true,
             ),
             CatogariesList()
           ],

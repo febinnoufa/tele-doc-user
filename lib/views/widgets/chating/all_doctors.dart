@@ -16,7 +16,7 @@ class ChatingShowAllDoctors extends StatelessWidget {
 
   Stream<List<DoctorModel>> streamDoctorsWithMessages() async* {
     String currentUserId = FirebaseAuth.instance.currentUser!.uid;
-    List<DoctorModel> doctorsWithMessages = [];
+    List<Map<String, dynamic>> doctorsWithMessages = [];
 
     var doctorsSnapshot =
         await FirebaseFirestore.instance.collection('approveddoctors').get();
@@ -32,14 +32,23 @@ class ChatingShowAllDoctors extends StatelessWidget {
           .collection("chat_rooms")
           .doc(chatRoomId)
           .collection("messages")
+          .orderBy("timestamp", descending: true)
           .limit(1)
           .get();
 
       if (messagesSnapshot.docs.isNotEmpty) {
-        doctorsWithMessages.add(doctor);
+        var lastMessage = messagesSnapshot.docs.first.data();
+        doctorsWithMessages
+            .add({'doctor': doctor, 'timestamp': lastMessage['timestamp']});
       }
     }
-    yield doctorsWithMessages;
+
+    doctorsWithMessages.sort((a, b) {
+      return (b['timestamp'] as Timestamp)
+          .compareTo(a['timestamp'] as Timestamp);
+    });
+
+    yield doctorsWithMessages.map((e) => e['doctor'] as DoctorModel).toList();
   }
 
   Stream<QuerySnapshot> getLastMessageStream(
@@ -108,10 +117,8 @@ class ChatingShowAllDoctors extends StatelessWidget {
                         as Map<String, dynamic>;
                     lastMessage = data['message'] ?? 'No message';
                     lastMessageTime = _formatTimestamp(data['timestamp']);
-                    newMessage = data['newMessage'] ??
-                        false; 
-                    senderId = data['senderId'] ??
-                        ''; 
+                    newMessage = data['newMessage'] ?? false;
+                    senderId = data['senderId'] ?? '';
                     messageId = data['messageId'];
                   }
 
@@ -158,10 +165,8 @@ class ChatingShowAllDoctors extends StatelessWidget {
                           doctorController.currentdoc = doctor;
                           Get.to(() => ChatScreen(receiverDoctor: doctor))
                               ?.then((_) {
-                           
                             chatingController.hasUnreadMessageMap[doctor.id] =
                                 false;
-                            
                             chatingController.update();
                           });
                         },

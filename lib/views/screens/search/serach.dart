@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:teledocuser/controllers/search/search_controller.dart';
 import 'package:teledocuser/model/doctor/doctor_model.dart';
 import 'package:teledocuser/views/widgets/search/doctor_items.dart';
+import 'package:teledocuser/views/widgets/shimmer/shimmer.dart';
 
 class SearchPage extends StatelessWidget {
   final SearchControllerDoc searchController = Get.put(SearchControllerDoc());
@@ -43,7 +44,7 @@ class SearchPage extends StatelessWidget {
                   .snapshots(),
               builder: (context, snapshots) {
                 if (snapshots.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(child: ShimmerMyAppointment());
                 }
 
                 if (snapshots.hasError) {

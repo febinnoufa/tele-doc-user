@@ -12,7 +12,7 @@ class VideoCallController extends GetxController {
 
   late AgoraClient client;
   final String appId = "ab0681cef04a45d089df7dd7e0cb144d";
-  final String channelName = "test3";
+  final String channelName = "test4";
 
   Future<String?> fetchToken() async {
     String userId = FirebaseAuth.instance.currentUser!.uid;

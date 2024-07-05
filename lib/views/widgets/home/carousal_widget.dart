@@ -4,13 +4,14 @@ import 'package:http/http.dart' as http;
 import 'package:teledocuser/views/widgets/home/article_details.dart';
 import 'dart:convert';
 
- // Import the new screen
+// Import the new screen
 import 'package:teledocuser/const/const.dart';
 
 class CarousalHomeWidget extends StatefulWidget {
   const CarousalHomeWidget({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _CarousalHomeWidgetState createState() => _CarousalHomeWidgetState();
 }
 
@@ -99,7 +100,8 @@ class _CarousalHomeWidgetState extends State<CarousalHomeWidget> {
                         width: double.infinity,
                         fit: BoxFit.cover,
                         imageErrorBuilder: (context, error, stackTrace) {
-                          return Image.asset("assets/ArticlesCategory-Health.jpg");
+                          return Image.asset(
+                              "assets/ArticlesCategory-Health.jpg");
                         },
                       )
                     : Image.network(
@@ -135,5 +137,3 @@ class _CarousalHomeWidgetState extends State<CarousalHomeWidget> {
     );
   }
 }
-
-

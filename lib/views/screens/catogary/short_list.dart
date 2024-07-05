@@ -16,7 +16,8 @@ class CategariViseShortScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          AppBarWidget(title: cntrl.data!.name),
+          AppBarWidget(title: cntrl.data!.name,backarrow: true),
+
           ListCatecaryViseWidget()
 
         ],

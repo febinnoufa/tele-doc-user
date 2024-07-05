@@ -12,7 +12,7 @@ class AllDoctorsScreen extends StatelessWidget {
         body: Column(
           children: [
 
-            const AppBarWidget(title: "All Doctors"),
+            const AppBarWidget(title: "All Doctors",backarrow: true),
             AllDoctorsWidget()
             
           ],

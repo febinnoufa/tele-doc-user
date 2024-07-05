@@ -5,6 +5,7 @@ import 'package:teledocuser/controllers/catogary.dart/catogary_controller.dart';
 import 'package:teledocuser/model/catogary/catogary_model.dart';
 import 'package:teledocuser/views/screens/catogary/catogary.dart';
 import 'package:teledocuser/views/screens/catogary/short_list.dart';
+import 'package:teledocuser/views/widgets/shimmer/shimmer.dart';
 
 class CategoryHomeWidget extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
@@ -45,7 +46,7 @@ class CategoryHomeWidget extends StatelessWidget {
                 }
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
+                  return const ShimmerMyAppointment();
                 }
 
                 final List<DocumentSnapshot> documents = snapshot.data!.docs;

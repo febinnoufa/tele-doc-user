@@ -41,20 +41,20 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 140, 235, 143),
-          leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
+          // leading: IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(
+          //     Icons.arrow_back,
+          //     color: Colors.black,
+          //   ),
+          // ),
+        
+          title: const Text(
+            "Profile",
+            style:
+                TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
           ),
-          title: const Center(
-            child: Text(
-              "Profile",
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-            ),
-          ),
+            centerTitle: true,
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 20),

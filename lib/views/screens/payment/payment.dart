@@ -14,7 +14,7 @@ class PaymentScreen extends GetView<PaymentController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const AppBarWidget(title: "All Details"),
+            const AppBarWidget(title: "All Details",backarrow: true),
             AllSelctedDetailsForAppoiment(),
             const SizedBox(
               height: 30,
