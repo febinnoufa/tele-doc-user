@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/views/screens/introscreens/screen2.dart';
+import 'package:teledocuser/views/screens/login/login_screen.dart';
 
 
 class IntroScreenOne extends StatelessWidget {
@@ -40,7 +41,9 @@ class IntroScreenOne extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                TextButton(onPressed: () {}, child: const Text("Skip")),
+                TextButton(onPressed: () {
+                  Get.offAll(LoginScreen());
+                }, child: const Text("Skip")),
                 IconButton(
                   onPressed: () {
                     Get.offAll(const IntroScreenTwo());

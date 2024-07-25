@@ -38,7 +38,7 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Image.asset("assets/TELE DOC(1).png"),
+        child: Image.asset("assets/pikaso_texttoimage_a-doctor-online-conseltaton-app-icon.jpeg",width: 250,),
       ),
     );
   }

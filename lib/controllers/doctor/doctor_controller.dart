@@ -5,6 +5,12 @@ import 'package:teledocuser/model/doctor/doctor_model.dart';
 class DoctorController extends GetxController {
   var currentdoc;
 
+
+
+
+ // GetDoctor
+  //************************************************************************** */
+
   Stream<List<DoctorModel>> get doctorStream {
     return FirebaseFirestore.instance
         .collection('approveddoctors')
@@ -18,7 +24,12 @@ class DoctorController extends GetxController {
     });
   }
 
+ 
+
+  
   // Function to search doctors by name
+  //************************************************************************** */
+
   Stream<List<DoctorModel>> searchDoctors(String searchQuery) {
     return FirebaseFirestore.instance
         .collection('approveddoctors')

@@ -10,6 +10,9 @@ class TimeselectController extends GetxController {
 
   List<Schedule> schedules = [];
 
+  // fetch that user schedules
+  //************************************************************************** */
+
   Future<void> fetchUserSchedules() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
@@ -20,7 +23,8 @@ class TimeselectController extends GetxController {
           .orderBy('createdAt', descending: true)
           .get();
 
-      schedules = snapshot.docs.map((doc) => Schedule.fromFirestore(doc)).toList();
+      schedules =
+          snapshot.docs.map((doc) => Schedule.fromFirestore(doc)).toList();
       update();
     }
   }

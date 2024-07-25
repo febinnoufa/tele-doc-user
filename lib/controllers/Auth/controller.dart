@@ -44,6 +44,9 @@ class Authcontroller extends GetxController {
     }
   }
 
+// fetch that user data
+  //************************************************************************** */
+
   Future<void> fetchUserData(String uid) async {
     try {
       final docSnapshot =
@@ -52,9 +55,12 @@ class Authcontroller extends GetxController {
         currentUser.value = UserModel.fromMap(docSnapshot);
       }
     } catch (e) {
-      print('Error fetching user data: $e');
+      // print('Error fetching user data: $e');
     }
   }
+
+  // Get Image
+  //************************************************************************** */
 
   Future<void> getImage(image) async {
     final pickedImage =
@@ -62,6 +68,9 @@ class Authcontroller extends GetxController {
     if (pickedImage == null) return;
     image.value = pickedImage.path;
   }
+
+  // Upload Image Firestore
+  //************************************************************************** */
 
   Future<String?> uploadImage(File image) async {
     try {
@@ -80,6 +89,9 @@ class Authcontroller extends GetxController {
     }
   }
 
+  // User SignUp
+  //************************************************************************** */
+
   singup() async {
     try {
       loading.value = true;
@@ -95,10 +107,16 @@ class Authcontroller extends GetxController {
     }
   }
 
+  // Set SharedPref
+  //************************************************************************** */
+
   Future<void> _setLoginStatus(bool status) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', status);
   }
+
+  //  Createuser
+  //************************************************************************** */
 
   void createUserWithEmailAndPassword(String email, String password) async {
     try {
@@ -113,6 +131,9 @@ class Authcontroller extends GetxController {
       print('Error creating user: $e');
     }
   }
+
+  // user Data Store FireStore
+  //************************************************************************** */
 
   adduser() async {
     try {
@@ -135,12 +156,17 @@ class Authcontroller extends GetxController {
     }
   }
 
+  // User SignOut
+  //************************************************************************** */
+
   singout() async {
     await auth.signOut();
     await _setLoginStatus(false);
   }
 
- 
+  // User SignIn
+  //************************************************************************** */
+
   singin() async {
     try {
       await ExceptionHandler.handleExceptions(
@@ -152,7 +178,7 @@ class Authcontroller extends GetxController {
           await _setLoginStatus(true);
 
           loading.value = false;
-          Get.to(const BotomNavigationBar());
+          Get.offAll(const BotomNavigationBar());
         },
       );
     } catch (e) {
@@ -162,10 +188,20 @@ class Authcontroller extends GetxController {
     }
   }
 
+  // Verify Imaail
+  //************************************************************************** */
+
   verifyemail() async {
     await auth.currentUser?.sendEmailVerification();
     Get.snackbar("email", "send");
   }
+
+
+
+
+
+  // Reset Password
+  //************************************************************************** */
 
   resetpassword() async {
     try {
@@ -183,6 +219,16 @@ class Authcontroller extends GetxController {
       loading.value = false;
     }
   }
+
+
+
+
+
+
+  
+  // Login With Google
+  //************************************************************************** */
+
 
   Future<void> loginWithGoogle() async {
     try {
@@ -206,6 +252,10 @@ class Authcontroller extends GetxController {
     }
   }
 
+
+
+  // Logout Google
+  //************************************************************************** */
 
 
   Future<void> logoutgoogle() async {

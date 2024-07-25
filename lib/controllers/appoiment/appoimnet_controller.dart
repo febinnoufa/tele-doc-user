@@ -9,7 +9,7 @@ import 'package:teledocuser/controllers/time/time_controller.dart';
 class AppointmentController extends GetxController {
   final nameController = TextEditingController();
   final contactController = TextEditingController();
-  final reasonController = TextEditingController();   
+  final reasonController = TextEditingController();
   final DoctorController doctorController = Get.put(DoctorController());
   final DateController dateController = Get.put(DateController());
   final TimeSlotPickerController timeController =
@@ -17,6 +17,10 @@ class AppointmentController extends GetxController {
 
   // ignore: prefer_typing_uninitialized_variables
   var image;
+
+
+  // StoreAppointmentDetails In Firbase
+  //************************************************************************** */
 
   Future<void> storeAppointmentDetails() async {
     try {
@@ -38,8 +42,7 @@ class AppointmentController extends GetxController {
         'created_at': FieldValue.serverTimestamp(),
         'date': dateController.selectedDate.value.toString().split(" ").first,
         'time': formattedTime,
-        'end':false
-       
+        'end': false
       });
 
       Get.snackbar('Success', 'Appointment details saved successfully',
@@ -49,6 +52,9 @@ class AppointmentController extends GetxController {
           snackPosition: SnackPosition.BOTTOM);
     }
   }
+
+  // if once one time is selected then change color
+  //************************************************************************** */
 
   disabletime() async {
     try {
@@ -60,9 +66,13 @@ class AppointmentController extends GetxController {
           .update({
         // 'intervals':
       });
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
   }
+ 
+
+  // DelateAppointmentDetails In Firbase
+  //************************************************************************** */
 
   Future<void> deleteAppointmentDetails(String documentId) async {
     try {

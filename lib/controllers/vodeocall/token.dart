@@ -14,6 +14,9 @@ class VideoCallController extends GetxController {
   final String appId = "ab0681cef04a45d089df7dd7e0cb144d";
   final String channelName = "test4";
 
+  // Fetch Token
+  //************************************************************************** */
+
   Future<String?> fetchToken() async {
     String userId = FirebaseAuth.instance.currentUser!.uid;
     DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
@@ -35,8 +38,8 @@ class VideoCallController extends GetxController {
     }
   }
 
-
-
+  // Delete Token
+  //************************************************************************** */
   Future<void> deleteToken() async {
     String userId = FirebaseAuth.instance.currentUser!.uid;
     DatabaseReference databaseReference =
@@ -49,6 +52,9 @@ class VideoCallController extends GetxController {
       print("Error deleting data for userId $userId: $e");
     }
   }
+
+  // initial agora
+  //************************************************************************** */
 
   Future<void> initAgora() async {
     String? token = await fetchToken();

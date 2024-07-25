@@ -20,7 +20,7 @@ class SingUpScreen extends StatelessWidget {
             const Center(child: Text("SIGNUP",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)),
             const SizedBox(height: 30,),
              SingUpFormWidget(),
-            const SizedBox(height: 50,),
+            const SizedBox(height: 20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

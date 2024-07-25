@@ -24,7 +24,7 @@ class LoginForms extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(left: 20),
             child: Text(
-              "EMAIL",
+              "",
               style: TextStyle(
                 fontSize: 13,
               ),
@@ -59,6 +59,7 @@ class LoginForms extends StatelessWidget {
                   OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
             ),
           ),
+        const  SizedBox(height: 40,),
           TextButton(
               onPressed: () {
                 Get.to(ResetPasswordScreen());

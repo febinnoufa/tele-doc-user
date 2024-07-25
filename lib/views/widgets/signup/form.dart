@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:teledocuser/controllers/auth/controller.dart';
 import 'package:teledocuser/views/screens/signup/details_screen.dart';
 
-
 class SingUpFormWidget extends StatelessWidget {
   SingUpFormWidget({super.key});
   final Authcontroller cntlr = Get.find();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final RxBool _agreeToTerms = false.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -155,8 +155,39 @@ class SingUpFormWidget extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(
+            height: 20,
+          ),
+          Obx(() => Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      value: _agreeToTerms.value,
+                      onChanged: (value) {
+                        _agreeToTerms.value = value ?? false;
+                      },
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          // Optionally, you can show the privacy policy here
+                        },
+                        child: const Text(
+                          'I agree to the privacy policy and terms of service',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            //  / decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )),
           const SizedBox(
-            height: 40,
+            height: 10,
           ),
           SizedBox(
             height: 50.0,
@@ -164,9 +195,16 @@ class SingUpFormWidget extends StatelessWidget {
               width: 150.0,
               child: ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
+                  if (_formKey.currentState!.validate() &&
+                      _agreeToTerms.value) {
                     cntlr.singup();
                     Get.offAll(const SingUpDetailScreen());
+                  } else if (!_agreeToTerms.value) {
+                    Get.snackbar(
+                      'Error',
+                      'You must agree to the terms and privacy policy to sign up.',
+                      snackPosition: SnackPosition.BOTTOM,
+                    );
                   }
                 },
                 style: ElevatedButton.styleFrom(

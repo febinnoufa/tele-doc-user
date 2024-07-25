@@ -14,6 +14,11 @@ class UpcomingAppointmentsController extends GetxController {
     fetchAppointments();
   }
 
+
+
+   // fetch appointment
+  //************************************************************************** */
+
   Future<void> fetchAppointments() async {
     try {
       isLoading(true);
@@ -35,6 +40,11 @@ class UpcomingAppointmentsController extends GetxController {
     }
   }
 
+
+
+  // get Doctor details
+  //************************************************************************** */
+
   Future<DocumentSnapshot> getDoctorDetails(String doctorId) async {
     try {
       if (doctorId.isNotEmpty) {
@@ -55,6 +65,13 @@ class UpcomingAppointmentsController extends GetxController {
       rethrow;
     }
   }
+
+
+
+
+ 
+  // delete appointment
+  //************************************************************************** */
 
   Future<void> deleteAppointment(String appointmentId) async {
     try {

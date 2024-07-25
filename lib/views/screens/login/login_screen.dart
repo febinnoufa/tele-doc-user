@@ -30,35 +30,35 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               child: LoginForms(),
             ),
-            const Center(
-                child: Text(
-              "OR",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            )),
+            // const Center(
+            //     child: Text(
+            //   "OR",
+            //   style: TextStyle(fontWeight: FontWeight.bold),
+            // )),
+            // const SizedBox(
+            //   height: 20,
+            // ),
+            // const Center(
+            //     child: Text(
+            //   "Log in with",
+            //   style: TextStyle(fontWeight: FontWeight.w500),
+            // )),
             const SizedBox(
-              height: 20,
+              height: 100,
             ),
-            const Center(
-                child: Text(
-              "Log in with",
-              style: TextStyle(fontWeight: FontWeight.w500),
-            )),
-            const SizedBox(
-              height: 10,
-            ),
-            IconButton(
-              onPressed: () async {
-                // await cntr.signInWithGoogle();
-                await cntr.loginWithGoogle();
-                // /  Get.off(SingUpDetailScreen());
-                // Get.to(const DummyScreen());
-              },
-              icon: Image.network(
-                "https://cdn-teams-slug.flaticon.com/google.jpg",
-                height: 50,
-              ),
-              iconSize: 100,
-            ),
+            // IconButton(
+            //   onPressed: () async {
+            //     // await cntr.signInWithGoogle();
+            //     await cntr.loginWithGoogle();
+            //     // /  Get.off(SingUpDetailScreen());
+            //     // Get.to(const DummyScreen());
+            //   },
+            //   icon: Image.network(
+            //     "https://cdn-teams-slug.flaticon.com/google.jpg",
+            //     height: 50,
+            //   ),
+            //   iconSize: 100,
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

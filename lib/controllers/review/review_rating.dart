@@ -57,6 +57,11 @@ class RatingController extends GetxController {
     );
   }
 
+
+
+
+ // Submit review
+  //************************************************************************** */
   submitRatingAndReview() async {
     FirebaseFirestore.instance
         .collection('approveddoctors')
@@ -74,6 +79,13 @@ class RatingController extends GetxController {
     reviewController.text = '';
     rating.value = 3.0;
   }
+
+
+
+
+   // Fetch review
+  //************************************************************************** */
+
 
 
   fetchreviews(currentDoctorId)async{

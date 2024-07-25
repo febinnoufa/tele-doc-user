@@ -60,11 +60,18 @@ dependencies:
   time_slot: 0.0.3
   uuid: 4.2.2
   water_drop_nav_bar: ^2.2.1
+  webview_flutter: 4.5.0
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/magicstudio-art(2).jpg"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

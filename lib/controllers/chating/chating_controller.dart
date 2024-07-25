@@ -10,6 +10,14 @@ class ChatingController extends GetxController {
   var hasUnreadMessageMap = <String, bool>{}.obs;
   var lastMessages = <String, Message?>{}.obs;
 
+  
+
+
+
+  // get Last Message
+  //************************************************************************** */
+
+
   Stream<Message?> getLastMessage(String userId, String otherUserId) {
     List<String> ids = [userId, otherUserId];
     ids.sort();
@@ -35,6 +43,12 @@ class ChatingController extends GetxController {
     });
   }
 
+
+
+
+  // Mark as read
+  //************************************************************************** */
+
   void markAsRead(String doctorId) {
     if (hasUnreadMessageMap.containsKey(doctorId)) {
       hasUnreadMessageMap[doctorId] = false;
@@ -50,6 +64,13 @@ class ChatingController extends GetxController {
   void markChatClosed(String doctorId) {
     isChatOpened[doctorId] = false;
   }
+
+
+
+
+
+  // Send Message
+  //************************************************************************** */
 
   Future<void> sendMessage(String receiverId, String message) async {
     final currentUserId = _auth.currentUser!.uid;

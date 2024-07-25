@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/controllers/appoiment/appoimnet_controller.dart';
 import 'package:teledocuser/views/screens/login/login_screen.dart';
+import 'package:teledocuser/views/screens/privasy/privasy.dart';
 import 'package:teledocuser/views/widgets/profile/show_all_details.dart';
 import 'package:teledocuser/views/widgets/profile/show_details_widgets.dart';
 import 'package:teledocuser/controllers/auth/controller.dart';
@@ -41,13 +42,15 @@ class _ProfileScreenUserState extends State<ProfileScreenUser> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 140, 235, 143),
-          // leading: IconButton(
-          //   onPressed: () {},
-          //   icon: const Icon(
-          //     Icons.arrow_back,
-          //     color: Colors.black,
-          //   ),
-          // ),
+          leading: IconButton(
+            onPressed: () {
+              Get.to(const PrivacyPolicy());
+            },
+            icon: const Icon(
+              Icons.info,
+              color: Colors.black,
+            ),
+          ),
         
           title: const Text(
             "Profile",

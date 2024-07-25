@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teledocuser/views/screens/introscreens/screen4.dart';
+import 'package:teledocuser/views/screens/login/login_screen.dart';
 import 'package:teledocuser/views/widgets/intro/intro_image_widget.dart';
 import 'package:teledocuser/views/widgets/intro/intro_text_widget.dart';
 
@@ -35,7 +36,9 @@ class IntroScreenTree extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              TextButton(onPressed: () {}, child: const Text("Skip")),
+              TextButton(onPressed: () {
+                 Get.offAll(LoginScreen());
+              }, child: const Text("Skip")),
               IconButton(
                 onPressed: () {
                   Get.offAll(const IntroScreenFour());

@@ -180,7 +180,8 @@ class DetailsFormWidget extends StatelessWidget {
 
 
                     if (_formKey.currentState?.validate() ?? false) {
-                      controller.adduser();
+                     await controller.singup();
+                     await controller.adduser();
                       controller.firstnamecontroller.clear();
                       controller.lastnamecontroller.clear();
                       controller.emailcontroller.clear();
